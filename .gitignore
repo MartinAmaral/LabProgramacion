@@ -1,5 +1,7 @@
-*.o
-!*.h
-!*.cpp
+.gitignore
+*.h
+*.cpp
+
 
 build/
+.vscode/
