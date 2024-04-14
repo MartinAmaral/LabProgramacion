@@ -1,9 +1,25 @@
+#ifndef PAGA_H
+#define PAGA_H
 
-class Paga
-{
+#include "moneda.h"
+
+using namespace std;
+
+class Paga{
 private:
-    /* data */
+    float monto;
+    Moneda moneda;
+
 public:
-    Paga(/* args */);
-    ~Paga();
+   
+    Paga(float monto,Moneda moneda);
+    float getMonto();
+    Moneda getMoneda();
+    Paga* a_dolar();
+    Paga* a_peso();
+    void setMonto(float monto);
+    void setMoneda(Moneda moneda);   
+    
 };
+
+#endif
