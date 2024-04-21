@@ -151,15 +151,17 @@ void CalcularSueldoUsa(){
 
 void CalcularTotalSueldosUru(Empresa* empresa){
 
-	float total = empresa->total_sueldo_peso();
+	int total = empresa->total_sueldo_peso();
 
-	cout << "El total de sueldos en la empresa en pesos es: " + total + "\n";
+	cout << "El total de sueldos en la empresa en pesos es: " + total;
+	cout << "\n";
 }
 
 void CalcularTotalSueldosUsd(Empresa* empresa){
-	float total = empresa->total_sueldo_dolar();
+	int total = empresa->total_sueldo_dolar();
 
-	cout << "El total de sueldos en la empresa en dolares es: " + total + "\n";
+	cout << "El total de sueldos en la empresa en dolares es: " + total;
+	cout << "\n";
 }
 
 int main (){
