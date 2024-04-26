@@ -9,9 +9,7 @@
 #include "empleado.h"
 #include "empleadojornalero.h"
 #include "empleadofijo.h"
-
 using namespace std;
-
 
 void CrearEmpresa(Empresa*& empresa){
 	if(empresa == NULL){
@@ -43,14 +41,17 @@ void CrearEmpresa(Empresa*& empresa){
 		cout<< "\nEmpresa ya creada\n\n";
 	}
 }
-void CrearEmpleado(Empresa* empresa){
+void CrearEmpleado(Empresa*& empresa){
+	if(empresa == NULL){
+		cout << "Empresa no creada\n";
+		return;
+	}
 	string nombre;
     string id;
     int edad = -1;
 
 	cout << "Ingrese el nombre del empleado\n";
 	cin >> nombre;
-
 	cout << "Ingrese el id del empleado\n";
 	cin >> id;
 	do{
@@ -120,66 +121,96 @@ void CrearEmpleado(Empresa* empresa){
 		empleado = new EmpleadoFijo(nombre,id,edad,paga,empresa);
 	}
 	else{
-		empleado = new EmpleadoJornalero(nombre,id,edad,paga,empresa);
+
+		int horasJ =-1;
+		do{
+			cout << "Ingrese las horas del jornalero\n";
+			cin >> horasJ;
+			if(std::cin.fail() || horasJ<0 || horasJ >1)
+				{
+					std::cin.clear();
+					std::cin.ignore(100,'\n');
+					std::cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+					horasJ= -1;
+				}
+		}while(horasJ <0);
+		EmpleadoJornalero* temp  = new EmpleadoJornalero(nombre,id,edad,paga,empresa);
+		temp->setHoras(horasJ);
+		empleado = temp;
 	}
+	Empleado** empleados = empresa->getEmpleados();
+
+	for (int i = 0; i < MAX_EMPLEADO; i++){
+		if(empleados[i] == NULL){
+			empleados[i] = empleado;
+			break;
+		}
+	}
+	cout << "Empleado agregado\n";
 }
 
 void BorrarEmpresa(Empresa*& empresa){
+
 	if(empresa == NULL){
 		cout << "No hay empresa\n";
 	}
 	else {
-		empresa->~Empresa();
+		delete(empresa);
 		empresa = NULL;
 	}
-}
- void BorrarEmpleados(){
-	// loop borrando todos los empleado
-}
-void BorrarEmpleadoPorNombre(){
-	// borra empleado por nombre
+	cout << "Empresa eliminada\n";
 }
 
-void CalcularSueldoUru(){
+void BorrarEmpleados(Empresa*& empresa){
+	if(empresa == NULL){
+		cout << "Empresa no creada\n";
+		return;
+	}
+	Empleado** empleados = empresa->getEmpleados();
 
-	// calcular sueldo por nombre
-}
-
-void CalcularSueldoUsa(){
-	// calcular sueldo por nombre
+	for (int i = 0; i < MAX_EMPLEADO; i++){
+		if(empleados[i] != NULL){
+			delete(empleados[i]);
+			empleados[i]= NULL;
+		}
+		else break;
+	}
+	cout << "Empleados eliminados\n";
 }
 
 void CalcularTotalSueldosUru(Empresa* empresa){
-
-	int total = empresa->total_sueldo_peso();
-
-	cout << "El total de sueldos en la empresa en pesos es: " + total;
-	cout << "\n";
+	if(empresa == NULL){
+		cout << "Empresa no creada\n";
+		return;
+	}
+	float total = empresa->total_sueldo_peso();
+	cout << "El total de sueldos en la empresa en pesos es: " << total << "\n";
 }
 
 void CalcularTotalSueldosUsd(Empresa* empresa){
-	int total = empresa->total_sueldo_dolar();
-
-	cout << "El total de sueldos en la empresa en dolares es: " + total;
-	cout << "\n";
+	if(empresa == NULL){
+		cout << "Empresa no creada\n";
+		return;
+	}
+	float total = empresa->total_sueldo_dolar();
+	cout << "El total de sueldos en la empresa en dolares es: " << total << "\n";
 }
 
 int main (){
 	int option=-1;
 
 	Empresa * empresa = NULL;
-
-	while(option !=9){
+	while(option !=6){
 		option = -1;
 
 		while(option <0)
 		{
-			std::cout << "0: Crear Empresa\n1: Crear Empleado \n2: Borrar Empresa y Empleados \n3: Borrar Empleados \n4: Borrar Empleado por Nombre\n";
-			std::cout << "5: Calcular sueldo de Empleado uru\n6: Calcular sueldo de Empleado usd\n";
-			std::cout << "7: Calcular sueldo total de Empleados uru\n8: Calcular sueldo total de Empleados usd\n";
-			std::cout << "9: Salir\nOpcion: ";
+			std::cout << "0: Crear Empresa\n1: Crear Empleado \n2: Borrar Empresa y Empleados\n";
+			std::cout << "3: Borrar Empleados \n4: Calcular sueldo de Empleado uru\n";
+			std::cout << "5: Calcular sueldo de Empleado dolares\n6: Salir\nOpcion: ";
 			std::cin >> option;
-			if(std::cin.fail() || option >9 || option<0)
+
+			if(std::cin.fail() || option >6 || option<0)
 			{
 				std::cin.clear();
 				std::cin.ignore(100,'\n');
@@ -199,21 +230,12 @@ int main (){
 			BorrarEmpresa(empresa);
 			break;
 		case 3:
-			BorrarEmpleados();
+			BorrarEmpleados(empresa);
 			break;
 		case 4:
-			BorrarEmpleadoPorNombre();
-			break;
-		case 5:
-			CalcularSueldoUru();
-			break;
-		case 6:
-			CalcularSueldoUsa();
-			break;
-		case 7:
 			CalcularTotalSueldosUru(empresa);
 			break;
-		case 8:
+		case 5:	
 			CalcularTotalSueldosUsd(empresa);
 			break;
 		default:

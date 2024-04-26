@@ -11,7 +11,6 @@ private:
     Moneda moneda;
 
 public:
-   
     Paga(float monto,Moneda moneda);
     float getMonto();
     Moneda getMoneda();
@@ -19,7 +18,6 @@ public:
     Paga* a_peso();
     void setMonto(float monto);
     void setMoneda(Moneda moneda);   
-    
 };
 
 #endif

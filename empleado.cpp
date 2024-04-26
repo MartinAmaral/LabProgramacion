@@ -23,11 +23,9 @@ string Empleado::getCI() {
     return id;
 }
 
-
 void Empleado::setCI(string ci) {
     id = ci;
 }
-
 
 int Empleado::getEdad() {
     return edad;
@@ -46,6 +44,5 @@ void Empleado::setValorHora(Paga* valorHora) {
 }
 
 Empleado::~Empleado() {
-    delete(valor_hora); // agregar destructor si se necesita
-    delete(this);
+    delete(valor_hora);
 }

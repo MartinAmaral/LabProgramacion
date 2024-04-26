@@ -7,7 +7,7 @@ using namespace std;
 
 class Empresa;
 class Empleado{
-    private: 
+    protected: 
         string nombre;
         string id;
         int edad;

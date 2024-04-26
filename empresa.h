@@ -20,15 +20,12 @@ public:
 
     string getNombre();
     string getNombreLegal();
-     int getRut();
-    Empleado* getEmpleado();
+    int getRut();
+    Empleado** getEmpleados();
 
     void setNombre(string nombre);
     void setNombreLegal(string nombre_legal);
-    void setRut(int rut);
-    void setEmpleado(Empleado* emp);
-     
-   
+    void setRut(int rut); 
     ~Empresa();
 };
 

@@ -9,31 +9,25 @@ Paga::Paga(float monto, Moneda moneda){
 
 
 Paga* Paga::a_dolar(){
-if (moneda == Moneda::usd){
-
-return this;
-
-}else{
-
-moneda = Moneda::usd;
-monto= cambio::a_dolar(monto); 
-
-return this;
+    if (moneda == Moneda::usd){
+        return this;
+    }else{
+    moneda = Moneda::usd;
+    monto= cambio::a_dolar(monto); 
+    return this;
     }
 }
 
 
 Paga* Paga::a_peso(){
-if (moneda == Moneda::us){
+    if (moneda == Moneda::us){
+        return this;
+    }else{
 
-return this;
+        moneda = Moneda::us;
+        monto= cambio::a_peso(monto); 
 
-}else{
-
-moneda = Moneda::us;
-monto= cambio::a_peso(monto); 
-
-return this;
+        return this;
     }
 }
 
