@@ -5,14 +5,16 @@ void EmpleadoJornalero::setHoras(int horas){
     this->horas = horas;
 }
 int EmpleadoJornalero::getHoras(){
-    this->horas;
+    return this->horas;
 }
 
 float EmpleadoJornalero::getSueldoPesos() {
-    return getValorHora()->a_peso()->getMonto() * horas; 
+    float result = getValorHora()->a_peso()->getMonto() * horas; 
+    return result; 
 }
 
 float EmpleadoJornalero::getSueldoDolar() {
-return getValorHora()->a_dolar()->getMonto() * horas; 
+    float result = getValorHora()->a_dolar()->getMonto() * horas;
+    return result; 
 }
 

@@ -6,19 +6,18 @@ Empleado::Empleado(string nombre, string id,int edad, Paga* valorHora, Empresa* 
     this->nombre = nombre;
     this->id = id;
     this->edad = edad;
-    this->valor_hora = valor_hora;
+    this->valor_hora = valorHora;
     this->empresa = emp;
 }
 
 string Empleado::getNombre() {
-
     return nombre;
 }
 
-void Empleado::setNombre(string nombre) {
-    
+void Empleado::setNombre(string nombre) {   
     this->nombre = nombre;
 }
+
 string Empleado::getCI() {
     return id;
 }
@@ -40,7 +39,7 @@ Paga* Empleado::getValorHora() {
 }
 
 void Empleado::setValorHora(Paga* valorHora) {
-    valor_hora = valorHora;
+    this->valor_hora = valorHora;
 }
 
 Empleado::~Empleado() {

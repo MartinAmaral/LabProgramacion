@@ -9,8 +9,3 @@ float cambio::a_dolar(float peso){
     float total = peso / VAL_DOLAR;
     return total;
 }
-
-
-
-
-

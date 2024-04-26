@@ -67,7 +67,7 @@ Empresa::~Empresa(){
     for (int i = 0; i < MAX_EMPLEADO; i++)
     {
         if(empleados[i] !=NULL){
-            empleados[i]->~Empleado();
+            delete(empleados[i]);
             empleados[i] = NULL;
         }
         else{

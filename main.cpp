@@ -41,6 +41,7 @@ void CrearEmpresa(Empresa*& empresa){
 		cout<< "\nEmpresa ya creada\n\n";
 	}
 }
+
 void CrearEmpleado(Empresa*& empresa){
 	if(empresa == NULL){
 		cout << "Empresa no creada\n";
@@ -106,7 +107,6 @@ void CrearEmpleado(Empresa*& empresa){
 				}
 		}while(tipo <0);
 	
-
 	Paga* paga= NULL;
 
 	if(moneda ==0){
@@ -121,12 +121,11 @@ void CrearEmpleado(Empresa*& empresa){
 		empleado = new EmpleadoFijo(nombre,id,edad,paga,empresa);
 	}
 	else{
-
 		int horasJ =-1;
 		do{
 			cout << "Ingrese las horas del jornalero\n";
 			cin >> horasJ;
-			if(std::cin.fail() || horasJ<0 || horasJ >1)
+			if(std::cin.fail() || horasJ<0)
 				{
 					std::cin.clear();
 					std::cin.ignore(100,'\n');
