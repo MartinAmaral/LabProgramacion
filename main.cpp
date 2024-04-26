@@ -1,4 +1,4 @@
-// Estructuras de Datos y Algoritmos - Curso 2023
+// Programacion Avanzada - Curso 2024
 // Tecnologo en Informatica FIng - DGETP - UTEC
 //
 // Laboratorio 1
