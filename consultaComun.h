@@ -1,18 +1,13 @@
 #include "consulta.h"
+#include "fecha.h"
 
 class ConsultaComun : Consulta
 {
     private:
-        /* data */
+        Fecha fechaReserva;
+        bool asistio;
     public:
-        ConsultaComun(/* args */);
+        ConsultaComun(Fecha fechaConsulta, Fecha fechaReserva);
         ~ConsultaComun();
-    };
+};
 
-ConsultaComun::ConsultaComun(/* args */)
-{
-}
-
-ConsultaComun::~ConsultaComun()
-{
-}

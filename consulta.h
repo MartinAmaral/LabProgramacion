@@ -1,17 +1,18 @@
+#ifndef CONSULTA_H
+#define CONSULTA_H
 
+#include "fecha.h"
+#include <iostream>
+#include <string>
+using namespace std;
 class Consulta
 {
     private:
-        /* data */
+        Fecha fechaConsulta;
+        string hora;
     public:
-        Consulta(/* args */);
+        Consulta(Fecha fecha, string hora);
         ~Consulta();
 };
 
-Consulta::Consulta(/* args */)
-{
-}
-
-Consulta::~Consulta()
-{
-}
+#endif

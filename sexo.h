@@ -1,0 +1,5 @@
+enum Sexo {
+    Masculino,
+    Femenino,
+
+};
