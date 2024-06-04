@@ -16,3 +16,6 @@ string Usuario::getContrasena(){
 }
 
 
+bool Usuario::comprobarPass(string pass){
+    return pass == this->contrasena;
+}

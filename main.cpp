@@ -5,7 +5,7 @@
 // main.cpp
 #include <string.h>
 #include <iostream>
-#include "usuario.h"
+#include "entidades/usuario.h"
 using namespace std;
 
 bool inicioSesion = false;

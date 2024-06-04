@@ -11,7 +11,6 @@ using namespace std;
 class Usuario{
 
     private:
-
         bool activo = true;
         int CI;
         Sexo sexo;
@@ -22,6 +21,7 @@ class Usuario{
     public:
         Usuario(int ci,string contrasena);
         int getCI();
+        bool comprobarPass(string pass);
         string getContrasena();
         int getEdad();
         ~Usuario();
