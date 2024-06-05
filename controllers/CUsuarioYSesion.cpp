@@ -15,7 +15,7 @@ bool CUsuarioYSesion::ingresarPass(string pass){
 
 void CUsuarioYSesion::asignarSesion(){
     Usuario* user; // buscar por cedula
-    this->usarioActivo = user;
+    this->usuarioActivo = user;
     this->ciIniciarSesion =0;
 }
 
@@ -24,6 +24,5 @@ void CUsuarioYSesion::cancelarInicioSesion(){
 }
 
 void CUsuarioYSesion::cerrarSesion(){
-   this->usarioActivo = NULL; 
-
+   this->usuarioActivo = NULL; 
 }
