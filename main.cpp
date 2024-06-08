@@ -15,7 +15,7 @@ void AltaUsuario(Usuario* usuario){
 
 	if(usuario->getCI() != 26){
 		cout << "Error: Se necesita ser un usuario Administrativo para poder realizar esta accion.\n";
-		return;	
+		return;
 	}
 }
 
@@ -29,7 +29,7 @@ void IniciarSesion(Usuario* usuario){
     while(ci <=0)
     {
         std::cout << "Ingrese su cedula: \n";
-        std::cin >> ci; 
+        std::cin >> ci;
         if(std::cin.fail() || ci <=0)
         {
             std::cin.clear();

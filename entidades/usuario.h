@@ -20,10 +20,10 @@ class Usuario{
         string contrasena;
     public:
         Usuario(int ci,string contrasena);
-        int getCI();
-        bool comprobarPass(string pass);
-        string getContrasena();
-        int getEdad();
+        virtual int getCI();
+        virtual bool comprobarPass(string pass);
+        virtual string getContrasena();
+        virtual int getEdad();
         ~Usuario();
 };
 

@@ -8,9 +8,9 @@ void CUsuarioYSesion::ingresarCi(int ci){
 }
 
 bool CUsuarioYSesion::ingresarPass(string pass){
-    
+
     Usuario* user; // deberiamos buscarlo con la ciIniciarSesion y guardarlo
-    return user->comprobarPass(pass);    
+    return user->comprobarPass(pass);
 }
 
 void CUsuarioYSesion::asignarSesion(){
@@ -24,5 +24,5 @@ void CUsuarioYSesion::cancelarInicioSesion(){
 }
 
 void CUsuarioYSesion::cerrarSesion(){
-   this->usuarioActivo = NULL; 
+   this->usuarioActivo = NULL;
 }
