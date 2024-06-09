@@ -21,6 +21,9 @@ class CUsuarioYSesion {
         void cerrarSesion();
 
         // Alta/Reactivación de Usuario
-
+        void reactivarUsuario();
+        Usuario getUsuario();
         // Usuarios dados de alta y reactivados
-};
+}; 
+
+

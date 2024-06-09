@@ -30,3 +30,12 @@ bool CUsuarioYSesion::Esactivo(){
 void CUsuarioYSesion::cerrarSesion(){
    this->usuarioActivo = NULL;
 }
+
+void reactivarUsuario(){
+    Usuario* user; // buscar por cedula
+}
+
+Usuario getUsuario() {
+
+    return Usuario(nombre, apellido, sexo, edad, activo);
+}
