@@ -4,20 +4,27 @@
 // Alta medicamento
 // Alta de representación estandarizada de diagnósticos
 // Listar representaciones estandarizadas
-// Reserva consulta
+
 
 class CDiagnostico {
     private:
     
         
     public:
-        //Iniciar Sesion
+        //Alta medicamento
         void AltaMedicamento(string nombre);
         void CancelarAltaMedicamento();
 
+        //Alta de representación estandarizada de diagnósticos
         void DevolverAltaRepresentacion();
 
-    
+        //Listar representaciones estandarizadas, agregar y seleccionar
+        void ListarCategoriaD();
+        void SeleccionarCategordiaD();
+        void AgregarCategoriaD(string categoriaD);
+
+        
+        
  
         //Cerrar Sesion
         void cerrarSesion();

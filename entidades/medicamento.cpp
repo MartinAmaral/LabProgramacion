@@ -10,6 +10,6 @@ string Medicamento::getnombreM(){
     return nombre;
 
 }
-hygfhyfg
+
 
 Medicamento::~Medicamento(){}
