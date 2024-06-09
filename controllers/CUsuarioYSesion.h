@@ -16,7 +16,7 @@ class CUsuarioYSesion {
         bool ingresarPass(std::string pass); // hicimos esta funcion dos veces
         void asignarSesion();
         void cancelarInicioSesion();
- 
+        bool Esactivo();
         //Cerrar Sesion
         void cerrarSesion();
 

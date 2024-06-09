@@ -23,6 +23,10 @@ void CUsuarioYSesion::cancelarInicioSesion(){
     this->ciIniciarSesion = 0;
 }
 
+bool CUsuarioYSesion::Esactivo(){
+    return this->usuarioActivo;
+}
+
 void CUsuarioYSesion::cerrarSesion(){
    this->usuarioActivo = NULL;
 }
