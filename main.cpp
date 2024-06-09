@@ -4,7 +4,6 @@
 // Laboratorio 5
 // main.cpp
 
-
 #include <string.h>
 #include <iostream>
 
@@ -38,9 +37,10 @@ void iniciarSesion(){
         while(contra != contrasenaAdmin ){
 	        if(contra == "salir") return;
 	        std::cout << "\nContrasena invalida, intentelo de nuevo o escriba salir para salir.\n\n";
-	    
-        //e
         }
+        // asignar la sesion al administrativo
+        cout<< "Sesion iniciada \n";
+        return;
     }
     
     

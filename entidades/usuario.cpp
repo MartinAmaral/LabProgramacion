@@ -45,11 +45,8 @@ int Usuario::getEdad() const {
     return edad;
 }
 
-Usuario Usuario::getUsuario(){
-    return Usuario(nombre, apellido, sexo, activo);
-}
 
-Usuario::Usuario(string nombre,string contrasena,Sexo sexo, Fecha FechaNacimiento){
+Usuario::Usuario(string nombre,string contrasena,Sexo sexo,Fecha* fechaNacimiento){
 
     this->nombre = nombre;
     this->apellido = apellido;

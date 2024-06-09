@@ -22,8 +22,7 @@ class Usuario{
     public:
         Usuario(int ci,string contrasena);
         Usuario(string nombre, string apellido, Sexo sexo, bool activo);
-        Usuario(string nombre,string contrasena,Sexo sexo, Fecha FechaNacimiento);
-        Usuario getUsuario();
+        Usuario(string nombre,string contrasena,Sexo sexo, Fecha* FechaNacimiento);
         virtual int getCI();
         virtual bool comprobarPass(string pass);
         virtual string getContrasena();
