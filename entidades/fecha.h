@@ -2,12 +2,10 @@
 #define FECHA_H
 
 class Fecha{
-
-    private: 
+    public:
         int ano;
         int mes;
         int dia;
-    public:
         Fecha(int ano, int mes,int dia);
         int getAno();
         int getMes();

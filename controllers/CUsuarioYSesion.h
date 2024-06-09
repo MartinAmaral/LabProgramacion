@@ -16,11 +16,14 @@ class CUsuarioYSesion {
         bool ingresarPass(std::string pass); // hicimos esta funcion dos veces
         void asignarSesion();
         void cancelarInicioSesion();
- 
+        bool Esactivo();
         //Cerrar Sesion
         void cerrarSesion();
 
         // Alta/Reactivación de Usuario
-
+        void reactivarUsuario();
+        Usuario getUsuario();
         // Usuarios dados de alta y reactivados
-};
+}; 
+
+

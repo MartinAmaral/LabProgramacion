@@ -8,9 +8,9 @@ void CUsuarioYSesion::ingresarCi(int ci){
 }
 
 bool CUsuarioYSesion::ingresarPass(string pass){
-    
+
     Usuario* user; // deberiamos buscarlo con la ciIniciarSesion y guardarlo
-    return user->comprobarPass(pass);    
+    return user->comprobarPass(pass);
 }
 
 void CUsuarioYSesion::asignarSesion(){
@@ -23,6 +23,19 @@ void CUsuarioYSesion::cancelarInicioSesion(){
     this->ciIniciarSesion = 0;
 }
 
+bool CUsuarioYSesion::Esactivo(){
+    return this->usuarioActivo;
+}
+
 void CUsuarioYSesion::cerrarSesion(){
-   this->usuarioActivo = NULL; 
+   this->usuarioActivo = NULL;
+}
+
+void reactivarUsuario(){
+    Usuario* user; // buscar por cedula
+}
+
+Usuario getUsuario() {
+
+    return Usuario(nombre, apellido, sexo, edad, activo);
 }

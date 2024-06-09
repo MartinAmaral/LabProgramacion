@@ -5,6 +5,7 @@
 #include <iostream>
 #include "sexo.h"
 #include "fecha.h"
+#include <ctime>
 
 using namespace std;
 
@@ -20,10 +21,13 @@ class Usuario{
         string contrasena;
     public:
         Usuario(int ci,string contrasena);
-        int getCI();
-        bool comprobarPass(string pass);
-        string getContrasena();
-        int getEdad();
+        Usuario(string nombre, string apellido, Sexo sexo, bool activo);
+        Usuario(string nombre,string contrasena,Sexo sexo, Fecha FechaNacimiento);
+        Usuario getUsuario();
+        virtual int getCI();
+        virtual bool comprobarPass(string pass);
+        virtual string getContrasena();
+        virtual int getEdad() const;
         ~Usuario();
 };
 
