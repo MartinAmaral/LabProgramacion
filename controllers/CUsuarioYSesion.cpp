@@ -35,7 +35,3 @@ void reactivarUsuario(){
     Usuario* user; // buscar por cedula
 }
 
-Usuario getUsuario() {
-
-    return Usuario(nombre, apellido, sexo, edad, activo);
-}
