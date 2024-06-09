@@ -38,7 +38,9 @@ void iniciarSesion(){
         while(contra != contrasenaAdmin ){
 	        if(contra == "salir") return;
 	        std::cout << "\nContrasena invalida, intentelo de nuevo o escriba salir para salir.\n\n";
-	    }
+	    
+        //e
+        }
     }
     
     
