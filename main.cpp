@@ -32,15 +32,15 @@ void iniciarSesion(){
             
         string contra = "";
    
-        cout << "\nBienvenido Admin. Ingrese su contrasena: ";
-  
-	    std::cin >> contra; 
+        cout << "\nBienvenido/a Admin. Ingrese su contrasena: ";
+	    
+        std::cin >> contra; 
         while(contra != contrasenaAdmin ){
 	        if(contra == "salir") return;
 	        std::cout << "\nContrasena invalida, intentelo de nuevo o escriba salir para salir.\n\n";
 	    }
     }
-
+    
     
 }
 
