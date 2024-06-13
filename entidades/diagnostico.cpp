@@ -21,13 +21,3 @@ void Diagnostico::setDescripcion(string desc) {
     descripcion = desc;
 }
 
-// Método para mostrar el diagnóstico
-void Diagnostico::mostrar() const {
-    cout << "Descripción libre: " << descripcion << endl;
-    cout << "Representación estandarizada:" << endl;
-    if (representacion != nullptr) {
-        representacion->mostrar();
-    } else {
-        cout << "No hay representación estandarizada asignada." << endl;
-    }
-}
