@@ -1,9 +1,9 @@
 #include <string>
 #include "../entidades/usuario.h"
+#include "../entidades/diagnostico.h"
 // Este controllador se encarga de los siguientes casos de uso:
-// Alta medicamento
 // Alta de representación estandarizada de diagnósticos
-// Listar representaciones estandarizadas
+// Listar representaciones estandarizadas OPCIONAL
 
 
 class CDiagnostico {
@@ -11,25 +11,16 @@ class CDiagnostico {
     
         
     public:
-        //Alta medicamento
-        void AltaMedicamento(string nombre);
-        void CancelarAltaMedicamento();
+    
 
-        //Alta de representación estandarizada de diagnósticos
-        void DevolverAltaRepresentacion();
+        //Devuelve y selecciona la consulta para dar de alta un diagnostico.
+        void DevolverConsultas();
+        void SeleccionaConsulta(string ci);
 
-        //Listar representaciones estandarizadas, agregar y seleccionar
-        void ListarCategoriaD();
-        void SeleccionarCategordiaD();
-        void AgregarCategoriaD(string categoriaD);
+        //Agrega diagnostico y tratamiento a la consulta.
+        void AgregarDiagnostico();
+        void AgregarTratamiento();
 
-        
-        
- 
-        //Cerrar Sesion
-        void cerrarSesion();
-
-        // Alta/Reactivación de Usuario
-
-        // Usuarios dados de alta y reactivados
+        //Listar representaciones estandarizadas, agregar y seleccionar OPCIONAL
+        void ListarRepresentacionesEstand();        
 };

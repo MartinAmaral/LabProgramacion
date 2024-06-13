@@ -3,23 +3,28 @@
 
 using namespace std;
 
-//Alta medicamento
-void AltaMedicamento(string nombre){
-    
-}
-void CancelarAltaMedicamento(){
+//Devuelve y selecciona la consulta para dar de alta un diagnostico.
 
-}
+        void DevolverConsultas(){
 
-//Alta de representación estandarizada de diagnósticos
-void DevolverAltaRepresentacion(){
+        }
 
-}
+        void SeleccionaConsulta(string ci){
 
-//Listar representaciones estandarizadas, agregar y seleccionar
-void ListarCategoriaD(){
+        }
 
-}
+        //Agrega diagnostico y tratamiento a la consulta.
 
-void SeleccionarCategordiaD();
-void AgregarCategoriaD(string categoriaD);
+        void AgregarDiagnostico(){
+
+        }
+
+        void AgregarTratamiento(){
+
+        }
+
+        //Listar representaciones estandarizadas, agregar y seleccionar OPCIONAL
+        
+        void ListarRepresentacionesEstand(){
+
+        }
