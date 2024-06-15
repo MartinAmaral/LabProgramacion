@@ -23,6 +23,7 @@ class Usuario{
         Usuario(int ci,string contrasena);
         Usuario(string nombre, string apellido, Sexo sexo, bool activo);
         Usuario(string nombre,string contrasena,Sexo sexo, Fecha* FechaNacimiento);
+        Usuario(string nombre,string apellido,Sexo sexo,int CI,Fecha* FechaNacimiento); // faltaria el tipo de usuario
         virtual int getCI();
         virtual bool comprobarPass(string pass);
         virtual string getContrasena();

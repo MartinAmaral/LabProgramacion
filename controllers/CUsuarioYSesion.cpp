@@ -31,7 +31,12 @@ void CUsuarioYSesion::cerrarSesion(){
    this->usuarioActivo = NULL;
 }
 
-void reactivarUsuario(){
+void CUsuarioYSesion::reactivarUsuario(){
     Usuario* user; // buscar por cedula
 }
+
+Usuario* CUsuarioYSesion::getUsuarioActivo(){
+    return this->usuarioActivo; 
+}
+
 

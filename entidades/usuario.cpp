@@ -25,6 +25,18 @@ bool Usuario::comprobarPass(string pass){
 }
 
 
+Usuario::Usuario(string nombre,string apellido,Sexo sexo,int CI,Fecha* FechaNacimiento){
+    this->nombre = nombre;
+    this->apellido = apellido;
+    this->sexo = sexo;
+    this->CI = CI;
+
+    if (this->fechaNacimiento != NULL){
+        delete fechaNacimiento;
+    }
+    fechaNacimiento = FechaNacimiento;
+}
+
 //Alta reactivacion
 
 int Usuario::getEdad() const {

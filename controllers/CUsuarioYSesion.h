@@ -11,7 +11,8 @@ class CUsuarioYSesion {
         int ciIniciarSesion =0;
         Usuario* usuarioActivo = NULL;
     public:
-        //Iniciar Sesion
+        Usuario* getUsuarioActivo();
+    //Iniciar Sesion
         void ingresarCi(int ci);
         bool ingresarPass(std::string pass); // hicimos esta funcion dos veces
         void asignarSesion();
@@ -22,7 +23,6 @@ class CUsuarioYSesion {
 
         // Alta/Reactivación de Usuario
         void reactivarUsuario();
-        Usuario getUsuario();
         // Usuarios dados de alta y reactivados
 }; 
 

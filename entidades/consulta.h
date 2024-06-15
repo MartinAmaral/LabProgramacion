@@ -4,14 +4,17 @@
 #include "fecha.h"
 #include <iostream>
 #include <string>
+#include "usuario.h"
 using namespace std;
 class Consulta
 {
-    private:
-        Fecha fechaConsulta;
+    protected:
+        Fecha* fechaConsulta;
         string hora;
+        Usuario* paciente;
+        Usuario* medico;
     public:
-        Consulta(Fecha fecha, string hora);
+        Consulta(Fecha* fecha, string hora);
         ~Consulta();
 };
 
