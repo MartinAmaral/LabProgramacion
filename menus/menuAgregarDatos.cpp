@@ -18,6 +18,24 @@ void MenuAgregarDatos::AgregarDatos(){
     }
     else{
         // Agregar usuarios
+        Fecha* fecha = new Fecha(1988,12,28);
+        Usuario* usuarioJA = new Usuario("James","Peer",Masculino,34567645,fecha);
+
+        fecha = new Fecha(1990,1,1);
+        Usuario* usuarioTM = new Usuario("James","Peer",Masculino,34567645,fecha);
+
+        fecha = new Fecha(1980,3,3);
+        Usuario* usuarioDP = new Usuario("James","Peer",Masculino,34567645,fecha);
+
+        fecha = new Fecha(1970,4,7); 
+        usuarioAgregar = new Usuario("James","Peer",Masculino,34567645,fecha);
+
+        fecha = new Fecha(1993,7,13); 
+        usuarioAgregar = new Usuario("James","Peer",Masculino,34567645,fecha);
+
+        fecha = new Fecha(1981,9,24); 
+        usuarioAgregar = new Usuario("James","Peer",Masculino,34567645,fecha);
+        
         Usuario* usuarioJA = new Usuario("James","Peer",Masculino,34567645,new Fecha(1988,12,28));
         Usuario* usuarioTM = new Usuario("Tifany","McKensey",Femenino,34562345,new Fecha(1990,1,1));
         Usuario* usuarioDP = new Usuario("Diego","Perez",Masculino,12345435,new Fecha(1980,3,3));

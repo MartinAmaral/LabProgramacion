@@ -5,7 +5,6 @@
 class MenuSesion {
     
     private:
-        
 
     public:
         void iniciarSesion();
