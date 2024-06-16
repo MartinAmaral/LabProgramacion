@@ -10,6 +10,7 @@ class Categoria{
 
     public:
         Categoria(string codigo, string categoria);
+        ~Categoria();
 };
 
 

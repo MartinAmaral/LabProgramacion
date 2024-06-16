@@ -9,7 +9,7 @@
 
 using namespace std;
 
-bool contrasenaValida(string contra){    
+bool contrasenaValida(string contra){
     if(contra.length() <5 || contra.length() >9 )
         return false;
     for (char ch : contra) {

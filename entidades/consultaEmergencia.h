@@ -2,8 +2,7 @@
 #include <string>
 #include "consulta.h"
 
-class ConsultaEmergencia : Consulta
-{
+class ConsultaEmergencia : public Consulta{
     private:
         string motivo;
     public:
