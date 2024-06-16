@@ -126,8 +126,6 @@ void darAlta(int cedula){ // hice esto por la indentacion de mierda
     string inputTexto;
     
 
-        
-
 }
 
 void MenuSesion::altaUsuario(){
