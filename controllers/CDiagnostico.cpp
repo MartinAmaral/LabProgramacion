@@ -1,4 +1,6 @@
 #include "../entidades/medicamento.h"
+#include "../entidades/consultaComun.h"
+#include "../entidades/consultaEmergencia.h"
 #include "CDiagnostico.h"
 
 using namespace std;

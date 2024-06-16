@@ -10,3 +10,6 @@ ConsultaComun::ConsultaComun(Usuario* paciente,Usuario* medico, Fecha* fechaCons
 
 }
 
+ConsultaComun::~ConsultaComun(){
+    delete fechaReserva;
+}

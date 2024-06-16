@@ -10,9 +10,8 @@ class Medicamento{
 
     private:
         string nombre;
-        
     public:
-       Medicamento(string nombre);
+        Medicamento(string nombre);
         string getnombreM();
         string setNombreM(string nombre);
         ~Medicamento();

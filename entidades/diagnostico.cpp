@@ -5,7 +5,12 @@ Diagnostico::Diagnostico(RepresentacionE* rep, string desc)
     : representacion(rep), descripcion(desc) {}
 
 // Métodos de acceso
+<<<<<<< HEAD
+representacionE* Diagnostico::getRepresentacion(){
+    
+=======
 RepresentacionE* Diagnostico::getRepresentacion() {
+>>>>>>> a14b9799bc9eb2ddd05788a0759a2c06cda1167e
     return representacion;
 }
 
