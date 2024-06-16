@@ -2,10 +2,9 @@
 #include <cstddef>
 #include <iostream>
 #include <string>
-#include "../entidades/usuario.h"
 #include <limits>
 #include "menuSesion.h"
-#include "../controllers/CUsuarioYSesion.h"
+#include "../Interfaces/ICUsuarioYSesion.h"
 
 
 using namespace std;
@@ -21,82 +20,101 @@ bool contrasenaValida(string contra){
     return true;
 }
 
-
-CUsuarioYSesion* controller = NULL;
+ICUsuarioYSesion* controllerSesion;
 
 void MenuSesion::iniciarSesion(){
 
-    int cedulaAdminDefecto = 26;
-    string contrasenaAdmin = "pepon";
     int cedula = -33;
-    Usuario* usuarioIngresando = NULL;
 
     cout << "Ingrese su cedula (solo numero) o -1 para cancelar:\n";
     
     do {
         cin >> cedula; 
 	    if(cin.fail() || cedula<0){
-		    if (cedula == -1) return;
+		    if (cedula == -1){
+                return;
+            }
             cin.clear(); 
 	        cout << "\nCedula invalida, intentelo de nuevo.\n\n";
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	        cedula = -33;
+        } 
+        else if(!controllerSesion->existeUsuario(cedula)){ 
+            std::cout << "\nLa cedula ingresada no existe en el sistema, intentelo de nuevo.\n\n";
+            cedula = -33;
+        } 
+        else{
+            controllerSesion->recordarCiIS(cedula);
         }
-
-        //else if(!existe){ nos fijamos si hay un usuario con esa cedula
-        //  std::cout << "\nLa cedula ingresada no existe en el sistema, intentelo de nuevo.\n\n";
-        //  cedula = -33;
-        //}
-        //else { // conseguimos el usario con esa cedula
-        //  usuarioIngresando = getUsaron(cedula);  
-        //}
     }while(cedula == -33);
 
-    if (cedulaAdminDefecto == cedula){ // es el usuario adminstrativo
-            
+    if (controllerSesion->esAdminDefecto()){
         string contra = "";
    
         cout << "\nBienvenido/a Admin. Ingrese su contrasena: ";
-	    
-        do{
+        std::cin >> contra; 
+        if(contra == "salir") return;
+
+        while(controllerSesion->ingresarPassIS(contra)){
+            std::cout << "\nContrasena invalida, intentelo de nuevo o escriba salir para salir.\n\n";
             std::cin >> contra; 
 	        if(contra == "salir") return;
-	        std::cout << "\nContrasena invalida, intentelo de nuevo o escriba salir para salir.\n\n";
-        }while(contra != contrasenaAdmin );
-        
-        // asignar la sesion al administrativo
-        cout<< "\nSesion Admin default iniciada \n";
+        }
+        controllerSesion->asignarSesion();
+        cout<< "\nSesion Admin Default iniciada \n";
         return;
     }
-    else{ // if (usuarioIngresando->getContrasena() == "") { //verificamos 
+    else if (controllerSesion->usuarioSinContrasena()) {
 	    string nuevaContra = "";
-        std::cout << "\nIngrese su contrasena para ser guardada por el sistema. \n";
+        std::cout << "\nUsuario sin contrasena. Ingrese su contrasena para ser guardada por el sistema. \n";
 	    std::cout << "\nLa contrasena debe ser de entre 6 y 9 caracteres largo y caracteres alfanumericos.\n";
+	    std::cout << "\nEscriba salir para volver al menu principal.\n";
         
+        cin >> nuevaContra;
         while (!contrasenaValida(nuevaContra)) {
-            cin >> nuevaContra;
             if(nuevaContra == "salir"){
                 return;
             }
             cout << "Ingrese una contrasena valida o escriba 'salir' para salir\n";
+            cin >> nuevaContra;
         }
-        cout <<"contrasena valida!\n";
+        controllerSesion->asignarContrasena(nuevaContra);
+        controllerSesion->asignarSesion();
+        cout <<"\nLa Sesion ha sido asginada con exito.Bienvenido\n";
+    }
+    else{
+        string contra = "";
+        
+        cout << "\nIngrese su contrasena o 'salir' para salir:\n";
+        cin >> contra; 
+        while (!contrasenaValida(contra)) { 
+            if(contra == "salir"){
+                return;
+            }
+            cout << "\nIngrese una contrasena valida o escriba 'salir' para salir\n";
+            cin >> contra; 
+        }
+        
+        if (!controllerSesion->esActivoIS()){
+            cout << "\nUsuario inactivo, no se puede realizar el inicio de sesión\n";
+            return;
+        }
+        controllerSesion->asignarSesion();
+        cout <<"\nLa Sesion ha sido asginada con exito.Bienvenido\n";
     }
 }
 
 void MenuSesion::cerrarSesion(){
-    if (controller->getUsuarioActivo() == NULL){
+    if (controllerSesion->getUsuarioActivo() == NULL){
         cout << "No hay ninguna sesion iniciada.!\n";
     }
     else{
-        controller->cerrarSesion();
+        controllerSesion->cerrarSesion();
         cout << "La Sesion ha sido cerrada con exito.\n";
     }
 }
 
 void darAlta(int cedula){ // hice esto por la indentacion de mierda
-
-    
 
     if (true){ // nos fijamos si exite la ceula y reactivamos el Usuario 
        

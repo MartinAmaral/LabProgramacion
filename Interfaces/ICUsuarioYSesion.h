@@ -1,23 +1,29 @@
 #ifndef ICUSUARIOYSESION_H
 #define ICUSUARIOYSESION_H
-#include "../controllers/CusuarioYSesion.h"
-class ICUsuarioYSesion {
+#include "../entidades/usuario.h"
+#include <string>
 
+class ICUsuarioYSesion {
     public:
-        virtual Usuario* getUsuarioActivo();
-    //Iniciar Sesion
-        virtual void ingresarCi(int ci);
-        virtual bool ingresarPass(std::string pass); // hicimos esta funcion dos veces
-        virtual void asignarSesion();
-        virtual void cancelarInicioSesion();
-        virtual bool Esactivo();
+        //Generales
+        virtual Usuario* getUsuarioActivo() =0;
+        virtual bool existeUsuario(int CI)=0;
+        //Iniciar Sesion
+        virtual void ingresarCiIS(int ci) =0;
+        virtual bool ingresarPassIS(std::string pass)=0;
+        virtual void asignarSesion()=0; 
+        virtual bool esAdminDefecto()=0;
+        virtual void asignarContrasena(std::string contra)=0;
+        virtual void recordarCiIS(int ci)=0;
+        virtual bool usuarioSinContrasena()=0;
+        virtual bool esActivoIS()=0; 
         //Cerrar Sesion
-        virtual void cerrarSesion();
+        virtual void cerrarSesion()=0; 
 
         // Alta/Reactivación de Usuario
-        virtual void reactivarUsuario();
+        virtual void reactivarUsuario()=0; 
         // Usuarios dados de alta y reactivados
-        virtual ~ICUsuarioysesion(){};
+        virtual ~ICUsuarioYSesion(){}
 };
 
 #endif

@@ -1,18 +1,32 @@
 #include "CUsuarioYSesion.h"
 #include <string>
-#include "../entidades/usuario.h"
+
 using namespace std;
 
-CUsuarioYSesion& CUsuarioYSesion::getInstanceUsuario() {
-    return InstanceUsuario;
+CUsuarioYSesion* CUsuarioYSesion::getInstanceUsuario() {
+    return NULL ;
 }
-void CUsuarioYSesion::ingresarCi(int ci){
+
+Usuario* CUsuarioYSesion::getUsuarioActivo(){
+    return usuarioActivo;
+}
+
+bool CUsuarioYSesion::existeUsuario(int CI){
+    //revisar en un diccionario
+    return true;
+}
+
+void CUsuarioYSesion::ingresarCiIS(int ci){
     this->ciIniciarSesion = ci;
 }
 
-bool CUsuarioYSesion::ingresarPass(string pass){
+bool CUsuarioYSesion::ingresarPassIS(string pass){
+
+    if(ciIniciarSesion == this->cedulaAdminDefecto && pass == this->contrasenaAdmin)
+        return true;
 
     Usuario* user; // deberiamos buscarlo con la ciIniciarSesion y guardarlo
+    
     return user->comprobarPass(pass);
 }
 
@@ -22,12 +36,20 @@ void CUsuarioYSesion::asignarSesion(){
     this->ciIniciarSesion =0;
 }
 
-void CUsuarioYSesion::cancelarInicioSesion(){
-    this->ciIniciarSesion = 0;
+bool CUsuarioYSesion::esAdminDefecto(){
+    if(this->ciIniciarSesion == this->cedulaAdminDefecto)
+        return true;
+    return false;
 }
 
-bool CUsuarioYSesion::Esactivo(){
-    return this->usuarioActivo;
+void asignarContrasena(string contra){
+    Usuario* usuario;
+    usuario->setContrasena(contra);
+}
+
+bool CUsuarioYSesion::esActivoIS(){
+    Usuario* usuario;
+    return usuario->getActivo(); 
 }
 
 void CUsuarioYSesion::cerrarSesion(){
@@ -36,10 +58,8 @@ void CUsuarioYSesion::cerrarSesion(){
 
 void CUsuarioYSesion::reactivarUsuario(){
     Usuario* user; // buscar por cedula
+    user->setActivo(true);
 }
 
-Usuario* CUsuarioYSesion::getUsuarioActivo(){
-    return this->usuarioActivo; 
-}
 
 

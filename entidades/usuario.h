@@ -28,6 +28,11 @@ class Usuario{
         virtual bool comprobarPass(string pass);
         virtual string getContrasena();
         virtual int getEdad() const;
+        virtual bool getActivo();    
+
+        virtual bool setActivo(bool estado);
+        virtual string setContrasena(string contra);
+
         ~Usuario();
 };
 
