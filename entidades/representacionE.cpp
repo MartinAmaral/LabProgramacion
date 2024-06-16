@@ -1,25 +1,27 @@
 #include "representacionE.h"
 
 // Constructor
-representacionE::representacionE(string desc, string cod)
-    : descripcion(desc), codigo(cod) {}
+RepresentacionE::RepresentacionE(string codigo, string descripcion){
+    this->codigo;
+    this->descripcion;
+}
 
 // Destructor
-representacionE::~representacionE() {}
+RepresentacionE::~RepresentacionE() {}
 
 // Métodos de acceso
-string representacionE::getDescripcion() {
+string RepresentacionE::getDescripcion() {
     return descripcion;
 }
 
-void representacionE::setDescripcion(string desc) {
+void RepresentacionE::setDescripcion(string desc) {
     descripcion = desc;
 }
 
-string representacionE::getCodigo() {
+string RepresentacionE::getCodigo() {
     return codigo;
 }
 
-void representacionE::setCodigo(string cod) {
+void RepresentacionE::setCodigo(string cod) {
     codigo = cod;
 }

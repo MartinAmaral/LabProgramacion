@@ -6,13 +6,13 @@
 // Listar representaciones estandarizadas OPCIONAL
 
 
-class CDiagnostico {
+class CDiagnostico //: public ICDiagnostico
+ {
     private:
-    
+    static CDiagnostico* InstanceDiagnostico();
         
     public:
-    
-
+        static CDiagnostico* getInstanceDiagnostico();
         //Devuelve y selecciona la consulta para dar de alta un diagnostico.
         void DevolverConsultas();
         void SeleccionaConsulta(string ci);

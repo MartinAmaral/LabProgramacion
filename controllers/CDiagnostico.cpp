@@ -5,6 +5,10 @@
 
 using namespace std;
 
+CDiagnostico& CDiagnostico::getInstanceDiagnostico() {
+    return InstanceDiagnostico;
+}
+
 //Devuelve y selecciona la consulta para dar de alta un diagnostico.
 
         void DevolverConsultas(){

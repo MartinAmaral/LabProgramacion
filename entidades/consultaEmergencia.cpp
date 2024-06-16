@@ -1,4 +1,5 @@
 #include "consultaEmergencia.h"
+<<<<<<< HEAD
 #include "consulta.h"
 #include "fecha.h"
 #include "usuario.h"
@@ -11,3 +12,13 @@ ConsultaEmergencia::ConsultaEmergencia(Fecha* fecha,string hora, Usuario* pacien
 ConsultaEmergencia::~ConsultaEmergencia() {
     // Aquí puedes agregar cualquier limpieza necesaria, si aplica
 }
+=======
+
+
+ConsultaEmergencia::ConsultaEmergencia(Usuario* paciente, Usuario* medico, Fecha* fecha , string motivo){
+    this->paciente = paciente;
+    this->medico = medico;
+    this->fechaConsulta = fecha;
+    this->motivo = motivo;
+}
+>>>>>>> a14b9799bc9eb2ddd05788a0759a2c06cda1167e

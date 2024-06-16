@@ -1,8 +1,11 @@
 #include "CUsuarioYSesion.h"
 #include <string>
 #include "../entidades/usuario.h"
-
 using namespace std;
+
+CUsuarioYSesion& CUsuarioYSesion::getInstanceUsuario() {
+    return InstanceUsuario;
+}
 void CUsuarioYSesion::ingresarCi(int ci){
     this->ciIniciarSesion = ci;
 }

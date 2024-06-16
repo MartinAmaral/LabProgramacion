@@ -2,7 +2,7 @@
 #include "fecha.h"
 #include "usuario.h"
 
-class ConsultaComun : Consulta
+class ConsultaComun : public Consulta
 {
     private:
         Fecha* fechaReserva;
