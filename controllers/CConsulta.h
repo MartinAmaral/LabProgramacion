@@ -1,7 +1,6 @@
 #include <string>
 #include "../entidades/usuario.h"
 #include "../entidades/medico.h"
-#include "../entidades/fecha.h"
 // Este controllador se encarga de los siguientes casos de uso:
 // Registro de Consulta
 // Alta de Diagnostico de Una Consulta

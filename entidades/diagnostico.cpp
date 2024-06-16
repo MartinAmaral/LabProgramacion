@@ -1,15 +1,15 @@
-#include "Diagnostico.h"
+#include "diagnostico.h"
 
 // Constructor
-Diagnostico::Diagnostico(representacionE* rep, string desc)
+Diagnostico::Diagnostico(RepresentacionE* rep, string desc)
     : representacion(rep), descripcion(desc) {}
 
 // Métodos de acceso
-representacionE* Diagnostico::getRepresentacion() {
+RepresentacionE* Diagnostico::getRepresentacion() {
     return representacion;
 }
 
-void Diagnostico::setRepresentacion(representacionE* rep) {
+void Diagnostico::setRepresentacion(RepresentacionE* rep) {
     representacion = rep;
 }
 

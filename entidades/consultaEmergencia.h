@@ -1,13 +1,13 @@
 #include "consulta.h"
 #include <string>
-
+#include "consulta.h"
 
 class ConsultaEmergencia : Consulta
 {
     private:
         string motivo;
     public:
-        ConsultaEmergencia(Fecha* fecha, string hora, string motivo);
+        ConsultaEmergencia(Usuario* paciente, Usuario* medico, Fecha* fecha , string motivo);
         ~ConsultaEmergencia();
 };
 
