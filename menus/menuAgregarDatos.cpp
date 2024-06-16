@@ -15,13 +15,13 @@ void MenuAgregarDatos::AgregarDatos(){
     }
     else{
         // Agregar usuarios
-        Fecha* fecha = new Fecha(1988,12,28); 
+        Fecha* fecha = new Fecha(1988,12,28);
         Usuario* usuarioJA = new Usuario("James","Peer",Masculino,34567645,fecha);
 
-        fecha = new Fecha(1990,1,1); 
+        fecha = new Fecha(1990,1,1);
         Usuario* usuarioTM = new Usuario("James","Peer",Masculino,34567645,fecha);
 
-        fecha = new Fecha(1980,3,3); 
+        fecha = new Fecha(1980,3,3);
         Usuario* usuarioDP = new Usuario("James","Peer",Masculino,34567645,fecha);
 
         fecha = new Fecha(1970,4,7); 

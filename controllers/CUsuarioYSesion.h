@@ -6,12 +6,15 @@
 // Alta/Reactivación de Usuario
 // Usuarios dados de alta y reactivados
 
-class CUsuarioYSesion {
+class CUsuarioYSesion //: public IUsuarioYSesion {
+{
     private:
         int ciIniciarSesion =0;
         Usuario* usuarioActivo = NULL;
+        static CUsuarioYSesion* InstanceUsuario();
     public:
         Usuario* getUsuarioActivo();
+        static CUsuarioYSesion* getInstanceUsuario();
     //Iniciar Sesion
         void ingresarCi(int ci);
         bool ingresarPass(std::string pass); // hicimos esta funcion dos veces
