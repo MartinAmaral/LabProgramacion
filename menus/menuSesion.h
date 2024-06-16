@@ -10,6 +10,6 @@ class MenuSesion {
     public:
         void iniciarSesion();
         void cerrarSesion();
-
+        void altaUsuario();
 };
 
