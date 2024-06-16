@@ -1,5 +1,6 @@
 
 #include <cstddef>
+#include <iostream>
 #include <string>
 #include "../entidades/usuario.h"
 #include <limits>
@@ -89,8 +90,70 @@ void MenuSesion::cerrarSesion(){
     }
     else{
         controller->cerrarSesion();
-        cout << "La Sesion ha sido cerrdada con exito.\n";
+        cout << "La Sesion ha sido cerrada con exito.\n";
     }
+}
+
+void darAlta(int cedula){ // hice esto por la indentacion de mierda
+
+    
+
+    if (true){ // nos fijamos si exite la ceula y reactivamos el Usuario 
+       
+        // devolver todos los datos del usario en un dt
+
+        cout << "Quiere reactivar a este Usuario?\n";
+        int valor =-1;
+        do{
+            cout<< "Ingresa 1 para reactivar el usuario y 0 para no \n";
+            cin >> valor; 
+            if(cin.fail() || valor<0 || valor >1){
+                cin.clear(); 
+	            cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            }
+        }while(valor<0);
+        if(valor == 1){
+            //reactivar al usuario
+            cout << "El usuario con cedula: " << cedula << "ha sido reactivado\n";
+        }
+        return;
+    }
+    
+    cout << "El usuario con esa cedula no existe ingrese los datos para ingrearlo en el sistema\n";
+    cout << "Ingrese -1 en cualquier momento para cancelar.\n";
+    
+    string inputTexto;
+    
+
+        
+
+}
+
+void MenuSesion::altaUsuario(){
+
+    if (false){
+        // fijarnos si el usuario logeado es un Usario Administrativo
+        cout<< "Se necesita a un Usuario administrativo para dar de alta o Reactivar a un usuario.\n";
+        return;
+    }
+
+    int cedula = -33;
+	do{
+        cout << "Ingrese la cedula a dar de alta o reactivar o ingrese -1 para salir.\n";
+        cin >> cedula; 
+
+        if(cin.fail() || cedula<0){
+	        if (!cin.fail() && cedula == -1) return;
+            cin.clear(); 
+	        cout << "\nCedula invalida, intentelo de nuevo.\n\n";
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+        else {
+            darAlta(cedula);
+        }
+        cedula = -33;
+    }while(cedula == -33);
 }
 
 
