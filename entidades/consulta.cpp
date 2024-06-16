@@ -1,5 +1,5 @@
 #include "consulta.h"
-<<<<<<< HEAD
+
 #include "../entidades/consultaComun.h"
 #include "../entidades/consultaEmergencia.h"
 #include "fecha.h"
@@ -32,11 +32,3 @@ ConsultaEmergencia::ConsultaEmergencia(Fecha* fecha, std::string hora, Usuario* 
 ConsultaEmergencia::~ConsultaEmergencia() {
 
 }
-=======
-
-Consulta::Consulta(Fecha* fecha, string hora){
-    this->fecha = fecha;
-    this->hora = hora;
-}
-
->>>>>>> a14b9799bc9eb2ddd05788a0759a2c06cda1167e
