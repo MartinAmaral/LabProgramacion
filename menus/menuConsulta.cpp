@@ -1,34 +1,52 @@
+#include <iostream>
+#include <string>
+#include "../controllers/CConsulta.h"
+#include "../entidades/fecha.h"
 
 using namespace std;
 
-cout << "Registrar una nueva consulta \n\r"
-while(option !=4){
-		std::cout << "1: Consulta de Emergencia \n";
-		std::cout << "2: Consulta Comun \n";
-		std::cout << "3: Volver\n";
+void registrarConsulta() {
+    CConsulta* consultaCtrl = CConsulta::getInstanceConsulta();
+    string ciMedico, ciPaciente, motivo;
+    int dia, mes, ano, diaReserva, mesReserva, anoReserva;
+    bool esEmergencia, asistio;
+    char tipoConsulta, respuestaAsistio;
 
+    cout << "Ingrese CI del médico: ";
+    cin >> ciMedico;
+    cout << "Ingrese CI del paciente: ";
+    cin >> ciPaciente;
+    cout << "Es una consulta de emergencia? (s/n): ";
+    cin >> tipoConsulta;
+    esEmergencia = (tipoConsulta == 's' || tipoConsulta == 'S');
 
-		std::cin >> option;
+    cout << "Ingrese la fecha de la consulta (dd mm aaaa): ";
+    cin >> dia >> mes >> ano;
+    Fecha fechaConsulta(dia, mes, ano);
 
-		if(std::cin.fail() || option >4 || option<0){
-		    std::cin.clear();
-		    std::cin.ignore(100,'\n');
-		    std::cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
-            continue;
-		}
-	    switch (option){
-	        case 1:
-		        break;
-    	    case 2:
-    		    break;
-    	    case 3:
-    		    break;
-	    }
-	}
+ if (esEmergencia) {
+        cout << "Ingrese motivo de la consulta de emergencia: ";
+        cin.ignore();  // Para limpiar el buffer de entrada
+        getline(cin, motivo);
+        try {
+            consultaCtrl->ingresarDatosConsultaEmergencia(ciMedico, ciPaciente, fechaConsulta, motivo);
+            cout << "Consulta de emergencia registrada exitosamente.\n";
+        } catch (const exception& e) {
+            cerr << "Error: " << e.what() << endl;
+        }
+    } else {
+        cout << "Ingrese la fecha de la reserva (dd mm aaaa): ";
+        cin >> diaReserva >> mesReserva >> anoReserva;
+        Fecha* fechaReserva = new Fecha(diaReserva, mesReserva, anoReserva);
+        cout << "El paciente asistió a la consulta? (s/n): ";
+        cin >> respuestaAsistio;
+        asistio = (respuestaAsistio == 's' || respuestaAsistio == 'S');
 
-void IngresarCI(){
-    std::cout << "Ingrese CI del medico"
-    std::cin >> Cimed;
-    std::cout << "Ingrese CI del paciente"
-    std::cin >> Cipas;
+        try {
+            consultaCtrl->ingresarDatosConsultaComun(ciMedico, ciPaciente, fechaConsulta, fechaReserva, asistio);
+            cout << "Consulta común registrada exitosamente.\n";
+        } catch (const exception& e) {
+            cerr << "Error: " << e.what() << endl;
+        }
+    }
 }

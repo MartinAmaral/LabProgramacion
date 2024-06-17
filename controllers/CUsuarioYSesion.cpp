@@ -3,10 +3,14 @@
 
 using namespace std;
 
-CUsuarioYSesion* CUsuarioYSesion::getInstanceUsuario() {
-    return NULL ;
-}
+CUsuarioYSesion* CUsuarioYSesion::instanceController = nullptr;
 
+CUsuarioYSesion* CUsuarioYSesion::getInstanceUsuario() {
+    if (instanceController == nullptr) {
+        instanceController = new CUsuarioYSesion();
+    }
+    return instanceController;
+}
 Usuario* CUsuarioYSesion::getUsuarioActivo(){
     return usuarioActivo;
 }

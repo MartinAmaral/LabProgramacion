@@ -1,17 +1,16 @@
 #include "consultaEmergencia.h"
-
 #include "consulta.h"
 #include "fecha.h"
 #include "usuario.h"
 
 
-// Implementación de la clase ConsultaEmergencia
+ConsultaEmergencia::ConsultaEmergencia(Usuario* medico, Usuario* paciente, const Fecha& fechaConsulta, string motivo)
+    : Consulta(medico, paciente, fechaConsulta), motivo(motivo) {}
 
+string ConsultaEmergencia::getMotivo() const {
+    return motivo;
+}
 
 ConsultaEmergencia::~ConsultaEmergencia() {
 
 }
-
-ConsultaEmergencia::ConsultaEmergencia(Fecha* fecha, string hora, Usuario* paciente, Usuario* medico, string motivo)
-    : Consulta(fecha, hora, paciente, medico), motivo(motivo) {}
-
