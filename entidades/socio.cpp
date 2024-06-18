@@ -6,7 +6,6 @@
 // Constructor de la clase Socio
 Socio::Socio(bool activo, int CI, Sexo sexo, Fecha* fechaNacimiento, string nombre, string apellido, string contrasena)
     : Usuario(nombre, apellido, sexo, CI, fechaNacimiento) {
-    // El constructor de Usuario inicializa los atributos heredados
     this->setActivo(activo);
     this->setContrasena(contrasena);
 }
@@ -28,3 +27,4 @@ string Socio::getContrasena() {
 int Socio::getEdad() {
     return Usuario::getEdad();
 }
+
