@@ -6,21 +6,23 @@
 
 #include <iostream>
 #include "menus/menuSesion.h"
-
+#include "menus/menuConsulta.h"
 using namespace std;
 
 int main (){
 	int option=-1;
 
     MenuSesion* menuSesion = new MenuSesion();
+	MenuConsulta* menuConsulta = new MenuConsulta()
 
 	while(option !=8){
 		cout << "0: Cargar Datos de Prueba\n1: Iniciar Sesion \n";
 		cout << "2: Cerrar Sesion \n3: Alta/Reactivacion de Usuario\n";
 		cout << "4: Usuarios dados de alta y reactivados \n5: Alta medicamento\n";
 		cout << "6: Alta de representacion estarandizada de diagnosticos \n7: Listar representaciones estarandizadas\n";
-        cout << "8: Salir\n";
-        
+        cout << "8: Registrar Consulta\n";
+		cout << "9: Alta diagnosticos de una consulta.\n";
+        cout << "10: Salir\n";
 		cin >> option;
 
 		if(cin.fail() || option >8 || option<0){
@@ -47,6 +49,11 @@ int main (){
         	case 6:
 	        	break;
         	case 7:
+        		break;
+			case 8:
+				menuConsulta->registrarConsulta();
+        		break;
+			case 9:
         		break;
         	default:
 	        	break;

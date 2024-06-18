@@ -33,7 +33,7 @@ class Usuario{
         virtual bool setActivo(bool estado);
         virtual string setContrasena(string contra);
 
-        ~Usuario();
+        virtual ~Usuario();
 };
 
 #endif

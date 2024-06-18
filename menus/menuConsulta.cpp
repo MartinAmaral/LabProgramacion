@@ -2,7 +2,7 @@
 #include <string>
 #include "../controllers/CConsulta.h"
 #include "../entidades/fecha.h"
-
+#include "../entidades/usuario.h"
 using namespace std;
 
 void registrarConsulta() {
@@ -24,29 +24,21 @@ void registrarConsulta() {
     cin >> dia >> mes >> ano;
     Fecha fechaConsulta(dia, mes, ano);
 
- if (esEmergencia) {
-        cout << "Ingrese motivo de la consulta de emergencia: ";
-        cin.ignore();  // Para limpiar el buffer de entrada
+    if (esEmergencia) {
+        cout << "Ingrese el motivo de la consulta: ";
+        cin.ignore();
         getline(cin, motivo);
-        try {
-            consultaCtrl->ingresarDatosConsultaEmergencia(ciMedico, ciPaciente, fechaConsulta, motivo);
-            cout << "Consulta de emergencia registrada exitosamente.\n";
-        } catch (const exception& e) {
-            cerr << "Error: " << e.what() << endl;
-        }
+        consultaCtrl->ingresarDatosConsultaEmergencia(new Usuario(stoi(ciMedicoStr), ""), new Usuario(stoi(ciPacienteStr), ""), fechaConsulta, motivo);
     } else {
-        cout << "Ingrese la fecha de la reserva (dd mm aaaa): ";
+        cout << "Ingrese la fecha de reserva (dd mm aaaa): ";
         cin >> diaReserva >> mesReserva >> anoReserva;
-        Fecha* fechaReserva = new Fecha(diaReserva, mesReserva, anoReserva);
+        Fecha fechaReserva(anoReserva, mesReserva, diaReserva);
         cout << "El paciente asistió a la consulta? (s/n): ";
         cin >> respuestaAsistio;
         asistio = (respuestaAsistio == 's' || respuestaAsistio == 'S');
-
-        try {
-            consultaCtrl->ingresarDatosConsultaComun(ciMedico, ciPaciente, fechaConsulta, fechaReserva, asistio);
-            cout << "Consulta común registrada exitosamente.\n";
-        } catch (const exception& e) {
-            cerr << "Error: " << e.what() << endl;
-        }
+        consultaCtrl->ingresarDatosConsultaComun(new Usuario(stoi(ciMedicoStr), ""), new Usuario(stoi(ciPacienteStr), ""), fechaConsulta, new Fecha(fechaReserva), asistio);
     }
+
+    cout << "Consulta registrada exitosamente!" << endl;
+
 }

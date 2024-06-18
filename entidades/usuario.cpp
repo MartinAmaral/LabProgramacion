@@ -66,3 +66,9 @@ Usuario::Usuario(string nombre,string contrasena,Sexo sexo,Fecha* fechaNacimient
     this->fechaNacimiento = fechaNacimiento;
     //Tipo de Usuario? hacemos enum?
 }
+
+Usuario::~Usuario() {
+    if (fechaNacimiento != nullptr) {
+        delete fechaNacimiento;
+    }
+}

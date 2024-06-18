@@ -20,6 +20,8 @@ public:
     Consulta(Fecha* fecha, string hora, Usuario* paciente, Usuario* medico);
 
     virtual ~Consulta();
+    virtual bool esEmergencia() const = 0;
+    virtual string getMotivo() const { return ""; }
 };
 
 #endif

@@ -1,7 +1,7 @@
 #ifndef CCONSULTA_H
 #define CCONSULTA_H
 
-#include <unordered_map>
+#include <map>
 #include <string>
 #include "../entidades/usuario.h"
 #include "../entidades/medico.h"
@@ -17,19 +17,18 @@ using namespace std;
 // Registro de Consulta
 // Alta de Diagnostico de Una Consulta
 
-class CConsulta  //: public ICConsulta
+class CConsulta  : public ICConsulta
 {
     private:
-    static CConsulta* InstanceConsulta();
-    unordered_map<string, shared_ptr<Consulta>> consultas;
+        static CConsulta* InstanceConsulta();
+        map<string, shared_ptr<Consulta>> consultas;
 
-    CConsulta() {}
-    string generarClave(const string& ciMedico, const string& ciPaciente, const Fecha& fechaConsulta) const;
+        CConsulta() {}
+        string generarClave(const string& ciMedico, const string& ciPaciente, const Fecha& fechaConsulta) const;
     public:
         static CConsulta* getInstanceConsulta();
-        //Ingresa los datos de consulta
-    void ingresarDatosConsultaComun(string ciMedico, string ciPaciente, const Fecha& fechaConsulta);
-    void ingresarDatosConsultaEmergencia(string ciMedico, string ciPaciente, const Fecha& fechaConsulta, string motivo);
-    bool consultaExistente(const string& ciMedico, const string& ciPaciente, const Fecha& fechaConsulta) const;
+        void ingresarDatosConsultaComun(Usuario* medico, Usuario* paciente, const Fecha& fechaConsulta, Fecha* fechaReserva, bool asistio);
+        void ingresarDatosConsultaEmergencia(Usuario* medico, Usuario* paciente, const Fecha& fechaConsulta, string motivo);
+        bool consultaExistente(const string& ciMedico, const string& ciPaciente, const Fecha& fechaConsulta) const;
 };
 #endif

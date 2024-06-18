@@ -10,8 +10,7 @@ class ConsultaComun : public Consulta{
         Fecha* fechaReserva;
         bool asistio;
     public:
-        ConsultaComun(Usuario* medico, Usuario* paciente, const Fecha& fechaConsulta)
-        : Consulta(medico, paciente, fechaConsulta) {}
+        ConsultaComun(Usuario* paciente, Usuario* medico, Fecha* fechaConsulta, Fecha* fechaReserva);
         Fecha* getFechaReserva() const { return fechaReserva; }
         bool getAsistio() const { return asistio; }
         void setFechaReserva(Fecha* fecha) { fechaReserva = fecha; }

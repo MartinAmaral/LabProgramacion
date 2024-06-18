@@ -5,7 +5,7 @@
 
 
 ConsultaEmergencia::ConsultaEmergencia(Usuario* medico, Usuario* paciente, const Fecha& fechaConsulta, string motivo)
-    : Consulta(medico, paciente, fechaConsulta), motivo(motivo) {}
+    : Consulta(&fechaConsulta, "", paciente, medico), motivo(motivo) {}
 
 string ConsultaEmergencia::getMotivo() const {
     return motivo;
