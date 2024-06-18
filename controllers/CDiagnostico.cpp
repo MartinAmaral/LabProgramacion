@@ -5,10 +5,14 @@
 
 using namespace std;
 
-CDiagnostico& CDiagnostico::getInstanceDiagnostico() {
+CDiagnostico* CDiagnostico::InstanceDiagnostico = nullptr;
+
+CDiagnostico* CDiagnostico::getInstanceDiagnostico() {
+    if (InstanceDiagnostico == nullptr) {
+        InstanceDiagnostico = new CDiagnostico();
+    }
     return InstanceDiagnostico;
 }
-
 //Devuelve y selecciona la consulta para dar de alta un diagnostico.
 
         void DevolverConsultas(){

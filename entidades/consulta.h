@@ -18,8 +18,8 @@ protected:
     Usuario* medico;
 public:
     Consulta(Fecha* fecha, string hora, Usuario* paciente, Usuario* medico);
-    
-    ~Consulta();
+
+    virtual ~Consulta();
 };
 
 #endif
