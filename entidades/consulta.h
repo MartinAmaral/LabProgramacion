@@ -5,8 +5,6 @@
 #include <iostream>
 #include <string>
 #include "usuario.h"
-#include "../entidades/consultaComun.h"
-#include "../entidades/consultaEmergencia.h"
 
 using namespace std;
 
@@ -18,10 +16,7 @@ protected:
     Usuario* medico;
 public:
     Consulta(Fecha* fecha, string hora, Usuario* paciente, Usuario* medico);
-
-    virtual ~Consulta();
-    virtual bool esEmergencia() const = 0;
-    virtual string getMotivo() const { return ""; }
+    virtual ~Consulta() = 0;
 };
 
 #endif

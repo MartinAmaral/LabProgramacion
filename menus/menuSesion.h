@@ -1,3 +1,5 @@
+#ifndef MENUSESION_H
+#define MENUSESION_H
 
 #include <string>
 
@@ -11,4 +13,4 @@ class MenuSesion {
         void cerrarSesion();
         void altaUsuario();
 };
-
+#endif

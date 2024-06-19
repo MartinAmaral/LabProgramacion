@@ -61,5 +61,5 @@ map<string, shared_ptr<Consulta>> CConsulta::obtenerConsultasDelDia(const string
             consultasDelDia[entry.second->getPaciente()->getCI()] = entry.second;
         }
     }
-    return consultasDelDia;
+   return consultasDelDia;
 }

@@ -10,7 +10,7 @@ using namespace std;
 
 // Implementación de la clase Consulta
 Consulta::Consulta(Fecha* fecha, string hora, Usuario* paciente, Usuario* medico)
-    : fechaConsulta(*fecha), hora(hora), paciente(paciente), medico(medico) {}
+    : fechaConsulta(fecha), hora(hora), paciente(paciente), medico(medico) {}
 
 Consulta::~Consulta() {
     delete paciente;

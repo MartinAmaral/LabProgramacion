@@ -13,4 +13,4 @@ public:
     virtual ~Tratamiento() = 0; // Clase abstracta
 };
 
-#endif // TRATAMIENTO_H
+#endif

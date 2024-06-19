@@ -61,7 +61,6 @@ int Usuario::getEdad() const {
 Usuario::Usuario(string nombre,string contrasena,Sexo sexo,Fecha* fechaNacimiento){
 
     this->nombre = nombre;
-    this->apellido = apellido;
     this->sexo = sexo;
     this->fechaNacimiento = fechaNacimiento;
     //Tipo de Usuario? hacemos enum?

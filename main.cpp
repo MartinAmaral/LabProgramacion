@@ -13,7 +13,7 @@ int main (){
 	int option=-1;
 
     MenuSesion* menuSesion = new MenuSesion();
-	MenuConsulta* menuConsulta = new MenuConsulta()
+	MenuConsulta* menuConsulta = new MenuConsulta();
 
 	while(option !=8){
 		cout << "0: Cargar Datos de Prueba\n1: Iniciar Sesion \n";
@@ -25,7 +25,7 @@ int main (){
         cout << "10: Salir\n";
 		cin >> option;
 
-		if(cin.fail() || option >8 || option<0){
+		if(cin.fail() || option >10 || option<0){
 		    cin.clear();
 		    cin.ignore(100,'\n');
 		    cout << "\nOpcion invalida, intentelo de nuevo.\n\n";

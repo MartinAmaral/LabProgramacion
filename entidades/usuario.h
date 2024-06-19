@@ -11,7 +11,7 @@ using namespace std;
 
 class Usuario{
 
-    private:
+    protected:
         bool activo = true;
         int CI;
         Sexo sexo;

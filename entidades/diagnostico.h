@@ -27,4 +27,4 @@ public:
     void mostrar() const;
 };
 
-#endif // DIAGNOSTICO_H
+#endif

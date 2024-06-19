@@ -11,10 +11,10 @@ class ConsultaComun : public Consulta{
         bool asistio;
     public:
         ConsultaComun(Usuario* paciente, Usuario* medico, Fecha* fechaConsulta, Fecha* fechaReserva);
-        Fecha* getFechaReserva() const { return fechaReserva; }
-        bool getAsistio() const { return asistio; }
-        void setFechaReserva(Fecha* fecha) { fechaReserva = fecha; }
-        void setAsistio(bool asistio) { this->asistio = asistio; }
+        Fecha* getFechaReserva();
+        bool getAsistio();
+        void setFechaReserva(Fecha* fecha); 
+        void setAsistio(bool asistio);
         ~ConsultaComun();
 };
 #endif

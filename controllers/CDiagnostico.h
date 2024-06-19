@@ -27,3 +27,4 @@ class CDiagnostico //: public ICDiagnostico
         //Listar representaciones estandarizadas, agregar y seleccionar OPCIONAL
         void ListarRepresentacionesEstand();        
 };
+#endif

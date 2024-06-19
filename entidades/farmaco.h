@@ -1,6 +1,7 @@
 #ifndef FARMACO_H
 #define FARMACO_H
 
+#include "tratamiento.h"
 #include <string>
 #include "fecha.h"
 using namespace std;

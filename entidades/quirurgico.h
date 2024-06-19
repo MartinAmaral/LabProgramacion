@@ -2,6 +2,7 @@
 #define QUIRURGICO_H
 
 #include <string>
+#include "tratamiento.h"
 #include "fecha.h"
 using namespace std;
 

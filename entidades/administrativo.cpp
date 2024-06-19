@@ -1,5 +1,4 @@
 #include "administrativo.h"
-#include <iostream>
 
 // Constructor de Administrativo
 Administrativo::Administrativo(bool activo, int CI, Sexo sexo, Fecha* fechaNacimiento, string nombre, string apellido, string contrasena)
@@ -23,4 +22,10 @@ string Administrativo::getContrasena() {
 
 int Administrativo::getEdad() {
     return Usuario::getEdad();
+
 }
+/*
+void Administrativo::setContrasena(string contra){
+    this->contrasena = contra; 
+}*/
+

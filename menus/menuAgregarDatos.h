@@ -1,5 +1,5 @@
-#ifndef MENU_AGREGAR_DATOS.H
-#define MENU_AGREGAR_DATOS.H
+#ifndef MENUAGREGARDATOS_H
+#define MENUAGREGARDATOS_H
 
 class MenuAgregarDatos{
     private:
