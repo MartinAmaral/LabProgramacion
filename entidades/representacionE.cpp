@@ -1,10 +1,8 @@
 #include "representacionE.h"
 
 // Constructor
-RepresentacionE::RepresentacionE(string codigo, string descripcion){
-    this->codigo;
-    this->descripcion;
-}
+RepresentacionE::RepresentacionE(string codigo, string descripcion)
+    : codigo(codigo), descripcion(descripcion) {}
 
 // Destructor
 RepresentacionE::~RepresentacionE() {}

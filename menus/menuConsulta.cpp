@@ -3,6 +3,7 @@
 #include "../controllers/CConsulta.h"
 #include "../entidades/fecha.h"
 #include "../entidades/usuario.h"
+#include "../entidades/diagnostico.h"
 using namespace std;
 
 void registrarConsulta() {
@@ -41,4 +42,65 @@ void registrarConsulta() {
 
     cout << "Consulta registrada exitosamente!" << endl;
 
+}
+
+void altaDiagnostico() {
+    CConsulta* consultaManager = CConsulta::getInstanceConsulta();
+
+    string ciMedico;
+    cout << "Ingrese su CI (Médico): ";
+    cin >> ciMedico;
+
+    Fecha fechaActual(18, 6, 2024); // Se puede obtener dinámicamente
+
+    map<string, shared_ptr<Consulta>> consultas = consultaManager->obtenerConsultasDelDia(ciMedico, fechaActual);
+    cout << "Consultas para hoy:" << endl;
+    for (const auto& entry : consultas) {
+        cout << "CI Paciente: " << entry.first << endl;
+    }
+
+    string ciPaciente;
+    cout << "Seleccione la consulta ingresando la CI del Paciente: ";
+    cin >> ciPaciente;
+
+    Diagnostico* nuevoDiagnostico = nullptr;
+
+    while (true) {
+        string categoriaSeleccionada;
+        cout << "Seleccione una categoría de diagnóstico: ";
+        cin >> categoriaSeleccionada;
+
+        // Simulación de selección de diagnóstico basado en la categoría
+        string codigoDiagnostico, descripcionDiagnostico;
+        cout << "Ingrese el código del diagnóstico seleccionado: ";
+        cin >> codigoDiagnostico;
+        cout << "Ingrese la descripción del diagnóstico: ";
+        cin.ignore();
+        getline(cin, descripcionDiagnostico);
+
+        RepresentacionE* representacion = new RepresentacionE(codigoDiagnostico, descripcionDiagnostico);
+        string descripcionLibre;
+        cout << "Ingrese una descripción complementaria: ";
+        getline(cin, descripcionLibre);
+
+        nuevoDiagnostico = new Diagnostico(representacion, descripcionLibre);
+
+        string agregarMas;
+        cout << "¿Desea agregar tratamientos a este diagnóstico? (s/n): ";
+        cin >> agregarMas;
+
+        if (agregarMas == "s" || agregarMas == "S") {
+            // Agregar lógica para tratamientos aquí...
+        }
+
+        cout << "¿Desea agregar otro diagnóstico? (s/n): ";
+        cin >> agregarMas;
+
+        if (agregarMas == "n" || agregarMas == "N") {
+            break;
+        }
+    }
+
+    consultaManager->darAltaDiagnostico(ciMedico, ciPaciente, fechaActual, nuevoDiagnostico);
+    cout << "Diagnósticos registrados exitosamente." << endl;
 }

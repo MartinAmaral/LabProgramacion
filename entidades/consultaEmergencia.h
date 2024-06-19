@@ -12,7 +12,7 @@ class ConsultaEmergencia : public Consulta{
         string motivo;
     public:
         ConsultaEmergencia(Usuario* medico, Usuario* paciente, const Fecha& fechaConsulta, string motivo);
-        string getMotivo() const override { return motivo; }
+        string getMotivo() const { return motivo; }
         bool esEmergencia() const override { return true; }
         ~ConsultaEmergencia();
 

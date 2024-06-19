@@ -1,8 +1,8 @@
 #include "diagnostico.h"
 
 // Constructor
-Diagnostico::Diagnostico(RepresentacionE* rep, string desc)
-    : representacion(rep), descripcion(desc) {}
+Diagnostico::Diagnostico(RepresentacionE* rep, string descLibre)
+    : representacion(rep), descripcion(descLibre) {}
 
 // Métodos de acceso
 
@@ -22,4 +22,7 @@ string Diagnostico::getDescripcion() {
 void Diagnostico::setDescripcion(string desc) {
     descripcion = desc;
 }
-
+void Diagnostico::mostrar() const {
+    cout << "Representación: " << representacion->getDescripcion() << endl;
+    cout << "Descripción: " << descripcion << endl;
+}

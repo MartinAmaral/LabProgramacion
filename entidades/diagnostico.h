@@ -1,6 +1,6 @@
 #ifndef DIAGNOSTICO_H
 #define DIAGNOSTICO_H
- 
+
 #include "ratio"
 #include "representacionE.h"
 #include <iostream>
@@ -13,19 +13,18 @@ private:
     RepresentacionE* representacion;
     string descripcion;
 public:
-    // Constructor 
+    // Constructor
     Diagnostico(RepresentacionE* rep, string descLibre);
-  
-    // Métodos de acceso 
+
+    // Métodos de acceso
     RepresentacionE* getRepresentacion();
     void setRepresentacion(RepresentacionE* rep);
-    
 
     string getDescripcion();
     void setDescripcion(string desc);
 
     // Método para mostrar el diagnóstico
-    void mostrar() const; 
-}; 
+    void mostrar() const;
+};
 
 #endif // DIAGNOSTICO_H

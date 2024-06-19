@@ -1,7 +1,6 @@
 #include "medico.h"
 #include <iostream>
 
-#include "medico.h"
 
 // Constructor de Medico que inicializa los atributos de Usuario
 Medico::Medico(bool activo, int CI, Sexo sexo, Fecha* fechaNacimiento, string nombre, string apellido, string contrasena)
