@@ -4,11 +4,17 @@
 #include "fecha.h"
 
 
-//Iniciar Sesion
-Usuario::Usuario(int ci,string contrasena){
-
-    this->CI = ci;
-    this->contrasena = contrasena;
+Usuario::Usuario(string nombre,string apellido,Sexo sexo,int CI,Fecha* FechaNacimiento,TipoUsuario tipo){
+    this->nombre = nombre;
+    this->apellido = apellido;
+    this->sexo = sexo;
+    this->CI = CI;
+    this->contrasena = "";
+    if (this->fechaNacimiento != NULL){
+        delete fechaNacimiento;
+    }
+    this->fechaNacimiento = FechaNacimiento;
+    this->tipoUsuario = tipo;
 }
 
 int Usuario::getCI(){
@@ -20,26 +26,7 @@ string Usuario::getContrasena(){
 }
 
 
-bool Usuario::comprobarPass(string pass){
-    return pass == this->contrasena;
-}
-
-
-Usuario::Usuario(string nombre,string apellido,Sexo sexo,int CI,Fecha* FechaNacimiento){
-    this->nombre = nombre;
-    this->apellido = apellido;
-    this->sexo = sexo;
-    this->CI = CI;
-
-    if (this->fechaNacimiento != NULL){
-        delete fechaNacimiento;
-    }
-    fechaNacimiento = FechaNacimiento;
-}
-
-//Alta reactivacion
-
-int Usuario::getEdad() const {
+int Usuario::getEdad() {
     if (fechaNacimiento == NULL) {
         return -1; // Indica que no hay fecha de nacimiento
     }
@@ -57,17 +44,12 @@ int Usuario::getEdad() const {
     return edad;
 }
 
-
-Usuario::Usuario(string nombre,string contrasena,Sexo sexo,Fecha* fechaNacimiento){
-
-    this->nombre = nombre;
-    this->sexo = sexo;
-    this->fechaNacimiento = fechaNacimiento;
-    //Tipo de Usuario? hacemos enum?
+bool Usuario::comprobarPass(string pass){
+    return pass == this->contrasena;
 }
 
 Usuario::~Usuario() {
-    if (fechaNacimiento != nullptr) {
+    if (fechaNacimiento != NULL) {
         delete fechaNacimiento;
     }
 }

@@ -5,11 +5,7 @@
 class Socio: public Usuario{
     public:
     Socio(int CI,Sexo sexo, string nombre, string apellido, string contrasena,bool activo=true, Fecha* fechaNacimiento = NULL);
-    };
-    
-    int getCI();
-    bool comprobarPass(string pass);
-    string getContrasena();
-    int getEdad();
 
+    ~Socio();    
+};
 #endif

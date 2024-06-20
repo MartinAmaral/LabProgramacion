@@ -6,6 +6,7 @@
 #include "sexo.h"
 #include "fecha.h"
 #include <ctime>
+#include "tipoUsuario.h"
 
 using namespace std;
 
@@ -19,21 +20,31 @@ class Usuario{
         string nombre;
         string apellido;
         string contrasena;
+        TipoUsuario tipoUsuario;
     public:
-        Usuario(int ci,string contrasena);
-        Usuario(string nombre, string apellido, Sexo sexo, bool activo);
-        Usuario(string nombre,string contrasena,Sexo sexo, Fecha* FechaNacimiento);
-        Usuario(string nombre,string apellido,Sexo sexo,int CI,Fecha* FechaNacimiento); // faltaria el tipo de usuario
-        virtual int getCI();
+        Usuario(string nombre,string apellido,Sexo sexo,int CI,Fecha* FechaNacimiento,TipoUsuario tipo);
+        bool getActivo();    
+        int getCI();
+        Sexo getSexo();
+        Fecha* getFechaNacimiento();
+        string getNombre();
+        string getApellido();
+        string getContrasena();
+        TipoUsuario getTipoUsuario();
+
+        int getEdad();
+
+        void setActivo(bool estado);
+        void setCI(int ci);
+        void setSexo(Sexo sexo);    
+        void setFechaNacimiento(Fecha* fecha);
+        void setNombre(string nombre);
+        void setApellido(string apellido);
+        void setContrasena(string contra);
+        //Usuario* setTipoUsario(); habria que crear un usuario nuevo con ese tipo si el nuevo tipo es admin y antes no
+
         virtual bool comprobarPass(string pass);
-        virtual string getContrasena();
-        virtual int getEdad() const;
-        virtual bool getActivo();    
-
-        virtual bool setActivo(bool estado);
-        virtual string setContrasena(string contra);
-
-        virtual ~Usuario();
+        virtual ~Usuario()=0;
 };
 
 #endif
