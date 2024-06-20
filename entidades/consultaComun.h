@@ -10,7 +10,7 @@ class ConsultaComun : public Consulta{
         Fecha* fechaReserva;
         bool asistio;
     public:
-        ConsultaComun(Usuario* paciente, Usuario* medico, Fecha* fechaConsulta, Fecha* fechaReserva);
+        ConsultaComun(Usuario* paciente, Usuario* medico, Fecha* fechaConsulta, Fecha* fechaReserva,bool asistio);
         Fecha* getFechaReserva();
         bool getAsistio();
         void setFechaReserva(Fecha* fecha); 

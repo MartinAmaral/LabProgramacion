@@ -9,13 +9,23 @@
 using namespace std;
 
 class Consulta {
-protected:
+protected: 
     Fecha* fechaConsulta;
     string hora;
     Usuario* paciente;
     Usuario* medico;
 public:
-    Consulta(Fecha* fecha, string hora, Usuario* paciente, Usuario* medico);
+    
+    Fecha* getFechaConsulta();
+    string getHora();
+    Usuario* getPaciente();
+    Usuario* getMedico();
+
+    void setFechaConsulta(Fecha* fecha);
+    void setHora(string hora);
+    void setPaciente(Usuario* paciente);
+    void setMedico(Usuario* medico);
+
     virtual ~Consulta() = 0;
 };
 
