@@ -21,6 +21,3 @@ void ConsultaEmergencia::setMotivo(string motivo){
 ConsultaEmergencia::~ConsultaEmergencia() {
     delete this->fechaConsulta;
 }
-void ConsultaEmergencia::agregarDiagnostico(Diagnostico* diagnostico) {
-    this->diagnosticos.push_back(diagnostico);
-}

@@ -16,7 +16,6 @@ protected:
     Usuario* paciente;
     Usuario* medico;
 public:
-
     Fecha* getFechaConsulta();
     string getHora();
     Usuario* getPaciente();
@@ -30,5 +29,4 @@ public:
 
     virtual ~Consulta() = 0;
 };
-
 #endif

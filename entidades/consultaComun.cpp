@@ -27,10 +27,6 @@ void ConsultaComun::setFechaReserva(Fecha* fecha){
     this->fechaReserva = fecha;
 }
 
-
 ConsultaComun::~ConsultaComun(){
     delete fechaReserva;
-}
-void ConsultaComun::agregarDiagnostico(Diagnostico* diagnostico) {
-    this->diagnosticos.push_back(diagnostico);
 }

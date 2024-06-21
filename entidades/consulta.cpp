@@ -37,13 +37,12 @@ Fecha* Consulta::getFechaConsulta(){
     return this->fechaConsulta;
 }
 
-
 Consulta::~Consulta() {
     delete fechaConsulta;
 }
 
-void agregarDiagnostico(Diagnostico* diagnostico){
-    this->diagnosticos.push_back(diagnostico)
+void Consulta::agregarDiagnostico(Diagnostico* diagnostico){
+    this->diagnosticos.push_back(diagnostico);
 }
 
 

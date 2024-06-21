@@ -17,14 +17,37 @@ Usuario::Usuario(string nombre,string apellido,Sexo sexo,int CI,Fecha* FechaNaci
     this->tipoUsuario = tipo;
 }
 
+bool Usuario::getActivo(){
+    return this->activo;
+}
+
 int Usuario::getCI(){
     return CI;
 }
 
-string Usuario::getContrasena(){
-    return contrasena;
+Sexo Usuario::getSexo(){
+    return this->sexo;;
 }
 
+Fecha* Usuario::getFechaNacimiento(){
+    return this->fechaNacimiento;
+}
+
+string Usuario::getNombre(){
+    return this->nombre;
+}
+
+string Usuario::getApellido(){
+    return this->apellido;
+}
+
+string Usuario::getContrasena(){
+    return this->contrasena;
+}
+        
+TipoUsuario Usuario::getTipoUsuario(){
+    return this->tipoUsuario;
+}
 
 int Usuario::getEdad() {
     if (fechaNacimiento == NULL) {
@@ -42,6 +65,36 @@ int Usuario::getEdad() {
         edad--;
     }
     return edad;
+}
+
+        
+void Usuario::setActivo(bool estado){
+    this->activo = estado;
+}
+        
+void Usuario::setCI(int ci){
+    this->CI = ci;
+}
+        
+void Usuario::setSexo(Sexo sexo){
+    this->sexo = sexo;
+}
+        
+void Usuario::setFechaNacimiento(Fecha* fecha){
+    delete this->fechaNacimiento;
+    this->fechaNacimiento = fecha;
+}
+        
+void Usuario::setNombre(string nombre){
+    this->nombre = nombre;
+}
+        
+void Usuario::setApellido(string apellido){
+    this->apellido = apellido;
+}
+        
+void Usuario::setContrasena(string contra){
+    this->contrasena = contra;
 }
 
 bool Usuario::comprobarPass(string pass){
