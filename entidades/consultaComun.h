@@ -16,5 +16,6 @@ class ConsultaComun : public Consulta{
         void setFechaReserva(Fecha* fecha); 
         void setAsistio(bool asistio);
         ~ConsultaComun();
+        virtual void agregarDiagnostico(Diagnostico* diagnostico) override;
 };
 #endif

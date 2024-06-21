@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include "usuario.h"
+#include "diagnostico.h"
 
 using namespace std;
 
@@ -15,7 +16,7 @@ protected:
     Usuario* paciente;
     Usuario* medico;
 public:
-    
+
     Fecha* getFechaConsulta();
     string getHora();
     Usuario* getPaciente();
@@ -25,6 +26,7 @@ public:
     void setHora(string hora);
     void setPaciente(Usuario* paciente);
     void setMedico(Usuario* medico);
+    virtual void agregarDiagnostico(Diagnostico* diagnostico) = 0;
 
     virtual ~Consulta() = 0;
 };

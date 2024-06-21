@@ -9,28 +9,29 @@
 #include "../entidades/consulta.h"
 #include "../entidades/consultaComun.h"
 #include "../entidades/consultaEmergencia.h"
+#include "../entidades/diagnostico.h"
 #include <memory>
 
 using namespace std;
 
-// Este controllador se encarga de los siguientes casos de uso:
-// Registro de Consulta
-// Alta de Diagnostico de Una Consulta
-
-class CConsulta  : public ICConsulta
+class CConsulta
 {
-    private:
-        static CConsulta* InstanceConsulta();
-        map<string, shared_ptr<Consulta>> consultas;
+private:
+    static CConsulta* instance;
 
-        CConsulta() {}
-        string generarClave(const string& ciMedico, const string& ciPaciente, const Fecha& fechaConsulta) const;
-    public:
-        static CConsulta* getInstanceConsulta();
-        void ingresarDatosConsultaComun(Usuario* medico, Usuario* paciente, const Fecha& fechaConsulta, Fecha* fechaReserva, bool asistio);
-        void ingresarDatosConsultaEmergencia(Usuario* medico, Usuario* paciente, const Fecha& fechaConsulta, string motivo);
-        bool consultaExistente(const string& ciMedico, const string& ciPaciente, const Fecha& fechaConsulta) const;
-        void darAltaDiagnostico(const string& ciMedico, const string& ciPaciente, const Fecha& fechaConsulta, Diagnostico* diagnostico);
-        map<string, shared_ptr<Consulta>> obtenerConsultasDelDia(const string& ciMedico, const Fecha& fechaConsulta);
+    map<string, shared_ptr<Consulta>> consultas;
+
+    CConsulta() {}
+    string generarClave(int ciMedico, int ciPaciente, const Fecha& fechaConsulta) const;
+
+public:
+    static CConsulta* getInstanceConsulta();
+    void ingresarDatosConsultaComun(Usuario* medico, Usuario* paciente, const Fecha& fechaConsulta, Fecha* fechaReserva, bool asistio);
+    void ingresarDatosConsultaEmergencia(Usuario* medico, Usuario* paciente, const Fecha& fechaConsulta, string motivo);
+    bool consultaExistente(const string& ciMedico, const string& ciPaciente, const Fecha& fechaConsulta) const;
+    void darAltaDiagnostico(const string& ciMedico, const string& ciPaciente, const Fecha& fechaConsulta, Diagnostico* diagnostico);
+    map<string, shared_ptr<Consulta>> obtenerConsultasDelDia(const string& ciMedico, const Fecha& fechaConsulta);
+    virtual void agregarDiagnostico(const string& ciMedico, const string& ciPaciente, const Fecha& fechaConsulta, Diagnostico* diagnostico);
 };
+
 #endif

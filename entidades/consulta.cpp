@@ -42,4 +42,8 @@ Consulta::~Consulta() {
     delete fechaConsulta;
 }
 
+void agregarDiagnostico(Diagnostico* diagnostico){
+    this->diagnosticos.push_back(diagnostico)
+}
+
 

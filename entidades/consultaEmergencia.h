@@ -14,6 +14,7 @@ class ConsultaEmergencia : public Consulta{
         ConsultaEmergencia(Usuario* medico, Usuario* paciente,string hora ,Fecha* fechaConsulta, string motivo);
         void setMotivo(string motivo);
         string getMotivo();
+        virtual void agregarDiagnostico(Diagnostico* diagnostico) override;
         ~ConsultaEmergencia();
 };
 
