@@ -8,6 +8,10 @@ class ICUsuarioYSesion {
         //Generales
         virtual Usuario* getUsuarioActivo() =0;
         virtual bool existeUsuario(int CI)=0;
+        virtual Usuario* getUsuario(int ci) =0;
+        virtual TipoUsuario getTipoUsuario(int ci) =0;
+        virtual void inicializarUsuarios(Usuario* usuarios[],int cantidad)=0;
+
         //Iniciar Sesion
         virtual void ingresarCiIS(int ci) =0;
         virtual bool ingresarPassIS(std::string pass)=0;

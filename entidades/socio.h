@@ -4,8 +4,7 @@
 
 class Socio: public Usuario{
     public:
-    Socio(int CI,Sexo sexo, string nombre, string apellido, string contrasena,bool activo=true, Fecha* fechaNacimiento = NULL);
-
-    ~Socio();    
+        Socio(string nombre,string apellido,Sexo sexo,int CI,Fecha* FechaNacimiento,TipoUsuario tipo);
+        ~Socio();    
 };
 #endif

@@ -1,11 +1,8 @@
-
-#include <cstddef>
 #include <iostream>
 #include <string>
 #include <limits>
 #include "menuSesion.h"
 #include "../Interfaces/ICUsuarioYSesion.h"
-
 
 using namespace std;
 
@@ -23,11 +20,8 @@ bool contrasenaValida(string contra){
 ICUsuarioYSesion* controllerSesion;
 
 void MenuSesion::iniciarSesion(){
-
     int cedula = -33;
-
     cout << "Ingrese su cedula (solo numero) o -1 para cancelar:\n";
-    
     do {
         cin >> cedula; 
 	    if(cin.fail() || cedula<0){

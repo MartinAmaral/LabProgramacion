@@ -22,7 +22,7 @@ class Usuario{
         string contrasena;
         TipoUsuario tipoUsuario;
     public:
-        Usuario(string nombre,string apellido,Sexo sexo,int CI,Fecha* FechaNacimiento,TipoUsuario tipo);
+        Usuario(string nombre,string apellido,Sexo sexo,int CI,Fecha* fechaNacimiento,TipoUsuario tipo);
         bool getActivo();    
         int getCI();
         Sexo getSexo();

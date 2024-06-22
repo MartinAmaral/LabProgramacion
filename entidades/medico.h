@@ -4,7 +4,7 @@
 
 class Medico: public Usuario{
     public:
-    Medico(bool activo, int CI,Sexo sexo, Fecha* fechaNacimiento, string nombre, string apellido, string contrasena);
-    ~Medico();
+        Medico(string nombre,string apellido,Sexo sexo,int CI,Fecha* FechaNacimiento,TipoUsuario tipo);
+        ~Medico();
 };
 #endif

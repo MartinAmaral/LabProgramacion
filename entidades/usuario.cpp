@@ -4,17 +4,10 @@
 #include "fecha.h"
 
 
-Usuario::Usuario(string nombre,string apellido,Sexo sexo,int CI,Fecha* FechaNacimiento,TipoUsuario tipo){
-    this->nombre = nombre;
-    this->apellido = apellido;
-    this->sexo = sexo;
-    this->CI = CI;
+Usuario::Usuario(string nombre,string apellido,Sexo sexo,int CI,Fecha* fechaNacimiento,TipoUsuario tipo)
+:nombre(nombre), apellido(apellido), sexo(sexo), CI(CI), fechaNacimiento(fechaNacimiento), tipoUsuario(tipo) {
     this->contrasena = "";
-    if (this->fechaNacimiento != NULL){
-        delete fechaNacimiento;
-    }
-    this->fechaNacimiento = FechaNacimiento;
-    this->tipoUsuario = tipo;
+    this->activo = false;
 }
 
 bool Usuario::getActivo(){

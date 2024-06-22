@@ -1,9 +1,18 @@
 #include "CUsuarioYSesion.h"
 #include <string>
+#include "../entidades/administrativo.h"
 
 using namespace std;
 
-CUsuarioYSesion* CUsuarioYSesion::instanceController = nullptr;
+CUsuarioYSesion* CUsuarioYSesion::instanceController = NULL;
+
+CUsuarioYSesion::CUsuarioYSesion(){
+    this->ciIniciarSesion = 0;
+    Administrativo* adminDef = new Administrativo("admin","defecto",Masculino,26,NULL,Admin);
+    adminDef->setContrasena("de redes");
+    adminDef->setActivo(true);
+    this->usuarioPorDefecto = adminDef;
+}
 
 CUsuarioYSesion* CUsuarioYSesion::getInstanceUsuario() {
     if (instanceController == nullptr) {
@@ -16,8 +25,23 @@ Usuario* CUsuarioYSesion::getUsuarioActivo(){
 }
 
 bool CUsuarioYSesion::existeUsuario(int CI){
-    //revisar en un diccionario
-    return true;
+    return this->usuarios.find(CI) != this->usuarios.end() ;
+} 
+
+Usuario* CUsuarioYSesion::getUsuario(int ci){
+    return this->usuarios[ci];
+}
+        
+TipoUsuario CUsuarioYSesion::getTipoUsuario(int ci){
+    return this->usuarios[ci]->getTipoUsuario();
+}
+        
+void CUsuarioYSesion::inicializarUsuarios(Usuario* usuarios[], int cantidad){
+    int index =0;
+    while(index<cantidad){
+        this->usuarios[usuarios[index]->getCI()] = usuarios[0];  
+        index ++;
+    }
 }
 
 void CUsuarioYSesion::ingresarCiIS(int ci){
@@ -26,29 +50,35 @@ void CUsuarioYSesion::ingresarCiIS(int ci){
 
 bool CUsuarioYSesion::ingresarPassIS(string pass){
 
-    if(ciIniciarSesion == this->cedulaAdminDefecto && pass == this->contrasenaAdmin)
+    if(ciIniciarSesion == usuarioPorDefecto->getCI() && usuarioPorDefecto->comprobarPass(pass))
         return true;
 
-    Usuario* user; // deberiamos buscarlo con la ciIniciarSesion y guardarlo
-    
+    Usuario* user = usuarios[this->ciIniciarSesion];
     return user->comprobarPass(pass);
 }
 
 void CUsuarioYSesion::asignarSesion(){
-    Usuario* user; // buscar por cedula
+    Usuario* user = usuarios[this->ciIniciarSesion];
     this->usuarioActivo = user;
     this->ciIniciarSesion =0;
 }
 
 bool CUsuarioYSesion::esAdminDefecto(){
-    if(this->ciIniciarSesion == this->cedulaAdminDefecto)
-        return true;
-    return false;
+    return true;
 }
 
-void asignarContrasena(string contra){
-    Usuario* usuario;
+void CUsuarioYSesion::asignarContrasena(string contra){
+    Usuario* usuario = this->usuarios[this->ciIniciarSesion];
     usuario->setContrasena(contra);
+}
+        
+void CUsuarioYSesion::recordarCiIS(int ci){
+    this->ciIniciarSesion = ci;
+}
+        
+bool CUsuarioYSesion::usuarioSinContrasena(){
+    Usuario* usuario = this->usuarios[this->ciIniciarSesion];
+    return usuario->getContrasena() == "";
 }
 
 bool CUsuarioYSesion::esActivoIS(){
@@ -61,8 +91,8 @@ void CUsuarioYSesion::cerrarSesion(){
 }
 
 void CUsuarioYSesion::reactivarUsuario(){
-    Usuario* user; // buscar por cedula
-    user->setActivo(true);
+    Usuario* usuario = this->usuarios[this->ciIniciarSesion];
+    usuario->setActivo(true);
 }
 
 
