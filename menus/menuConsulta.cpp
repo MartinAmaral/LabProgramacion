@@ -3,7 +3,15 @@
 #include "../controllers/CConsulta.h"
 #include "../entidades/fecha.h"
 #include "../entidades/usuario.h"
+#include "../entidades/socio.h"
+#include "../entidades/sexo.h"
 #include "../entidades/diagnostico.h"
+#include "../entidades/tratamiento.h"
+#include "../entidades/tipoUsuario.h"
+#include "../entidades/farmaco.h"
+#include <map>
+#include <vector>
+using entidades::Socio;
 using namespace std;
 
 void registrarConsulta() {
@@ -23,13 +31,13 @@ void registrarConsulta() {
 
     cout << "Ingrese la fecha de la consulta (dd mm aaaa): ";
     cin >> dia >> mes >> ano;
-    Fecha fechaConsulta(dia, mes, ano);
+    Fecha fechaConsulta(ano, mes, dia); // Asumiendo que el orden es año, mes, día
 
     if (esEmergencia) {
+        cin.ignore(); // Limpiar el buffer después de leer el char
         cout << "Ingrese el motivo de la consulta: ";
-        cin.ignore();
         getline(cin, motivo);
-        consultaCtrl->ingresarDatosConsultaEmergencia(new Usuario(stoi(ciMedicoStr), ""), new Usuario(stoi(ciPacienteStr), ""), fechaConsulta, motivo);
+        consultaCtrl->ingresarDatosConsultaEmergencia(new Socio("", "", Sexo::Masculino, stoi(ciMedico), nullptr, TipoUsuario::Socio), new Socio("", "", Sexo::Masculino, stoi(ciPaciente), nullptr, TipoUsuario::Socio), fechaConsulta, motivo);
     } else {
         cout << "Ingrese la fecha de reserva (dd mm aaaa): ";
         cin >> diaReserva >> mesReserva >> anoReserva;
@@ -37,11 +45,9 @@ void registrarConsulta() {
         cout << "El paciente asistió a la consulta? (s/n): ";
         cin >> respuestaAsistio;
         asistio = (respuestaAsistio == 's' || respuestaAsistio == 'S');
-        consultaCtrl->ingresarDatosConsultaComun(new Usuario(stoi(ciMedicoStr), ""), new Usuario(stoi(ciPacienteStr), ""), fechaConsulta, new Fecha(fechaReserva), asistio);
+        consultaCtrl->ingresarDatosConsultaComun(new Socio("", "", Sexo::Masculino, stoi(ciMedico), nullptr, TipoUsuario::Socio), new Socio("", "", Sexo::Masculino, stoi(ciPaciente), nullptr, TipoUsuario::Socio), fechaConsulta, &fechaReserva, asistio);
     }
-
     cout << "Consulta registrada exitosamente!" << endl;
-
 }
 
 void altaDiagnostico() {
@@ -64,6 +70,7 @@ void altaDiagnostico() {
     cin >> ciPaciente;
 
     Diagnostico* nuevoDiagnostico = nullptr;
+    vector<Tratamiento*> tratamientos; // Usar vector de punteros a Tratamiento
 
     while (true) {
         string categoriaSeleccionada;
@@ -90,7 +97,17 @@ void altaDiagnostico() {
         cin >> agregarMas;
 
         if (agregarMas == "s" || agregarMas == "S") {
-            // Agregar lógica para tratamientos aquí...
+            string descripcionTratamiento, nombreMedicamento;
+            cout << "Ingrese la descripción del tratamiento: ";
+            getline(cin, descripcionTratamiento);
+
+            cout << "Ingrese el nombre del medicamento: ";
+            getline(cin, nombreMedicamento);
+
+            Tratamiento* tratamiento = new Farmaco(descripcionTratamiento, nombreMedicamento);
+            tratamientos.push_back(tratamiento); // Agregar tratamiento al vector
+
+            cout << "Tratamiento agregado exitosamente." << endl;
         }
 
         cout << "¿Desea agregar otro diagnóstico? (s/n): ";
@@ -101,6 +118,7 @@ void altaDiagnostico() {
         }
     }
 
-    consultaManager->darAltaDiagnostico(ciMedico, ciPaciente, fechaActual, nuevoDiagnostico);
+    consultaManager->darAltaDiagnostico(ciMedico, ciPaciente, fechaActual, nuevoDiagnostico, tratamientos);
     cout << "Diagnósticos registrados exitosamente." << endl;
 }
+

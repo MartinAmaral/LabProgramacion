@@ -5,3 +5,6 @@ Socio::Socio(string nombre,string apellido,Sexo sexo,int CI,Fecha* fechaNacimien
     this->setActivo(false);
     this->setContrasena("");
 }
+bool Usuario::comprobarPass(string pass){
+    return pass == this->contrasena;
+}

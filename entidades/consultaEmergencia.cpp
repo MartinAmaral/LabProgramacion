@@ -2,11 +2,10 @@
 #include "fecha.h"
 #include "usuario.h"
 
-ConsultaEmergencia::ConsultaEmergencia(Usuario* medico, Usuario* paciente,string hora ,Fecha* fechaConsulta, string motivo){
-    this->medico = medico;
-    this->paciente = paciente;
-    this->hora = hora;
-    this->fechaConsulta = fechaConsulta;
+ConsultaEmergencia::ConsultaEmergencia(Usuario* paciente, Usuario* medico, const Fecha& fechaConsulta, const std::string& motivo) {
+    this->setPaciente(paciente);
+    this->setMedico(medico);
+    this->setFechaConsulta(new Fecha(fechaConsulta));
     this->motivo = motivo;
 }
 

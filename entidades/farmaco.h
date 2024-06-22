@@ -12,5 +12,6 @@ private:
 public:
     Farmaco(string descripcion, string nombreMedicamento);
     ~Farmaco();
+    const std::string& getNombreMedicamento() const;
 };
 #endif

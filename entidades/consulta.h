@@ -6,26 +6,28 @@
 #include <string>
 #include "usuario.h"
 #include "diagnostico.h"
+#include <map>
 
 using namespace std;
 
 class Consulta {
-protected: 
+protected:
     Fecha* fechaConsulta;
     string hora;
     Usuario* paciente;
     Usuario* medico;
+    map<string, Diagnostico*> diagnosticos; // Vector para almacenar diagnósticos
 public:
     Fecha* getFechaConsulta();
     string getHora();
     Usuario* getPaciente();
     Usuario* getMedico();
-
+    Consulta(Usuario* paciente, Usuario* medico, Fecha* fechaConsulta);
     void setFechaConsulta(Fecha* fecha);
     void setHora(string hora);
     void setPaciente(Usuario* paciente);
     void setMedico(Usuario* medico);
-    virtual void agregarDiagnostico(Diagnostico* diagnostico) = 0;
+    void agregarDiagnostico(Diagnostico* diagnostico);
 
     virtual ~Consulta() = 0;
 };

@@ -34,7 +34,7 @@ CDiagnostico* CDiagnostico::getInstanceDiagnostico() {
         }
 
         //Listar representaciones estandarizadas, agregar y seleccionar OPCIONAL
-        
+
         void ListarRepresentacionesEstand(){
 
         }
