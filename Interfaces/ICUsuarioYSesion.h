@@ -28,7 +28,7 @@ class ICUsuarioYSesion {
 
         // Alta/Reactivación de Usuario
         virtual InfoUsuarioDT* devolverInfo(int cedula)=0;
-        virtual void altaUsuario(InfoUsuarioDT* info)=0;
+        virtual void altaUsuario(InfoUsuarioDT* info,int cedula)=0;
         virtual void reactivarUsuario(int cedula)=0; 
         virtual bool esActivo(int cedula)=0;
         

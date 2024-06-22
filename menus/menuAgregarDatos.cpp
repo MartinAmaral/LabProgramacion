@@ -22,7 +22,7 @@ void MenuAgregarDatos::AgregarDatos(){
         std::cout << "Los Datos ya fueron agregados.\n";
     }
     else{
-        Usuario * usuariosAgregar[6];
+        Usuario* usuariosAgregar[6];
         Usuario* usuarioJA = new Administrativo("James","Peer",Masculino,34567645,new Fecha(1988,12,28),Admin);
         Usuario* usuarioTM = new class Socio("Tifany","McKensey",Femenino,34562345,new Fecha(1990,1,1),Socio);
         Usuario* usuarioDP = new class Socio("Diego","Perez",Masculino,12345435,new Fecha(1980,3,3),Socio);
@@ -38,7 +38,7 @@ void MenuAgregarDatos::AgregarDatos(){
         usuariosAgregar[5] = usuarioAL;
 
         FabricaCUsuario::getCUsuario()->inicializarUsuarios(usuariosAgregar,6);
-
+        /*
         // Consultas consulta 
         // paciente medico consulta reserva
         ConsultaComun * consultaC1 = new ConsultaComun(usuarioTM,usuarioJM,new Fecha(2014,6,23),new Fecha(2014,6,21));
@@ -61,7 +61,7 @@ void MenuAgregarDatos::AgregarDatos(){
         RepresentacionE* repreR3 = new RepresentacionE("B01","Nauseas");
 
         // Ni idea como quiere que hagamos los diagnosticos
-        
+        */
         hayDatos = true;
     }
 

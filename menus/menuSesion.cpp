@@ -156,6 +156,8 @@ void MenuSesion::darAlta(int cedula){ // hice esto por la indentacion de mierda
         }
         else cout << "El usuario se encuentra inactivo\n";
 
+        delete info;
+
         if(controllerSesion->esActivo(cedula)){
             cout << "Quiere reactivar a este Usuario?\n";
             int valor =-1;
@@ -172,6 +174,7 @@ void MenuSesion::darAlta(int cedula){ // hice esto por la indentacion de mierda
                 controllerSesion->reactivarUsuario(cedula);
                 cout << "El usuario con cedula: " << cedula << "ha sido reactivado\n";
             }
+            else cout << "El usuario no ha sido reactivado\n";
         return;
         }
     }
@@ -203,6 +206,46 @@ void MenuSesion::darAlta(int cedula){ // hice esto por la indentacion de mierda
             sexo = Masculino;
         else sexo = Femenino;
         
+        Fecha* fecha;
+        int dia = -1;
+        do{
+            cout<< "\nIngrese el dia de nacimiento: \n";
+            cin >> dia; 
+            if(cin.fail() || dia<=0 || dia >31){
+                cin.clear(); 
+	            cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                dia = -1;
+            }
+        }while(dia<0);
+        
+
+        int mes = -1;
+        do{
+            cout<< "\nIngrese el mes de nacimiento: \n";
+            cin >> mes; 
+            if(cin.fail() || mes<=0 || mes >12){
+                cin.clear(); 
+	            cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                mes = -1;
+            }
+        }while(mes<0);
+        
+        int ano = -1;
+        do{
+            cout<< "\nIngrese el ano de nacimiento: \n";
+            cin >> ano; 
+            if(cin.fail() || ano<0 || ano >2024){
+                cin.clear(); 
+	            cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                ano = -1;
+            }
+        }while(ano<0);
+
+        fecha = new Fecha(ano, mes, dia);
+
         int tipoN = -1;
         do{
             cout<< "\nIngrese 0 para cancelar la alta de usuario\n";
@@ -217,10 +260,6 @@ void MenuSesion::darAlta(int cedula){ // hice esto por la indentacion de mierda
             }
         }while(tipoN<0);
         
-        // Falta la fecha
-        Fecha* fecha;
-
-        // 
         TipoUsuario tipo;
 
         if(tipoN == 1)
@@ -235,7 +274,7 @@ void MenuSesion::darAlta(int cedula){ // hice esto por la indentacion de mierda
             tipo = SocioAdmin;
 
         InfoUsuarioDT* infoDt = new InfoUsuarioDT(nombre,apellido,sexo,fecha,tipo);
-        controllerSesion->altaUsuario(infoDt);    
+        controllerSesion->altaUsuario(infoDt,cedula);    
 
         cout <<"\nUsuario dado de alta existosamente!\n";
     }

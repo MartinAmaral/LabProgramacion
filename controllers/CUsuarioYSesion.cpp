@@ -1,6 +1,8 @@
 #include "CUsuarioYSesion.h"
 #include <string>
 #include "../entidades/administrativo.h"
+#include "../entidades/socio.h"
+#include "../entidades/medico.h"
 
 using namespace std;
 
@@ -99,8 +101,20 @@ InfoUsuarioDT* CUsuarioYSesion::devolverInfo(int cedula){
     return new InfoUsuarioDT(user->getNombre(),user->getApellido(),user->getSexo(),user->getFechaNacimiento(),user->getTipoUsuario());
 }
 
-void CUsuarioYSesion::altaUsuario(InfoUsuarioDT* info){
-    error;
+void CUsuarioYSesion::altaUsuario(InfoUsuarioDT* info,int cedula){
+    Usuario* nuevoUsuario;
+    if(info->getTipo() == Admin || info->getTipo() == SocioAdmin){
+        nuevoUsuario = new Administrativo(info->getNombre(),info->getApellido(),info->getSexo(),cedula,
+                                          info->getFechaNacimiento(),info->getTipo());
+    } else if (info->getTipo() == Medico || info->getTipo() == SocioMedico){
+        nuevoUsuario = new class Medico(info->getNombre(),info->getApellido(),info->getSexo(),cedula,
+                                          info->getFechaNacimiento(),info->getTipo());
+    } else {
+        nuevoUsuario = new class Socio(info->getNombre(),info->getApellido(),info->getSexo(),cedula,
+                                          info->getFechaNacimiento(),info->getTipo());
+    }
+
+    this->usuarios[cedula] = nuevoUsuario;
 }
 
 bool CUsuarioYSesion::esActivo(int cedula){

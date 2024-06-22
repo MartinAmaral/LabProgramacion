@@ -43,7 +43,7 @@ class CUsuarioYSesion : public ICUsuarioYSesion {
         void cerrarSesion() override; 
         // Alta/Reactivación de Usuario
         InfoUsuarioDT* devolverInfo(int cedula) override;
-        void altaUsuario(InfoUsuarioDT* info)override;
+        void altaUsuario(InfoUsuarioDT* info,int cedula)override;
         bool esActivo(int cedula) override;
         void reactivarUsuario(int cedula) override; 
         ~CUsuarioYSesion();
