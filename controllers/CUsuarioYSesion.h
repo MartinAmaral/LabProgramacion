@@ -26,12 +26,13 @@ class CUsuarioYSesion : public ICUsuarioYSesion {
         Usuario* getUsuarioActivo() override;
         bool existeUsuario(int CI) override;
         Usuario* getUsuario(int ci) override;
-        TipoUsuario getTipoUsuario(int ci) override;
+        TipoUsuario getTipoUsuarioActivo() override;
         void inicializarUsuarios(Usuario* usuarios[],int cantidad) override;
         //Iniciar Sesion
         void ingresarCiIS(int ci) override; 
         bool ingresarPassIS(std::string pass) override; 
         void asignarSesion() override; 
+        void asignarSesionDefecto() override; 
         bool esAdminDefecto() override; 
         void asignarContrasena(std::string contra) override; 
         void recordarCiIS(int ci) override; 
@@ -40,7 +41,8 @@ class CUsuarioYSesion : public ICUsuarioYSesion {
         //Cerrar Sesion
         void cerrarSesion() override; 
         // Alta/Reactivación de Usuario
-        void reactivarUsuario() override; 
+        bool esActivo(int cedula) override;
+        void reactivarUsuario(int cedula) override; 
         ~CUsuarioYSesion();
 }; 
 #endif

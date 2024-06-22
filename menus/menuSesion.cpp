@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <iostream>
 #include <string>
 #include <limits>
@@ -17,9 +18,11 @@ bool contrasenaValida(string contra){
     return true;
 }
 
-ICUsuarioYSesion* controllerSesion;
+ICUsuarioYSesion* controllerSesion = NULL;
 
 void MenuSesion::iniciarSesion(){
+    //if (controllerSesion == NULL)
+    
     int cedula = -33;
     cout << "Ingrese su cedula (solo numero) o -1 para cancelar:\n";
     do {
@@ -54,7 +57,7 @@ void MenuSesion::iniciarSesion(){
             std::cin >> contra; 
 	        if(contra == "salir") return;
         }
-        controllerSesion->asignarSesion();
+        controllerSesion->asignarSesionDefecto();
         cout<< "\nSesion Admin Default iniciada \n";
         return;
     }
@@ -78,7 +81,6 @@ void MenuSesion::iniciarSesion(){
     }
     else{
         string contra = "";
-        
         cout << "\nIngrese su contrasena o 'salir' para salir:\n";
         cin >> contra; 
         while (!contrasenaValida(contra)) { 
@@ -88,7 +90,6 @@ void MenuSesion::iniciarSesion(){
             cout << "\nIngrese una contrasena valida o escriba 'salir' para salir\n";
             cin >> contra; 
         }
-        
         if (!controllerSesion->esActivoIS()){
             cout << "\nUsuario inactivo, no se puede realizar el inicio de sesión\n";
             return;
@@ -110,26 +111,32 @@ void MenuSesion::cerrarSesion(){
 
 void darAlta(int cedula){ // hice esto por la indentacion de mierda
 
-    if (true){ // nos fijamos si exite la ceula y reactivamos el Usuario 
+    if (controllerSesion->existeUsuario(cedula)){ // nos fijamos si existe la ceula y reactivamos el Usuario 
        
-        // devolver todos los datos del usario en un dt
-
-        cout << "Quiere reactivar a este Usuario?\n";
-        int valor =-1;
-        do{
-            cout<< "Ingresa 1 para reactivar el usuario y 0 para no \n";
-            cin >> valor; 
-            if(cin.fail() || valor<0 || valor >1){
-                cin.clear(); 
-	            cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        //devolver los datos en un dt y mostarlos en consola cout
+        //
+        if(controllerSesion->esActivo(cedula)){
+            cout << "Quiere reactivar a este Usuario?\n";
+            int valor =-1;
+            do{
+                cout<< "Ingresa 1 para reactivar el usuario y 0 para no \n";
+                cin >> valor; 
+                if(cin.fail() || valor<0 || valor >1){
+                    cin.clear(); 
+	                cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                }
+            }while(valor<0);
+            if(valor == 1){
+                controllerSesion->reactivarUsuario(cedula);
+                cout << "El usuario con cedula: " << cedula << "ha sido reactivado\n";
             }
-        }while(valor<0);
-        if(valor == 1){
-            //reactivar al usuario
-            cout << "El usuario con cedula: " << cedula << "ha sido reactivado\n";
-        }
         return;
+        }
+    }
+    else { //ingresar los datos del usuario con un di
+
+
     }
     
     cout << "El usuario con esa cedula no existe ingrese los datos para ingrearlo en el sistema\n";
@@ -142,8 +149,7 @@ void darAlta(int cedula){ // hice esto por la indentacion de mierda
 
 void MenuSesion::altaUsuario(){
 
-    if (false){
-        // fijarnos si el usuario logeado es un Usario Administrativo
+    if (controllerSesion->getTipoUsuarioActivo() == Admin || controllerSesion->getTipoUsuarioActivo() == SocioAdmin ){
         cout<< "Se necesita a un Usuario administrativo para dar de alta o Reactivar a un usuario.\n";
         return;
     }
@@ -161,6 +167,7 @@ void MenuSesion::altaUsuario(){
         }
         else {
             darAlta(cedula);
+            cedula = -33;
         }
         cedula = -33;
     }while(cedula == -33);

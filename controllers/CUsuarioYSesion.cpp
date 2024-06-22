@@ -25,15 +25,15 @@ Usuario* CUsuarioYSesion::getUsuarioActivo(){
 }
 
 bool CUsuarioYSesion::existeUsuario(int CI){
-    return this->usuarios.find(CI) != this->usuarios.end() ;
+    return this->usuarios.find(CI) != this->usuarios.end();
 } 
 
 Usuario* CUsuarioYSesion::getUsuario(int ci){
     return this->usuarios[ci];
 }
         
-TipoUsuario CUsuarioYSesion::getTipoUsuario(int ci){
-    return this->usuarios[ci]->getTipoUsuario();
+TipoUsuario CUsuarioYSesion::getTipoUsuarioActivo(){
+    return this->usuarioActivo->getTipoUsuario();
 }
         
 void CUsuarioYSesion::inicializarUsuarios(Usuario* usuarios[], int cantidad){
@@ -63,8 +63,12 @@ void CUsuarioYSesion::asignarSesion(){
     this->ciIniciarSesion =0;
 }
 
+void CUsuarioYSesion::asignarSesionDefecto(){
+    usuarioActivo = usuarioPorDefecto;
+}
+
 bool CUsuarioYSesion::esAdminDefecto(){
-    return true;
+    return usuarioPorDefecto->getCI() == ciIniciarSesion;
 }
 
 void CUsuarioYSesion::asignarContrasena(string contra){
@@ -82,7 +86,7 @@ bool CUsuarioYSesion::usuarioSinContrasena(){
 }
 
 bool CUsuarioYSesion::esActivoIS(){
-    Usuario* usuario;
+    Usuario* usuario = this->usuarios[this->ciIniciarSesion];
     return usuario->getActivo(); 
 }
 
@@ -90,8 +94,13 @@ void CUsuarioYSesion::cerrarSesion(){
    this->usuarioActivo = NULL;
 }
 
-void CUsuarioYSesion::reactivarUsuario(){
-    Usuario* usuario = this->usuarios[this->ciIniciarSesion];
+bool CUsuarioYSesion::esActivo(int cedula){
+    Usuario* usuario = this->usuarios[cedula];
+    usuario->getActivo();
+}
+
+void CUsuarioYSesion::reactivarUsuario(int cedula){
+    Usuario* usuario = this->usuarios[cedula];
     usuario->setActivo(true);
 }
 

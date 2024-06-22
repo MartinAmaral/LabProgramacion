@@ -3,7 +3,6 @@
 #include "sexo.h"
 #include "fecha.h"
 
-
 Usuario::Usuario(string nombre,string apellido,Sexo sexo,int CI,Fecha* fechaNacimiento,TipoUsuario tipo)
 :nombre(nombre), apellido(apellido), sexo(sexo), CI(CI), fechaNacimiento(fechaNacimiento), tipoUsuario(tipo) {
     this->contrasena = "";
