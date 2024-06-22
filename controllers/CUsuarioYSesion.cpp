@@ -96,7 +96,7 @@ void CUsuarioYSesion::cerrarSesion(){
 
 bool CUsuarioYSesion::esActivo(int cedula){
     Usuario* usuario = this->usuarios[cedula];
-    usuario->getActivo();
+    return usuario->getActivo();
 }
 
 void CUsuarioYSesion::reactivarUsuario(int cedula){

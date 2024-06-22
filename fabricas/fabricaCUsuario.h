@@ -4,7 +4,7 @@
 
 class FabricaCUsuario{
     public:
-         ICUsuarioYSesion* getCUsuario();
+         static ICUsuarioYSesion* getCUsuario();
 };
 
 #endif  

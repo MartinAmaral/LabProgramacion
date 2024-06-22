@@ -4,6 +4,7 @@
 #include <limits>
 #include "menuSesion.h"
 #include "../Interfaces/ICUsuarioYSesion.h"
+#include "../fabricas/fabricaCUsuario.h"
 
 using namespace std;
 
@@ -21,8 +22,9 @@ bool contrasenaValida(string contra){
 ICUsuarioYSesion* controllerSesion = NULL;
 
 void MenuSesion::iniciarSesion(){
-    //if (controllerSesion == NULL)
-    
+    if (controllerSesion == NULL)
+        controllerSesion = FabricaCUsuario::getCUsuario(); 
+
     int cedula = -33;
     cout << "Ingrese su cedula (solo numero) o -1 para cancelar:\n";
     do {
@@ -100,6 +102,9 @@ void MenuSesion::iniciarSesion(){
 }
 
 void MenuSesion::cerrarSesion(){
+    if (controllerSesion == NULL)
+        controllerSesion = FabricaCUsuario::getCUsuario(); 
+
     if (controllerSesion->getUsuarioActivo() == NULL){
         cout << "No hay ninguna sesion iniciada.!\n";
     }
@@ -148,6 +153,8 @@ void darAlta(int cedula){ // hice esto por la indentacion de mierda
 }
 
 void MenuSesion::altaUsuario(){
+    if (controllerSesion == NULL)
+        controllerSesion = FabricaCUsuario::getCUsuario(); 
 
     if (controllerSesion->getTipoUsuarioActivo() == Admin || controllerSesion->getTipoUsuarioActivo() == SocioAdmin ){
         cout<< "Se necesita a un Usuario administrativo para dar de alta o Reactivar a un usuario.\n";

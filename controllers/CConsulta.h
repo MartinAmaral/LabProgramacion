@@ -10,6 +10,7 @@
 #include "../entidades/consultaComun.h"
 #include "../entidades/consultaEmergencia.h"
 #include "../entidades/diagnostico.h"
+#include "../Interfaces/ICConsulta.h"
 
 using namespace std;
 
