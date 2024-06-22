@@ -1,15 +1,20 @@
 #include "menuAgregarDatos.h"
 #include <iostream>
+
 #include "../entidades/usuario.h"
+#include "../entidades/administrativo.h"
+#include "../entidades/medico.h"
+#include "../entidades/socio.h"
+
 #include "../entidades/consultaComun.h"
 #include "../entidades/consultaEmergencia.h"
 #include "../entidades/consulta.h"
 
 #include <string>
-#include "../entidades/sexo.h"
 #include "../entidades/fecha.h"
 #include "../entidades/representacionE.h"
-#include "../entidades/categorias.h"
+
+#include "../fabricas/fabricaCUsuario.h"
 
 void MenuAgregarDatos::AgregarDatos(){
 
@@ -17,34 +22,22 @@ void MenuAgregarDatos::AgregarDatos(){
         std::cout << "Los Datos ya fueron agregados.\n";
     }
     else{
-        // Agregar usuarios
-        Fecha* fecha = new Fecha(1988,12,28);
-        Usuario* usuarioJA = new Usuario("James","Peer",Masculino,34567645,fecha);
-
-        fecha = new Fecha(1990,1,1);
-        Usuario* usuarioTM = new Usuario("James","Peer",Masculino,34567645,fecha);
-
-        fecha = new Fecha(1980,3,3);
-        Usuario* usuarioDP = new Usuario("James","Peer",Masculino,34567645,fecha);
-
-        fecha = new Fecha(1970,4,7); 
-        usuarioAgregar = new Usuario("James","Peer",Masculino,34567645,fecha);
-
-        fecha = new Fecha(1993,7,13); 
-        usuarioAgregar = new Usuario("James","Peer",Masculino,34567645,fecha);
-
-        fecha = new Fecha(1981,9,24); 
-        usuarioAgregar = new Usuario("James","Peer",Masculino,34567645,fecha);
-        
-        Usuario* usuarioJA = new Usuario("James","Peer",Masculino,34567645,new Fecha(1988,12,28));
-        Usuario* usuarioTM = new Usuario("Tifany","McKensey",Femenino,34562345,new Fecha(1990,1,1));
-        Usuario* usuarioDP = new Usuario("Diego","Perez",Masculino,12345435,new Fecha(1980,3,3));
-        Usuario* usuarioJM = new Usuario("Juan","Montoya",Masculino,65436667,new Fecha(1970,4,7));
-        Usuario* usuarioDC = new Usuario("Debora","Corral",Femenino,43521343,new Fecha(1993,7,13));
-        Usuario* usuarioAL = new Usuario("Ana","Lopez",Femenino,98056743,new Fecha(1981,9,24));
+        Usuario * usuariosAgregar[6];
+        Usuario* usuarioJA = new Administrativo("James","Peer",Masculino,34567645,new Fecha(1988,12,28),Admin);
+        Usuario* usuarioTM = new class Socio("Tifany","McKensey",Femenino,34562345,new Fecha(1990,1,1),Socio);
+        Usuario* usuarioDP = new class Socio("Diego","Perez",Masculino,12345435,new Fecha(1980,3,3),Socio);
+        Usuario* usuarioJM = new class Medico("Juan","Montoya",Masculino,65436667,new Fecha(1970,4,7),SocioMedico);
+        Usuario* usuarioDC = new class Medico("Debora","Corral",Femenino,43521343,new Fecha(1993,7,13),Medico);
+        Usuario* usuarioAL = new class Medico("Ana","Lopez",Femenino,98056743,new Fecha(1981,9,24),Medico);
        
-        // Aca se agregarian uno por uno
+        usuariosAgregar[0] = usuarioJA;
+        usuariosAgregar[1] = usuarioTM;
+        usuariosAgregar[2] = usuarioDP;
+        usuariosAgregar[3] = usuarioJM;
+        usuariosAgregar[4] = usuarioDC;
+        usuariosAgregar[5] = usuarioAL;
 
+        FabricaCUsuario::getCUsuario()->inicializarUsuarios(usuariosAgregar,6);
 
         // Consultas consulta 
         // paciente medico consulta reserva
@@ -68,8 +61,8 @@ void MenuAgregarDatos::AgregarDatos(){
         RepresentacionE* repreR3 = new RepresentacionE("B01","Nauseas");
 
         // Ni idea como quiere que hagamos los diagnosticos
-
+        
+        hayDatos = true;
     }
-
 
 }

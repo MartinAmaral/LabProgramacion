@@ -7,6 +7,7 @@
 #include <iostream>
 #include "menus/menuSesion.h"
 #include "menus/menuConsulta.h"
+#include "menus/menuAgregarDatos.h"
 using namespace std;
 
 int main (){
@@ -14,8 +15,9 @@ int main (){
 
     MenuSesion* menuSesion = new MenuSesion();
 	MenuConsulta* menuConsulta = new MenuConsulta();
-
-	while(option !=6){
+    MenuAgregarDatos* menuDatos = new MenuAgregarDatos();
+	
+    while(option !=6){
 		cout << "0: Cargar Datos de Prueba\n1: Iniciar Sesion \n";
 		cout << "2: Cerrar Sesion \n3: Alta/Reactivacion de Usuario\n";
         cout << "4: Registrar Consulta\n";
@@ -31,6 +33,7 @@ int main (){
 		}
 	    switch (option){
 	        case 0:
+                menuDatos->AgregarDatos();
 		        break;
     	    case 1:
                 menuSesion->iniciarSesion();

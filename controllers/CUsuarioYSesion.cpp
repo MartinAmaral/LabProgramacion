@@ -93,6 +93,15 @@ bool CUsuarioYSesion::esActivoIS(){
 void CUsuarioYSesion::cerrarSesion(){
    this->usuarioActivo = NULL;
 }
+        
+InfoUsuarioDT* CUsuarioYSesion::devolverInfo(int cedula){
+    Usuario* user = usuarios[cedula];
+    return new InfoUsuarioDT(user->getNombre(),user->getApellido(),user->getSexo(),user->getFechaNacimiento(),user->getTipoUsuario());
+}
+
+void CUsuarioYSesion::altaUsuario(InfoUsuarioDT* info){
+    error;
+}
 
 bool CUsuarioYSesion::esActivo(int cedula){
     Usuario* usuario = this->usuarios[cedula];

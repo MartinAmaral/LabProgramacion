@@ -5,6 +5,7 @@
 #include "../entidades/usuario.h"
 #include "../Interfaces/ICUsuarioYSesion.h"
 #include <map>
+#include "../dts/infoUsuarioDT.h"
 // Este controllador se encarga de los siguientes casos de uso:
 // Iniciar Sesión
 // Cerrar Sesión
@@ -41,6 +42,8 @@ class CUsuarioYSesion : public ICUsuarioYSesion {
         //Cerrar Sesion
         void cerrarSesion() override; 
         // Alta/Reactivación de Usuario
+        InfoUsuarioDT* devolverInfo(int cedula) override;
+        void altaUsuario(InfoUsuarioDT* info)override;
         bool esActivo(int cedula) override;
         void reactivarUsuario(int cedula) override; 
         ~CUsuarioYSesion();
