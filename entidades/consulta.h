@@ -12,10 +12,10 @@ using namespace std;
 
 class Consulta {
 protected:
-    Fecha* fechaConsulta;
+    Fecha* fechaConsulta = NULL;
     string hora;
-    Usuario* paciente;
-    Usuario* medico;
+    Usuario* paciente = NULL;
+    Usuario* medico = NULL;
     map<string, Diagnostico*> diagnosticos; // Vector para almacenar diagnósticos
 public:
     Fecha* getFechaConsulta();

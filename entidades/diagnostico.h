@@ -10,7 +10,7 @@ using namespace std;
 
 class Diagnostico {
 private:
-    RepresentacionE* representacion;
+    RepresentacionE* representacion = NULL;
     string descripcion;
 public:
     // Constructor

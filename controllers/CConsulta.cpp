@@ -3,14 +3,13 @@
 #include "../entidades/medico.h"
 #include "CConsulta.h"
 #include <stdexcept>
-#include <memory>
 #include <map>
 using namespace std;
 
-CConsulta* CConsulta::instance = nullptr;
+CConsulta* CConsulta::instance = NULL;
 
 CConsulta* CConsulta::getInstanceConsulta() {
-    if (instance == nullptr) {
+    if (instance == NULL) {
         instance = new CConsulta();
     }
     return instance;

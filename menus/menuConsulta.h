@@ -9,6 +9,6 @@ class MenuConsulta {
 
     public:
     void registrarConsulta();
-
+    void altaDiagnosticoConsulta();
 };
 #endif

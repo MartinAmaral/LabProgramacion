@@ -1,17 +1,7 @@
 #include <iostream>
 #include <string>
 #include "../controllers/CConsulta.h"
-#include "../entidades/fecha.h"
-#include "../entidades/usuario.h"
-#include "../entidades/socio.h"
-#include "../entidades/sexo.h"
-#include "../entidades/diagnostico.h"
-#include "../entidades/tratamiento.h"
-#include "../entidades/tipoUsuario.h"
-#include "../entidades/farmaco.h"
-#include <map>
-#include <vector>
-using entidades::Socio;
+
 using namespace std;
 
 void registrarConsulta() {

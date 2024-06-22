@@ -3,9 +3,7 @@
 
 #include <string>
 
-
 class MenuSesion {
-    
     private:
 
     public:
