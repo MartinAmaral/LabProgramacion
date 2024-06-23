@@ -1,9 +1,9 @@
 #include <iostream>
 #include <string>
+#include "../entidades/socio.h"
 #include "../controllers/CConsulta.h"
 #include "../entidades/fecha.h"
 #include "../entidades/usuario.h"
-#include "../entidades/socio.h"
 #include "../entidades/sexo.h"
 #include "../entidades/diagnostico.h"
 #include "../entidades/tratamiento.h"
@@ -11,7 +11,7 @@
 #include "../entidades/farmaco.h"
 #include <map>
 #include <vector>
-using entidades::Socio;
+
 using namespace std;
 
 void registrarConsulta() {
@@ -31,13 +31,18 @@ void registrarConsulta() {
 
     cout << "Ingrese la fecha de la consulta (dd mm aaaa): ";
     cin >> dia >> mes >> ano;
-    Fecha fechaConsulta(ano, mes, dia); // Asumiendo que el orden es año, mes, día
 
+    Fecha* fechaConsultan = new Fecha(dia, mes, ano);// Asumiendo que el orden es año, mes, dí
     if (esEmergencia) {
         cin.ignore(); // Limpiar el buffer después de leer el char
         cout << "Ingrese el motivo de la consulta: ";
         getline(cin, motivo);
-        consultaCtrl->ingresarDatosConsultaEmergencia(new Socio("", "", Sexo::Masculino, stoi(ciMedico), nullptr, TipoUsuario::Socio), new Socio("", "", Sexo::Masculino, stoi(ciPaciente), nullptr, TipoUsuario::Socio), fechaConsulta, motivo);
+          consultaCtrl->ingresarDatosConsultaEmergencia(
+            new class Socio("ee", "gg", Sexo::Masculino, stoi(ciMedico), nullptr, TipoUsuario::Socio), 
+            new class Socio("", "", Sexo::Masculino, stoi(ciPaciente), nullptr, TipoUsuario::Socio), 
+            fechaConsultan, 
+            motivo
+        );
     } else {
         cout << "Ingrese la fecha de reserva (dd mm aaaa): ";
         cin >> diaReserva >> mesReserva >> anoReserva;
@@ -45,7 +50,7 @@ void registrarConsulta() {
         cout << "El paciente asistió a la consulta? (s/n): ";
         cin >> respuestaAsistio;
         asistio = (respuestaAsistio == 's' || respuestaAsistio == 'S');
-        consultaCtrl->ingresarDatosConsultaComun(new Socio("", "", Sexo::Masculino, stoi(ciMedico), nullptr, TipoUsuario::Socio), new Socio("", "", Sexo::Masculino, stoi(ciPaciente), nullptr, TipoUsuario::Socio), fechaConsulta, &fechaReserva, asistio);
+        consultaCtrl->ingresarDatosConsultaComun(new class Socio("", "", Sexo::Masculino, stoi(ciMedico), nullptr, TipoUsuario::Socio),new class Socio("", "", Sexo::Masculino, stoi(ciPaciente), nullptr, TipoUsuario::Socio), fechaConsultan, &fechaReserva, asistio);
     }
     cout << "Consulta registrada exitosamente!" << endl;
 }
@@ -56,12 +61,12 @@ void altaDiagnostico() {
     string ciMedico;
     cout << "Ingrese su CI (Médico): ";
     cin >> ciMedico;
-
-    Fecha fechaActual(18, 6, 2024); // Se puede obtener dinámicamente
+  
+    Fecha* fechaActual = new Fecha(2024, 6, 18);
 
     map<string, shared_ptr<Consulta>> consultas = consultaManager->obtenerConsultasDelDia(ciMedico, fechaActual);
     cout << "Consultas para hoy:" << endl;
-    for (const auto& entry : consultas) {
+    for (auto entry : consultas) {
         cout << "CI Paciente: " << entry.first << endl;
     }
 
@@ -115,10 +120,10 @@ void altaDiagnostico() {
 
         if (agregarMas == "n" || agregarMas == "N") {
             break;
-        }
+        } 
     }
 
-    consultaManager->darAltaDiagnostico(ciMedico, ciPaciente, fechaActual, nuevoDiagnostico, tratamientos);
+    consultaManager->darAltaDiagnostico(ciMedico, ciPaciente, fechaActual, nuevoDiagnostico);
     cout << "Diagnósticos registrados exitosamente." << endl;
 }
 

@@ -8,6 +8,12 @@ void Consulta::setHora(string hora){
     this->hora = hora;
 }
 
+
+
+ Consulta::Consulta(Usuario* paciente, Usuario* medico, Fecha* fechaConsulta)
+    : paciente(paciente), medico(medico), fechaConsulta(fechaConsulta) {
+}
+
 void Consulta::setMedico(Usuario* medico){
     this->medico = medico;
 }
@@ -47,7 +53,3 @@ void Consulta::agregarDiagnostico(Diagnostico* diagnostico) {
     diagnosticos[std::to_string(getPaciente()->getCI())] = diagnostico;
 }
 
-
-Consulta::Consulta(Usuario* paciente, Usuario* medico, Fecha* fechaConsulta)
-    : paciente(paciente), medico(medico), fechaConsulta(fechaConsulta) {
-}

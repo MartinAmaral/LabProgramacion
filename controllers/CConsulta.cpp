@@ -1,6 +1,7 @@
 #include <string>
 #include "../entidades/usuario.h"
 #include "../entidades/medico.h"
+#include "../entidades/fecha.h"
 #include "CConsulta.h"
 #include <stdexcept>
 #include <memory>
@@ -16,17 +17,17 @@ CConsulta* CConsulta::getInstanceConsulta() {
     return instance;
 }
 
-string CConsulta::generarClave(int ciMedico, int ciPaciente, const Fecha& fechaConsulta) const {
-    return to_string(ciMedico) + to_string(ciPaciente) + to_string(fechaConsulta.dia) + to_string(fechaConsulta.mes) + to_string(fechaConsulta.ano);
+string CConsulta::generarClave(int ciMedico, int ciPaciente, Fecha* fechaConsulta) {
+    return to_string(ciMedico) + to_string(ciPaciente) + to_string(fechaConsulta->dia) + to_string(fechaConsulta->mes) + to_string(fechaConsulta->ano);
 }
 
-void CConsulta::ingresarDatosConsultaComun(Usuario* medico, Usuario* paciente, const Fecha& fechaConsulta, Fecha* fechaReserva, bool asistio) {
+void CConsulta::ingresarDatosConsultaComun(Usuario* medico, Usuario* paciente,  Fecha* fechaConsulta, Fecha* fechaReserva, bool asistio) {
     int ciMedico = medico->getCI();
     int ciPaciente = paciente->getCI();
 
     string clave = generarClave(ciMedico, ciPaciente, fechaConsulta);
     if (consultas.find(clave) == consultas.end()) {
-        shared_ptr<Consulta> consulta = make_shared<ConsultaComun>(paciente, medico, new Fecha(fechaConsulta), new Fecha(*fechaReserva), asistio);
+        shared_ptr<Consulta> consulta = make_shared<ConsultaComun>(paciente, medico, new Fecha(*fechaConsulta), new Fecha(*fechaReserva), asistio);
         dynamic_cast<ConsultaComun*>(consulta.get())->setAsistio(asistio);
         consultas[clave] = consulta;
     } else {
@@ -35,7 +36,7 @@ void CConsulta::ingresarDatosConsultaComun(Usuario* medico, Usuario* paciente, c
 }
 
 
-void CConsulta::ingresarDatosConsultaEmergencia(Usuario* medico, Usuario* paciente, const Fecha& fechaConsulta, const std::string& motivo) {
+void CConsulta::ingresarDatosConsultaEmergencia(Usuario* medico, Usuario* paciente, Fecha* fechaConsulta, string motivo) {
     string clave = generarClave(medico->getCI(), paciente->getCI(), fechaConsulta);
     if (consultas.find(clave) == consultas.end()) {
         shared_ptr<Consulta> consulta = make_shared<ConsultaEmergencia>(medico, paciente, fechaConsulta, motivo);
@@ -45,7 +46,7 @@ void CConsulta::ingresarDatosConsultaEmergencia(Usuario* medico, Usuario* pacien
     }
 }
 
-bool CConsulta::consultaExistente(const string& ciMedico, const string& ciPaciente, const Fecha& fechaConsulta) const {
+bool CConsulta::consultaExistente(string ciMedico, string ciPaciente, Fecha* fechaConsulta)  {
     int intCiMedico = stoi(ciMedico);
     int intCiPaciente = stoi(ciPaciente); // Convertir string a int
 
@@ -53,7 +54,7 @@ bool CConsulta::consultaExistente(const string& ciMedico, const string& ciPacien
     return consultas.find(clave) != consultas.end();
 }
 
-void CConsulta::darAltaDiagnostico(const string& ciMedico, const string& ciPaciente, const Fecha& fechaConsulta, Diagnostico* diagnostico) {
+void CConsulta::darAltaDiagnostico(string ciMedico, string ciPaciente,  Fecha* fechaConsulta, Diagnostico* diagnostico) {
     int intCiMedico = stoi(ciMedico); // Convertir string a int
     int intCiPaciente = stoi(ciPaciente);
     string clave = generarClave(intCiMedico, intCiPaciente, fechaConsulta);
@@ -80,14 +81,14 @@ void CConsulta::darAltaDiagnostico(const string& ciMedico, const string& ciPacie
     }
 }
 
-map<string, shared_ptr<Consulta>> CConsulta::obtenerConsultasDelDia(const string& ciMedico, const Fecha& fechaConsulta) {
+map<string, shared_ptr<Consulta>> CConsulta::obtenerConsultasDelDia(string ciMedico,Fecha* fechaConsulta) {
     map<string, shared_ptr<Consulta>> consultasDelDia;
-    for (const auto& entry : consultas) {
-        if (std::to_string(entry.second->getMedico()->getCI()) == ciMedico &&
-            entry.second->getFechaConsulta()->dia == fechaConsulta.dia &&
-            entry.second->getFechaConsulta()->mes == fechaConsulta.mes &&
-            entry.second->getFechaConsulta()->ano == fechaConsulta.ano) {
-            std::string pacienteCI = std::to_string(entry.second->getPaciente()->getCI());
+    for (auto entry : consultas) {
+        if (to_string(entry.second->getMedico()->getCI()) == ciMedico &&
+            entry.second->getFechaConsulta()->dia == fechaConsulta->dia &&
+            entry.second->getFechaConsulta()->mes == fechaConsulta->mes &&
+            entry.second->getFechaConsulta()->ano == fechaConsulta->ano) {
+            string pacienteCI = to_string(entry.second->getPaciente()->getCI());
             consultasDelDia[pacienteCI] = entry.second;
         }
     }

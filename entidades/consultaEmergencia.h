@@ -11,7 +11,7 @@ class ConsultaEmergencia : public Consulta{
     private:
         string motivo;
     public:
-        ConsultaEmergencia(Usuario* paciente, Usuario* medico, const Fecha& fechaConsulta, const std::string& motivo);
+        ConsultaEmergencia(Usuario* paciente, Usuario* medico, Fecha* fechaConsulta, string motivo);
         void setMotivo(string motivo);
         string getMotivo();
         ~ConsultaEmergencia();
