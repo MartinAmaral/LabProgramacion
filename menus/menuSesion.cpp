@@ -224,13 +224,14 @@ void MenuSesion::darAlta(int cedula){
         cout << "\nUsuario no se encuentra el sistema\n";
         cout << "Ingrese los datos del usuario a dar de alta\n";
 
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         string nombre;
         cout << "\nIngrese el nombre: ";
-        cin >> nombre;
-        
+        getline(cin,nombre); 
+
         string apellido;
         cout << "\nIngrese el apellido: ";
-        cin >> apellido;
+        getline(cin,apellido);
 
         int sexoN = -1;
         do{

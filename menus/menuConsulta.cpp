@@ -11,7 +11,13 @@ using namespace std;
 
 void MenuConsulta::registrarConsulta() {
 
-    TipoUsuario tipoUsuario = FabricaCUsuario::getCUsuario()->getTipoUsuarioActivo();
+    if(!FabricaCUsuario::getCUsuario()->getUsuarioActivo()){
+        cout << "No se ha iniciado ninguna sesion.\n";
+        return;
+    }
+
+    TipoUsuario tipoUsuario =FabricaCUsuario::getCUsuario()->getTipoUsuarioActivo();
+    
     bool ok = false;
     if( tipoUsuario == Admin || tipoUsuario == SocioAdmin) 
         ok = true;
@@ -169,8 +175,9 @@ void MenuConsulta::registrarConsulta() {
     else{
         string motivo = "";
         cout << "Ingrese el motivo de la misma:\n";
-        cin >> motivo;
+        getline(cin,motivo);
         consultaController->altaConsultaEmergencia(cedulaMedico, cedulaPaciente, fechaConsulta, motivo);
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
     cout << "Consulta registrada exitosamente!" << endl;
 }
