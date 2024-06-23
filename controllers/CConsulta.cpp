@@ -45,7 +45,6 @@ bool CConsulta::consultaExistente(int ciMedico,int ciPaciente,Fecha* fechaConsul
                 && fecha->getAno() == fechaReserva->getAno()){
                 return true;
             }
-
         }
     }
     return false;
