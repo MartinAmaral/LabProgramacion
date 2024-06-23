@@ -73,7 +73,6 @@ void CConsulta::agregarDatosRepresentaciones(RepresentacionE* representaciones[]
         this->representaciones.push_front(representaciones[index]); 
         index ++;
     }
-
 }
 
 /*
