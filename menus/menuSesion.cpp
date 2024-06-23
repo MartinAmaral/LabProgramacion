@@ -9,7 +9,7 @@
 using namespace std;
 
 bool contrasenaValida(string contra){
-    if(contra.length() <5 || contra.length() >9 )
+    if(contra.length() <6 || contra.length() >9 )
         return false;
     for (char ch : contra) {
         if (!std::isalpha(ch) && !std::isdigit(ch)) {
@@ -19,11 +19,14 @@ bool contrasenaValida(string contra){
     return true;
 }
 
-
 void MenuSesion::iniciarSesion(){
     if (controllerSesion == NULL)
         controllerSesion = FabricaCUsuario::getCUsuario(); 
 
+    if(controllerSesion->getUsuarioActivo() != NULL){
+        cout<<"Ya hay una sesion iniciada\n";
+        return;
+    }
     int cedula = -33;
     cout << "Ingrese su cedula (solo numero) o -1 para cancelar:\n";
     do {
@@ -37,7 +40,7 @@ void MenuSesion::iniciarSesion(){
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	        cedula = -33;
         } 
-        else if(!controllerSesion->existeUsuario(cedula)){ 
+       else if(!controllerSesion->existeUsuario(cedula)){ 
             std::cout << "\nLa cedula ingresada no existe en el sistema, intentelo de nuevo.\n\n";
             cedula = -33;
         } 
@@ -48,16 +51,22 @@ void MenuSesion::iniciarSesion(){
 
     if (controllerSesion->esAdminDefecto()){
         string contra = "";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
    
-        cout << "\nBienvenido/a Admin. Ingrese su contrasena: ";
+        cout << "\nBienvenido/a Admin. Ingrese su contrasena o salir para salir: ";
         std::cin >> contra; 
-        if(contra == "salir") return;
 
-        while(controllerSesion->ingresarPassIS(contra)){
+        while(!controllerSesion->ingresarPassIS(contra)){
+            if(contra == "salir"){
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                return;
+            }
             std::cout << "\nContrasena invalida, intentelo de nuevo o escriba salir para salir.\n\n";
             std::cin >> contra; 
-	        if(contra == "salir") return;
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
+        
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         controllerSesion->asignarSesionDefecto();
         cout<< "\nSesion Admin Default iniciada \n";
         return;
@@ -65,8 +74,8 @@ void MenuSesion::iniciarSesion(){
     else if (controllerSesion->usuarioSinContrasena()) { //primera vez que entra al sistema
 	    string nuevaContra = "";
         std::cout << "\nUsuario sin contrasena. Ingrese su contrasena para ser guardada por el sistema. \n";
-	    std::cout << "\nLa contrasena debe ser de entre 6 y 9 caracteres largo y caracteres alfanumericos.\n";
-	    std::cout << "\nEscriba salir para volver al menu principal.\n";
+	    std::cout << "La contrasena debe ser de entre 6 y 9 caracteres largo y caracteres alfanumericos.\n";
+	    std::cout << "Escriba salir para volver al menu principal.\n";
         
         cin >> nuevaContra;
         while (!contrasenaValida(nuevaContra)) {
@@ -115,19 +124,24 @@ void MenuSesion::cerrarSesion(){
 
 void MenuSesion::altaUsuario(){
     if (controllerSesion == NULL)
-        controllerSesion = FabricaCUsuario::getCUsuario(); 
-
+        controllerSesion = FabricaCUsuario::getCUsuario();
+    if (controllerSesion->getUsuarioActivo() == NULL){
+        cout << "No hay ninguna sesion iniciada.!\n";
+        return;
+    }
     if (controllerSesion->getTipoUsuarioActivo() == Admin || controllerSesion->getTipoUsuarioActivo() == SocioAdmin ){
+    }
+    else{
         cout<< "Se necesita a un Usuario administrativo para dar de alta o Reactivar a un usuario.\n";
         return;
     }
 
     int cedula = -33;
 	do{
-        cout << "Ingrese la cedula a dar de alta o reactivar o ingrese -1 para salir.\n";
+        cout << "\nIngrese la cedula a dar de alta o reactivar o ingrese -1 para salir.\n";
         cin >> cedula; 
 
-        if(cin.fail() || cedula<0){
+        if(cin.fail() || cedula<0 || cedula ==26){
 	        if (!cin.fail() && cedula == -1) return;
             cin.clear(); 
 	        cout << "\nCedula invalida, intentelo de nuevo.\n\n";
@@ -135,21 +149,48 @@ void MenuSesion::altaUsuario(){
         }
         else {
             darAlta(cedula);
+            cout <<"!!!Caso con la cedula: " <<cedula <<" terminado\n";
             cedula = -33;
         }
         cedula = -33;
     }while(cedula == -33);
 }
 
-void MenuSesion::darAlta(int cedula){ // hice esto por la indentacion de mierda
+void MenuSesion::darAlta(int cedula){
 
-    if ( controllerSesion->existeUsuario(cedula)){ // nos fijamos si existe la ceula y reactivamos el Usuario 
+    if (controllerSesion->existeUsuario(cedula)){
        
         InfoUsuarioDT* info = controllerSesion->devolverInfo(cedula);
         
         cout << "Nombre: " << info->getNombre() << " Apellido: " << info->getApellido() << "\n";
+        
+        string sexo;
+        if(info->getSexo() == Masculino)
+            sexo= "Masculino";
+        else sexo = "Femenino";
+        cout << "Sexo: " << sexo << " Edad: " << (2024 - info->getFechaNacimiento()->getAno()) << "\n";
 
-        cout << "Sexo: " << info->getSexo() << " Edad: " << (2024 - info->getFechaNacimiento()->getAno()) << "\n";
+        cout << "Categorias: ";
+
+        switch (info->getTipo()) {
+            case Admin:
+                cout <<"Administrativo";
+            break;
+            case Socio:
+                cout << "Socio";
+                break;
+            case Medico:
+                cout <<"Medico";
+                break;
+            case SocioAdmin:
+                cout <<"Socio y Administrativo";
+                break;
+            case SocioMedico:
+                cout <<"Socio y Medico";
+                break;
+        }
+
+        cout <<"\n";
 
         if(controllerSesion->esActivo(cedula)){
             cout << "El usuario se encuentra activo\n";
@@ -158,7 +199,7 @@ void MenuSesion::darAlta(int cedula){ // hice esto por la indentacion de mierda
 
         delete info;
 
-        if(controllerSesion->esActivo(cedula)){
+        if(!controllerSesion->esActivo(cedula)){
             cout << "Quiere reactivar a este Usuario?\n";
             int valor =-1;
             do{
@@ -168,6 +209,7 @@ void MenuSesion::darAlta(int cedula){ // hice esto por la indentacion de mierda
                     cin.clear(); 
 	                cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    valor = -1;
                 }
             }while(valor<0);
             if(valor == 1){
@@ -175,10 +217,11 @@ void MenuSesion::darAlta(int cedula){ // hice esto por la indentacion de mierda
                 cout << "El usuario con cedula: " << cedula << "ha sido reactivado\n";
             }
             else cout << "El usuario no ha sido reactivado\n";
-        return;
+            return;
         }
     }
-    else { //ingresar los datos del usuario con un di
+    else {
+        cout << "\nUsuario no se encuentra el sistema\n";
         cout << "Ingrese los datos del usuario a dar de alta\n";
 
         string nombre;
@@ -219,7 +262,6 @@ void MenuSesion::darAlta(int cedula){ // hice esto por la indentacion de mierda
             }
         }while(dia<0);
         
-
         int mes = -1;
         do{
             cout<< "\nIngrese el mes de nacimiento: \n";
@@ -252,13 +294,19 @@ void MenuSesion::darAlta(int cedula){ // hice esto por la indentacion de mierda
             cout <<"Ingrese 1 para socio, 2 para medico, 3 para admin, 4 para socio-medico, 5 para socio-admin:\n";
             cin >> tipoN; 
             if(cin.fail() || tipoN<0 || tipoN >5){
-                if (tipoN == 0) return;
                 cin.clear(); 
 	            cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 tipoN = -1;
             }
         }while(tipoN<0);
+        
+        if (tipoN == 0){
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            delete fecha;
+            cout<<"Alta de Usuario cancelada!\n";
+            return;
+        }
         
         TipoUsuario tipo;
 
@@ -277,10 +325,7 @@ void MenuSesion::darAlta(int cedula){ // hice esto por la indentacion de mierda
         controllerSesion->altaUsuario(infoDt,cedula);    
 
         cout <<"\nUsuario dado de alta existosamente!\n";
+        return;
     }
-    
-    cout << "El usuario con esa cedula no existe ingrese los datos para ingrearlo en el sistema\n";
-    cout << "Ingrese -1 en cualquier momento para cancelar.\n";
-    
 }
 

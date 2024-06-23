@@ -62,6 +62,7 @@ void MenuAgregarDatos::AgregarDatos(){
 
         // Ni idea como quiere que hagamos los diagnosticos
         */
+        cout<< "Datos agregados exitosamente\n";
         hayDatos = true;
     }
 }

@@ -21,7 +21,7 @@ int main (){
 		cout << "0: Cargar Datos de Prueba\n1: Iniciar Sesion \n";
 		cout << "2: Cerrar Sesion \n3: Alta/Reactivacion de Usuario\n";
         cout << "4: Registrar Consulta\n";
-		cout << "5: Alta diagnosticos de una consulta.\n";
+		cout << "5: Alta diagnosticos de una consulta\n";
         cout << "6: Salir\n";
 		cin >> option;
 

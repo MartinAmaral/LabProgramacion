@@ -11,7 +11,7 @@ CUsuarioYSesion* CUsuarioYSesion::instanceController = NULL;
 CUsuarioYSesion::CUsuarioYSesion(){
     this->ciIniciarSesion = 0;
     Administrativo* adminDef = new Administrativo("admin","defecto",Masculino,26,NULL,Admin);
-    adminDef->setContrasena("de redes");
+    adminDef->setContrasena("deredes");
     adminDef->setActivo(true);
     this->usuarioPorDefecto = adminDef;
 }
@@ -27,6 +27,8 @@ Usuario* CUsuarioYSesion::getUsuarioActivo(){
 }
 
 bool CUsuarioYSesion::existeUsuario(int CI){
+    if(CI == this->usuarioPorDefecto->getCI())
+        return true;
     return this->usuarios.find(CI) != this->usuarios.end();
 } 
 
@@ -41,7 +43,7 @@ TipoUsuario CUsuarioYSesion::getTipoUsuarioActivo(){
 void CUsuarioYSesion::inicializarUsuarios(Usuario* usuarios[], int cantidad){
     int index =0;
     while(index<cantidad){
-        this->usuarios[usuarios[index]->getCI()] = usuarios[0];  
+        this->usuarios[usuarios[index]->getCI()] = usuarios[index];  
         index ++;
     }
 }
@@ -51,10 +53,11 @@ void CUsuarioYSesion::ingresarCiIS(int ci){
 }
 
 bool CUsuarioYSesion::ingresarPassIS(string pass){
-
-    if(ciIniciarSesion == usuarioPorDefecto->getCI() && usuarioPorDefecto->comprobarPass(pass))
-        return true;
-
+    if(ciIniciarSesion == usuarioPorDefecto->getCI()){
+        if(usuarioPorDefecto->comprobarPass(pass)) 
+            return true;
+        else return false;
+    }
     Usuario* user = usuarios[this->ciIniciarSesion];
     return user->comprobarPass(pass);
 }
