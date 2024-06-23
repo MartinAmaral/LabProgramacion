@@ -10,7 +10,8 @@ ENTIDADES = entidades/administrativo.o entidades/categoria.o \
             entidades/consultaEmergencia.o entidades/farmaco.o \
             entidades/medicamento.o entidades/medico.o \
             entidades/quirurgico.o entidades/representacionE.o \
-            entidades/tratamiento.o entidades/usuario.o
+            entidades/tratamiento.o entidades/usuario.o entidades/socio.o entidades/diagnostico.o
+
 FABRICAS = fabricas/fabricaCConsulta.o fabricas/fabricaCUsuario.o
 
 MENU = menus/menuAgregarDatos.o menus/menuConsulta.o menus/menuSesion.o
