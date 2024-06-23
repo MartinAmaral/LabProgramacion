@@ -3,8 +3,7 @@
 #include "../entidades/medico.h"
 #include "../entidades/fecha.h"
 #include "CConsulta.h"
-#include <stdexcept>
-#include <map>
+#include "../fabricas/fabricaCUsuario.h"
 using namespace std;
 
 CConsulta* CConsulta::instance = NULL;
@@ -16,43 +15,42 @@ CConsulta* CConsulta::getInstanceConsulta() {
     return instance;
 }
 
-string CConsulta::generarClave(int ciMedico, int ciPaciente, Fecha* fechaConsulta) {
-    return to_string(ciMedico) + to_string(ciPaciente) + to_string(fechaConsulta->dia) + to_string(fechaConsulta->mes) + to_string(fechaConsulta->ano);
+void CConsulta::altaConsultaComun(int ciMedico,int ciPaciente,Fecha* fechaConsulta, Fecha* fechaReserva, bool asistio){
+    Usuario* medico = FabricaCUsuario::getCUsuario()->getUsuario(ciMedico); 
+    Usuario* paciente = FabricaCUsuario::getCUsuario()->getUsuario(ciPaciente); 
+    ConsultaComun* consulta = new ConsultaComun(medico,paciente,fechaConsulta,fechaReserva,asistio);
+    this->consultas.push_front(consulta);
 }
+        
+void CConsulta::altaConsultaEmergencia(int ciMedico, int ciPaciente,Fecha* fechaConsulta,string motivo){
+    Usuario* medico = FabricaCUsuario::getCUsuario()->getUsuario(ciMedico); 
+    Usuario* paciente = FabricaCUsuario::getCUsuario()->getUsuario(ciPaciente); 
+    ConsultaEmergencia* consulta = new ConsultaEmergencia(medico,paciente,fechaConsulta,motivo);
+    this->consultas.push_front(consulta);
+}
+        
+bool CConsulta::consultaExistente(int ciMedico,int ciPaciente,Fecha* fechaConsulta,Fecha* fechaReserva){
+    for (Consulta* cons : this->consultas) {
+        ConsultaComun* consultaCheck = dynamic_cast<ConsultaComun*>(cons);
+        if(!consultaCheck) continue;
+        
+        if(consultaCheck->getMedico()->getCI() == ciMedico && consultaCheck->getPaciente()->getCI() == ciMedico){
+            Fecha* fecha = consultaCheck->getFechaConsulta(); 
+            if(fecha->getDia() == fechaConsulta->getDia() && fecha->getMes() == fechaConsulta->getMes() 
+                && fecha->getAno() == fechaConsulta->getAno()){
+                return true;
+            }
+            fecha = consultaCheck->getFechaConsulta(); 
+            if(fecha->getDia() == fechaReserva->getDia() && fecha->getMes() == fechaReserva->getMes() 
+                && fecha->getAno() == fechaReserva->getAno()){
+                return true;
+            }
 
-void CConsulta::ingresarDatosConsultaComun(Usuario* medico, Usuario* paciente,  Fecha* fechaConsulta, Fecha* fechaReserva, bool asistio) {
-    int ciMedico = medico->getCI();
-    int ciPaciente = paciente->getCI();
-
-    string clave = generarClave(ciMedico, ciPaciente, fechaConsulta);
-    if (consultas.find(clave) == consultas.end()) {
-        shared_ptr<Consulta> consulta = make_shared<ConsultaComun>(paciente, medico, new Fecha(*fechaConsulta), new Fecha(*fechaReserva), asistio);
-        dynamic_cast<ConsultaComun*>(consulta.get())->setAsistio(asistio);
-        consultas[clave] = consulta;
-    } else {
-        throw runtime_error("Ya existe una consulta o reserva para ese medico y paciente en esa fecha.");
+        }
     }
+    return false;
 }
-
-
-void CConsulta::ingresarDatosConsultaEmergencia(Usuario* medico, Usuario* paciente, Fecha* fechaConsulta, string motivo) {
-    string clave = generarClave(medico->getCI(), paciente->getCI(), fechaConsulta);
-    if (consultas.find(clave) == consultas.end()) {
-        shared_ptr<Consulta> consulta = make_shared<ConsultaEmergencia>(medico, paciente, fechaConsulta, motivo);
-        consultas[clave] = consulta;
-    } else {
-        throw runtime_error("Ya existe una consulta o reserva para ese medico y paciente en esa fecha.");
-    }
-}
-
-bool CConsulta::consultaExistente(string ciMedico, string ciPaciente, Fecha* fechaConsulta)  {
-    int intCiMedico = stoi(ciMedico);
-    int intCiPaciente = stoi(ciPaciente); // Convertir string a int
-
-    string clave = generarClave(intCiMedico, intCiPaciente, fechaConsulta);
-    return consultas.find(clave) != consultas.end();
-}
-
+/*
 void CConsulta::darAltaDiagnostico(string ciMedico, string ciPaciente,  Fecha* fechaConsulta, Diagnostico* diagnostico) {
     int intCiMedico = stoi(ciMedico); // Convertir string a int
     int intCiPaciente = stoi(ciPaciente);
@@ -79,7 +77,7 @@ void CConsulta::darAltaDiagnostico(string ciMedico, string ciPaciente,  Fecha* f
         throw runtime_error("Consulta no encontrada para esa fecha.");
     }
 }
-
+/*
 map<string, shared_ptr<Consulta>> CConsulta::obtenerConsultasDelDia(string ciMedico,Fecha* fechaConsulta) {
     map<string, shared_ptr<Consulta>> consultasDelDia;
     for (auto entry : consultas) {
@@ -92,4 +90,4 @@ map<string, shared_ptr<Consulta>> CConsulta::obtenerConsultasDelDia(string ciMed
         }
     }
    return consultasDelDia;
-}
+}*/

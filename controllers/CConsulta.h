@@ -1,6 +1,7 @@
 #ifndef CCONSULTA_H
 #define CCONSULTA_H
 
+#include <list>
 #include <map>
 #include <string>
 #include "../entidades/usuario.h"
@@ -17,16 +18,15 @@ using namespace std;
 class CConsulta: public ICConsulta{
     private:
         static CConsulta* instance;
-        map<string,Consulta*> consultas;
-        string generarClave(int ciMedico, int ciPaciente,Fecha* fechaConsulta);
+        list<Consulta*> consultas;
     public:
         static CConsulta* getInstanceConsulta();
-        void ingresarDatosConsultaComun(Usuario* medico, Usuario* paciente,Fecha* fechaConsulta, Fecha* fechaReserva, bool asistio);
-        void ingresarDatosConsultaEmergencia(Usuario* medico, Usuario* paciente,Fecha* fechaConsulta,string* motivo);
-        bool consultaExistente(string* ciMedico,string* ciPaciente,Fecha* fechaConsulta);
+        void altaConsultaComun(int ciMedico,int ciPaciente,Fecha* fechaConsulta, Fecha* fechaReserva, bool asistio) override;
+        void altaConsultaEmergencia(int ciMedico, int ciPaciente,Fecha* fechaConsulta,string motivo) override;
+        bool consultaExistente(int ciMedico,int ciPaciente,Fecha* fechaConsulta,Fecha* fechaReserva) override;
+        
         void darAltaDiagnostico(string* ciMedico,string* ciPaciente,Fecha* fechaConsulta, Diagnostico* diagnostico);
         map<string,Consulta*> obtenerConsultasDelDia(string* ciMedico,Fecha* fechaConsulta);
-        //virtual void agregarDiagnostico(const string& ciMedico, const string& ciPaciente, const Fecha& fechaConsulta, Diagnostico* diagnostico);
 };
 
 #endif

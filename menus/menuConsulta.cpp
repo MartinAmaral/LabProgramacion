@@ -1,66 +1,182 @@
 #include <iostream>
+#include <limits>
 #include <string>
-#include "../entidades/socio.h"
-#include "../controllers/CConsulta.h"
-<<<<<<< HEAD
-#include "../entidades/fecha.h"
-#include "../entidades/usuario.h"
-#include "../entidades/sexo.h"
-#include "../entidades/diagnostico.h"
-#include "../entidades/tratamiento.h"
-#include "../entidades/tipoUsuario.h"
-#include "../entidades/farmaco.h"
-#include <map>
-#include <vector>
-=======
->>>>>>> 98bbad7da7441adc19381db244181b195e395456
+#include "../fabricas/fabricaCUsuario.h"
+#include "../fabricas/fabricaCConsulta.h"
+#include "../Interfaces/ICConsulta.h"
+#include "../Interfaces/ICUsuarioYSesion.h"
 
 using namespace std;
 
 void registrarConsulta() {
-    CConsulta* consultaCtrl = CConsulta::getInstanceConsulta();
-    string ciMedico, ciPaciente, motivo;
-    int dia, mes, ano, diaReserva, mesReserva, anoReserva;
-    bool esEmergencia, asistio;
-    char tipoConsulta, respuestaAsistio;
 
-    cout << "Ingrese CI del médico: ";
-    cin >> ciMedico;
-    cout << "Ingrese CI del paciente: ";
-    cin >> ciPaciente;
-    cout << "Es una consulta de emergencia? (s/n): ";
-    cin >> tipoConsulta;
-    esEmergencia = (tipoConsulta == 's' || tipoConsulta == 'S');
+    TipoUsuario tipoUsuario = FabricaCUsuario::getCUsuario()->getTipoUsuarioActivo();
+    bool ok = false;
+    if( tipoUsuario == Admin || tipoUsuario == SocioAdmin) 
+        ok = true;
+    if(!ok){
+        cout << "El usuario logeado necesita ser Administrativo\n";
+        return;
+    }
 
-    cout << "Ingrese la fecha de la consulta (dd mm aaaa): ";
-    cin >> dia >> mes >> ano;
+    ICConsulta* consultaController = FabricaCConsulta::getCConsulta();
 
-    Fecha* fechaConsultan = new Fecha(dia, mes, ano);// Asumiendo que el orden es año, mes, dí
-    if (esEmergencia) {
-        cin.ignore(); // Limpiar el buffer después de leer el char
-        cout << "Ingrese el motivo de la consulta: ";
-        getline(cin, motivo);
-          consultaCtrl->ingresarDatosConsultaEmergencia(
-            new class Socio("ee", "gg", Sexo::Masculino, stoi(ciMedico), nullptr, TipoUsuario::Socio), 
-            new class Socio("", "", Sexo::Masculino, stoi(ciPaciente), nullptr, TipoUsuario::Socio), 
-            fechaConsultan, 
-            motivo
-        );
-    } else {
-        cout << "Ingrese la fecha de reserva (dd mm aaaa): ";
-        cin >> diaReserva >> mesReserva >> anoReserva;
-        Fecha fechaReserva(anoReserva, mesReserva, diaReserva);
-        cout << "El paciente asistió a la consulta? (s/n): ";
-        cin >> respuestaAsistio;
-        asistio = (respuestaAsistio == 's' || respuestaAsistio == 'S');
-        consultaCtrl->ingresarDatosConsultaComun(new class Socio("", "", Sexo::Masculino, stoi(ciMedico), nullptr, TipoUsuario::Socio),new class Socio("", "", Sexo::Masculino, stoi(ciPaciente), nullptr, TipoUsuario::Socio), fechaConsultan, &fechaReserva, asistio);
+    int cedulaMedico = -33;
+	do{
+        cout << "Ingrese la cedula del Medico de la reserva.\n";
+        cin >> cedulaMedico; 
+
+        if(cin.fail() || cedulaMedico<0){
+            cin.clear(); 
+	        cout << "\nCedula invalida, intentelo de nuevo.\n\n";
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            cedulaMedico = -33;
+        }
+    }while(cedulaMedico == -33);
+    
+    int cedulaPaciente = -33;
+	do{
+        cout << "Ingrese la cedula del Paciente de la reserva.\n";
+        cin >> cedulaPaciente; 
+
+        if(cin.fail() || cedulaPaciente<0){
+            cin.clear(); 
+	        cout << "\nCedula invalida, intentelo de nuevo.\n\n";
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            cedulaPaciente = -33;
+        }
+    }while(cedulaPaciente == -33);
+    
+
+    Fecha* fechaConsulta;
+    int dia = -1;
+    do{
+        cout<< "\nIngrese el dia de la Consulta: \n";
+        cin >> dia; 
+        if(cin.fail() || dia<=0 || dia >31){
+            cin.clear(); 
+	        cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            dia = -1;
+        }
+    }while(dia<0);
+        
+    int mes = -1;
+    do{
+        cout<< "\nIngrese el mes de la Consulta: \n";
+        cin >> mes; 
+        if(cin.fail() || mes<=0 || mes >12){
+            cin.clear(); 
+	        cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            mes = -1;
+        }
+    }while(mes<0);
+        
+    int ano = -1;
+    do{
+        cout<< "\nIngrese el ano de la Consulta: \n";
+        cin >> ano; 
+        if(cin.fail() || ano<0 || ano >2024){
+           cin.clear(); 
+           cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            ano = -1;
+        }
+    }while(ano<0);
+
+    fechaConsulta = new Fecha(ano, mes, dia);
+
+    int valor =-1;
+    do{
+        cout<< "Ingresa 0 para Consulta comun o 1 para Consulta de Emergencia \n";
+        cin >> valor; 
+        if(cin.fail() || valor<0 || valor >1){
+            cin.clear(); 
+	        cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            valor = -1;
+        }
+    }while(valor<0);
+
+    bool esComun = false;
+    if(valor == 0)
+        esComun = true;
+
+    if(esComun){
+        valor =-1;
+        do{
+            cout<< "Ingresa 0 para si asistio a la consulta o 1 sino asistio \n";
+            cin >> valor; 
+            if(cin.fail() || valor<0 || valor >1){
+                cin.clear(); 
+	            cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                valor=-1;
+            }
+        }while(valor<0);
+        bool asistio = false;
+        if(valor ==0)
+            asistio = true;
+
+        Fecha* fechaReserva;
+        int dia = -1;
+        do{
+            cout<< "\nIngrese el dia de Reserva: \n";
+            cin >> dia; 
+            if(cin.fail() || dia<=0 || dia >31){
+                cin.clear(); 
+	            cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                dia = -1;
+            }
+        }while(dia<0);
+        
+        int mes = -1;
+        do{
+            cout<< "\nIngrese el mes de Reserva: \n";
+            cin >> mes; 
+            if(cin.fail() || mes<=0 || mes >12){
+                cin.clear(); 
+    	        cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                mes = -1;
+            }
+        }while(mes<0);
+            
+        int ano = -1;
+        do{
+            cout<< "\nIngrese el ano de Reserva: \n";
+            cin >> ano; 
+            if(cin.fail() || ano<0 || ano >2024){
+               cin.clear(); 
+               cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                ano = -1;
+            }
+        }while(ano<0);
+
+        fechaReserva = new Fecha(ano, mes, dia);
+
+        if(consultaController->consultaExistente(cedulaMedico,cedulaPaciente,fechaConsulta,fechaReserva)){
+            cout << "Ya existe una consulta o reserva para ese medico para ese dia\n";
+        }
+        else{
+            consultaController->altaConsultaComun(cedulaMedico, cedulaPaciente, fechaConsulta, fechaReserva, asistio);
+        }
+    }
+    else{
+        string motivo = "";
+        cout << "Ingrese el motivo de la misma:\n";
+        cin >> motivo;
+        consultaController->altaConsultaEmergencia(cedulaMedico, cedulaPaciente, fechaConsulta, motivo);
     }
     cout << "Consulta registrada exitosamente!" << endl;
 }
 
 void altaDiagnostico() {
-    CConsulta* consultaManager = CConsulta::getInstanceConsulta();
-
+    ICConsulta* consultaManager = FabricaCConsulta::getCConsulta();
+    /*
     string ciMedico;
     cout << "Ingrese su CI (Médico): ";
     cin >> ciMedico;
@@ -127,6 +243,7 @@ void altaDiagnostico() {
     }
 
     consultaManager->darAltaDiagnostico(ciMedico, ciPaciente, fechaActual, nuevoDiagnostico);
+    */
     cout << "Diagnósticos registrados exitosamente." << endl;
 }
 

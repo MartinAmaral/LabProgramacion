@@ -114,6 +114,8 @@ void CUsuarioYSesion::altaUsuario(InfoUsuarioDT* info,int cedula){
                                           info->getFechaNacimiento(),info->getTipo());
     }
 
+    Administrativo * admin = dynamic_cast<Administrativo*>(this->usuarioActivo);
+    admin->agregarUsuarioDadoAlta(nuevoUsuario);
     this->usuarios[cedula] = nuevoUsuario;
 }
 

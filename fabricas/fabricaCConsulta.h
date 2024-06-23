@@ -4,7 +4,7 @@
 
 class FabricaCConsulta{
     public:
-         ICConsulta* getCConsulta();
+         static ICConsulta* getCConsulta();
 };
 
 #endif  

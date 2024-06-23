@@ -5,3 +5,7 @@ Administrativo::Administrativo(string nombre,string apellido,Sexo sexo,int CI,Fe
     this->setActivo(false);
     this->setContrasena("");
 }
+
+void Administrativo::agregarUsuarioDadoAlta(Usuario* usuario){
+    usuariosDadosAlta.push_front(usuario);
+}
