@@ -2,6 +2,7 @@
 #define ICUSUARIOYSESION_H
 #include "../entidades/usuario.h"
 #include <string>
+#include "../dts/infoUsuarioDT.h"
 
 class ICUsuarioYSesion {
     public:
@@ -26,9 +27,11 @@ class ICUsuarioYSesion {
         virtual void cerrarSesion()=0; 
 
         // Alta/Reactivación de Usuario
+        virtual InfoUsuarioDT* devolverInfo(int cedula)=0;
+        virtual void altaUsuario(InfoUsuarioDT* info,int cedula)=0;
         virtual void reactivarUsuario(int cedula)=0; 
         virtual bool esActivo(int cedula)=0;
-        // Usuarios dados de alta y reactivados
+        
         virtual ~ICUsuarioYSesion(){}
 };
 

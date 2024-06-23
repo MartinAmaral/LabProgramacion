@@ -2,6 +2,7 @@
 #include <string>
 #include "../entidades/socio.h"
 #include "../controllers/CConsulta.h"
+<<<<<<< HEAD
 #include "../entidades/fecha.h"
 #include "../entidades/usuario.h"
 #include "../entidades/sexo.h"
@@ -11,6 +12,8 @@
 #include "../entidades/farmaco.h"
 #include <map>
 #include <vector>
+=======
+>>>>>>> 98bbad7da7441adc19381db244181b195e395456
 
 using namespace std;
 

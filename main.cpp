@@ -7,6 +7,7 @@
 #include <iostream>
 #include "menus/menuSesion.h"
 #include "menus/menuConsulta.h"
+#include "menus/menuAgregarDatos.h"
 using namespace std;
 
 int main (){
@@ -14,18 +15,17 @@ int main (){
 
     MenuSesion* menuSesion = new MenuSesion();
 	MenuConsulta* menuConsulta = new MenuConsulta();
-
-	while(option !=8){
+    MenuAgregarDatos* menuDatos = new MenuAgregarDatos();
+	
+    while(option !=6){
 		cout << "0: Cargar Datos de Prueba\n1: Iniciar Sesion \n";
 		cout << "2: Cerrar Sesion \n3: Alta/Reactivacion de Usuario\n";
-		cout << "4: Usuarios dados de alta y reactivados \n5: Alta medicamento\n";
-		cout << "6: Alta de representacion estarandizada de diagnosticos \n7: Listar representaciones estarandizadas\n";
-        cout << "8: Registrar Consulta\n";
-		cout << "9: Alta diagnosticos de una consulta.\n";
-        cout << "10: Salir\n";
+        cout << "4: Registrar Consulta\n";
+		cout << "5: Alta diagnosticos de una consulta.\n";
+        cout << "6: Salir\n";
 		cin >> option;
 
-		if(cin.fail() || option >10 || option<0){
+		if(cin.fail() || option >6 || option<0){
 		    cin.clear();
 		    cin.ignore(100,'\n');
 		    cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
@@ -33,6 +33,7 @@ int main (){
 		}
 	    switch (option){
 	        case 0:
+                menuDatos->AgregarDatos();
 		        break;
     	    case 1:
                 menuSesion->iniciarSesion();
@@ -41,20 +42,14 @@ int main (){
                 menuSesion->cerrarSesion();
     		    break;
 	        case 3:
+                menuSesion->altaUsuario();
         		break;
         	case 4:
+                menuConsulta->registrarConsulta();
 	        	break;
         	case 5:
+                menuConsulta->altaDiagnosticoConsulta();
 	        	break;
-        	case 6:
-	        	break;
-        	case 7:
-        		break;
-			case 8:
-				menuConsulta->registrarConsulta();
-        		break;
-			case 9:
-        		break;
         	default:
 	        	break;
 	    }

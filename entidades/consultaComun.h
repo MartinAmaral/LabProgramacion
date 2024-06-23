@@ -7,7 +7,7 @@
 
 class ConsultaComun : public Consulta {
 private:
-    Fecha* fechaReserva;
+    Fecha* fechaReserva = NULL;
     bool asistio;
 
 public:

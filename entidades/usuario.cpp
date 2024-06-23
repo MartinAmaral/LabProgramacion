@@ -50,10 +50,10 @@ int Usuario::getEdad() {
     int anioActual = 1900 + ahora->tm_year;
     int mesActual = 1 + ahora->tm_mon;
     int diaActual = ahora->tm_mday;
-    int edad = anioActual - fechaNacimiento->ano;
+    int edad = anioActual - fechaNacimiento->getAno();
     // Ajustar la edad si aún no ha cumplido años este año
-    if (mesActual < fechaNacimiento->mes ||
-        (mesActual == fechaNacimiento->mes && diaActual < fechaNacimiento->dia)) {
+    if (mesActual < fechaNacimiento->getMes() ||
+        (mesActual == fechaNacimiento->getMes() && diaActual < fechaNacimiento->getDia())) {
         edad--;
     }
     return edad;

@@ -1,9 +1,10 @@
-#include <cstddef>
 #include <iostream>
 #include <string>
 #include <limits>
 #include "menuSesion.h"
 #include "../Interfaces/ICUsuarioYSesion.h"
+#include "../fabricas/fabricaCUsuario.h"
+#include "../dts/infoUsuarioDT.h"
 
 using namespace std;
 
@@ -18,11 +19,11 @@ bool contrasenaValida(string contra){
     return true;
 }
 
-ICUsuarioYSesion* controllerSesion = NULL;
 
 void MenuSesion::iniciarSesion(){
-    //if (controllerSesion == NULL)
-    
+    if (controllerSesion == NULL)
+        controllerSesion = FabricaCUsuario::getCUsuario(); 
+
     int cedula = -33;
     cout << "Ingrese su cedula (solo numero) o -1 para cancelar:\n";
     do {
@@ -61,7 +62,7 @@ void MenuSesion::iniciarSesion(){
         cout<< "\nSesion Admin Default iniciada \n";
         return;
     }
-    else if (controllerSesion->usuarioSinContrasena()) {
+    else if (controllerSesion->usuarioSinContrasena()) { //primera vez que entra al sistema
 	    string nuevaContra = "";
         std::cout << "\nUsuario sin contrasena. Ingrese su contrasena para ser guardada por el sistema. \n";
 	    std::cout << "\nLa contrasena debe ser de entre 6 y 9 caracteres largo y caracteres alfanumericos.\n";
@@ -100,6 +101,9 @@ void MenuSesion::iniciarSesion(){
 }
 
 void MenuSesion::cerrarSesion(){
+    if (controllerSesion == NULL)
+        controllerSesion = FabricaCUsuario::getCUsuario(); 
+
     if (controllerSesion->getUsuarioActivo() == NULL){
         cout << "No hay ninguna sesion iniciada.!\n";
     }
@@ -109,45 +113,9 @@ void MenuSesion::cerrarSesion(){
     }
 }
 
-void darAlta(int cedula){ // hice esto por la indentacion de mierda
-
-    if (controllerSesion->existeUsuario(cedula)){ // nos fijamos si existe la ceula y reactivamos el Usuario 
-       
-        //devolver los datos en un dt y mostarlos en consola cout
-        //
-        if(controllerSesion->esActivo(cedula)){
-            cout << "Quiere reactivar a este Usuario?\n";
-            int valor =-1;
-            do{
-                cout<< "Ingresa 1 para reactivar el usuario y 0 para no \n";
-                cin >> valor; 
-                if(cin.fail() || valor<0 || valor >1){
-                    cin.clear(); 
-	                cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                }
-            }while(valor<0);
-            if(valor == 1){
-                controllerSesion->reactivarUsuario(cedula);
-                cout << "El usuario con cedula: " << cedula << "ha sido reactivado\n";
-            }
-        return;
-        }
-    }
-    else { //ingresar los datos del usuario con un di
-
-
-    }
-    
-    cout << "El usuario con esa cedula no existe ingrese los datos para ingrearlo en el sistema\n";
-    cout << "Ingrese -1 en cualquier momento para cancelar.\n";
-    
-    string inputTexto;
-    
-
-}
-
 void MenuSesion::altaUsuario(){
+    if (controllerSesion == NULL)
+        controllerSesion = FabricaCUsuario::getCUsuario(); 
 
     if (controllerSesion->getTipoUsuarioActivo() == Admin || controllerSesion->getTipoUsuarioActivo() == SocioAdmin ){
         cout<< "Se necesita a un Usuario administrativo para dar de alta o Reactivar a un usuario.\n";
@@ -173,4 +141,146 @@ void MenuSesion::altaUsuario(){
     }while(cedula == -33);
 }
 
+void MenuSesion::darAlta(int cedula){ // hice esto por la indentacion de mierda
+
+    if ( controllerSesion->existeUsuario(cedula)){ // nos fijamos si existe la ceula y reactivamos el Usuario 
+       
+        InfoUsuarioDT* info = controllerSesion->devolverInfo(cedula);
+        
+        cout << "Nombre: " << info->getNombre() << " Apellido: " << info->getApellido() << "\n";
+
+        cout << "Sexo: " << info->getSexo() << " Edad: " << (2024 - info->getFechaNacimiento()->getAno()) << "\n";
+
+        if(controllerSesion->esActivo(cedula)){
+            cout << "El usuario se encuentra activo\n";
+        }
+        else cout << "El usuario se encuentra inactivo\n";
+
+        delete info;
+
+        if(controllerSesion->esActivo(cedula)){
+            cout << "Quiere reactivar a este Usuario?\n";
+            int valor =-1;
+            do{
+                cout<< "Ingresa 1 para reactivar el usuario y 0 para no \n";
+                cin >> valor; 
+                if(cin.fail() || valor<0 || valor >1){
+                    cin.clear(); 
+	                cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                }
+            }while(valor<0);
+            if(valor == 1){
+                controllerSesion->reactivarUsuario(cedula);
+                cout << "El usuario con cedula: " << cedula << "ha sido reactivado\n";
+            }
+            else cout << "El usuario no ha sido reactivado\n";
+        return;
+        }
+    }
+    else { //ingresar los datos del usuario con un di
+        cout << "Ingrese los datos del usuario a dar de alta\n";
+
+        string nombre;
+        cout << "\nIngrese el nombre: ";
+        cin >> nombre;
+        
+        string apellido;
+        cout << "\nIngrese el apellido: ";
+        cin >> apellido;
+
+        int sexoN = -1;
+        do{
+            cout<< "\nIngrese 1 para Masculino o 0 para Femenino \n";
+            cin >> sexoN; 
+            if(cin.fail() || sexoN<0 || sexoN >1){
+                cin.clear(); 
+	            cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                sexoN = -1;
+            }
+        }while(sexoN<0);
+
+        Sexo sexo; 
+        if(sexoN ==1)
+            sexo = Masculino;
+        else sexo = Femenino;
+        
+        Fecha* fecha;
+        int dia = -1;
+        do{
+            cout<< "\nIngrese el dia de nacimiento: \n";
+            cin >> dia; 
+            if(cin.fail() || dia<=0 || dia >31){
+                cin.clear(); 
+	            cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                dia = -1;
+            }
+        }while(dia<0);
+        
+
+        int mes = -1;
+        do{
+            cout<< "\nIngrese el mes de nacimiento: \n";
+            cin >> mes; 
+            if(cin.fail() || mes<=0 || mes >12){
+                cin.clear(); 
+	            cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                mes = -1;
+            }
+        }while(mes<0);
+        
+        int ano = -1;
+        do{
+            cout<< "\nIngrese el ano de nacimiento: \n";
+            cin >> ano; 
+            if(cin.fail() || ano<0 || ano >2024){
+                cin.clear(); 
+	            cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                ano = -1;
+            }
+        }while(ano<0);
+
+        fecha = new Fecha(ano, mes, dia);
+
+        int tipoN = -1;
+        do{
+            cout<< "\nIngrese 0 para cancelar la alta de usuario\n";
+            cout <<"Ingrese 1 para socio, 2 para medico, 3 para admin, 4 para socio-medico, 5 para socio-admin:\n";
+            cin >> tipoN; 
+            if(cin.fail() || tipoN<0 || tipoN >5){
+                if (tipoN == 0) return;
+                cin.clear(); 
+	            cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                tipoN = -1;
+            }
+        }while(tipoN<0);
+        
+        TipoUsuario tipo;
+
+        if(tipoN == 1)
+            tipo = Socio;
+        else if (tipoN == 2)
+            tipo = Medico;
+        else if (tipoN == 3)
+            tipo = Admin;
+        else if (tipoN ==4)
+            tipo = SocioMedico;
+        else if (tipoN ==5)
+            tipo = SocioAdmin;
+
+        InfoUsuarioDT* infoDt = new InfoUsuarioDT(nombre,apellido,sexo,fecha,tipo);
+        controllerSesion->altaUsuario(infoDt,cedula);    
+
+        cout <<"\nUsuario dado de alta existosamente!\n";
+    }
+    
+    cout << "El usuario con esa cedula no existe ingrese los datos para ingrearlo en el sistema\n";
+    cout << "Ingrese -1 en cualquier momento para cancelar.\n";
+    
+}
 

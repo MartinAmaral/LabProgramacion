@@ -14,7 +14,11 @@
 #include "../entidades/fecha.h"
 #include "../entidades/representacionE.h"
 
+<<<<<<< HEAD
 //#include "../fabricas/fabricaCUsuario.h"
+=======
+#include "../fabricas/fabricaCUsuario.h"
+>>>>>>> 98bbad7da7441adc19381db244181b195e395456
 
 void MenuAgregarDatos::AgregarDatos(){
 
@@ -65,4 +69,8 @@ void MenuAgregarDatos::AgregarDatos(){
         hayDatos = true;
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 98bbad7da7441adc19381db244181b195e395456

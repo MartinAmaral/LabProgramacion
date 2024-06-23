@@ -1,6 +1,7 @@
 #ifndef ICCONSULTA_H
 #define ICCONSULTA_H
-#include "../controllers/CConsulta.h"
+#include <string>
+using namespace std;
 
 class ICConsulta {
 

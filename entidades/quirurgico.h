@@ -8,11 +8,11 @@ using namespace std;
 
 
 class Quirurgico : public Tratamiento {
-private:
-    Fecha* fecha;
-public:
-    Quirurgico(string descripcion, Fecha* fecha);
-    ~Quirurgico();
+    private:
+        Fecha* fecha= NULL;
+    public:
+        Quirurgico(string descripcion, Fecha* fecha);
+        ~Quirurgico();
 };
 
 #endif
