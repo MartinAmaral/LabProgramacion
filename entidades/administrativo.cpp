@@ -9,3 +9,8 @@ Administrativo::Administrativo(string nombre,string apellido,Sexo sexo,int CI,Fe
 void Administrativo::agregarUsuarioDadoAlta(Usuario* usuario){
     usuariosDadosAlta.push_front(usuario);
 }
+
+Administrativo::~Administrativo(){
+    if (fechaNacimiento != NULL)
+        delete fechaNacimiento;
+}

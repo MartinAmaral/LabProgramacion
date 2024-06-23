@@ -1,3 +1,4 @@
+#include "menuConsulta.h"
 #include <iostream>
 #include <limits>
 #include <string>
@@ -8,7 +9,7 @@
 
 using namespace std;
 
-void registrarConsulta() {
+void MenuConsulta::registrarConsulta() {
 
     TipoUsuario tipoUsuario = FabricaCUsuario::getCUsuario()->getTipoUsuarioActivo();
     bool ok = false;
@@ -174,7 +175,7 @@ void registrarConsulta() {
     cout << "Consulta registrada exitosamente!" << endl;
 }
 
-void altaDiagnostico() {
+void MenuConsulta::altaDiagnostico() {
     ICConsulta* consultaManager = FabricaCConsulta::getCConsulta();
     /*
     string ciMedico;

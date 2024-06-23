@@ -128,3 +128,7 @@ void CUsuarioYSesion::reactivarUsuario(int cedula){
     Usuario* usuario = this->usuarios[cedula];
     usuario->setActivo(true);
 }
+
+CUsuarioYSesion::~CUsuarioYSesion(){
+
+}

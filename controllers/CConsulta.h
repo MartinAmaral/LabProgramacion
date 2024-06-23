@@ -27,6 +27,7 @@ class CConsulta: public ICConsulta{
         
         void darAltaDiagnostico(string* ciMedico,string* ciPaciente,Fecha* fechaConsulta, Diagnostico* diagnostico);
         map<string,Consulta*> obtenerConsultasDelDia(string* ciMedico,Fecha* fechaConsulta);
+        ~CConsulta(){};
 };
 
 #endif

@@ -6,4 +6,7 @@ Medico::Medico(string nombre,string apellido,Sexo sexo,int CI,Fecha* fechaNacimi
     this->setContrasena("");
 }
 
-
+Medico::~Medico(){
+    if(fechaNacimiento != NULL)
+        delete fechaNacimiento;
+}

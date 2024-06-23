@@ -32,7 +32,7 @@ class ICUsuarioYSesion {
         virtual void reactivarUsuario(int cedula)=0; 
         virtual bool esActivo(int cedula)=0;
         
-        virtual ~ICUsuarioYSesion(){}
+        virtual ~ICUsuarioYSesion(){};
 };
 
 #endif

@@ -5,7 +5,7 @@ class MenuConsulta {
     private:
 
     public:
-    void registrarConsulta();
-    void altaDiagnostico();
+        void registrarConsulta();
+        void altaDiagnostico();
 };
 #endif

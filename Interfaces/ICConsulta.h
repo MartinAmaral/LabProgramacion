@@ -10,6 +10,6 @@ class ICConsulta {
         virtual void altaConsultaEmergencia(int ciMedico, int ciPaciente,Fecha* fechaConsulta,string motivo)=0;
         virtual bool consultaExistente(int ciMedico,int ciPaciente,Fecha* fechaConsulta,Fecha* fechaReserva)=0;
         
-        virtual ~ICConsulta()=0;
+        virtual ~ICConsulta(){};
 };
 #endif

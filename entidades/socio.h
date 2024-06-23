@@ -6,7 +6,6 @@
 class Socio: public Usuario{
     public:
         Socio(string nombre,string apellido,Sexo sexo,int CI,Fecha* FechaNacimiento,TipoUsuario tipo);
-        bool comprobarPass(string pass);
-        virtual ~Socio();
+        ~Socio();
 };
 #endif
