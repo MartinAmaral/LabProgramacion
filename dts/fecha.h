@@ -12,6 +12,7 @@ class Fecha{
         int getAno();
         int getMes();
         int getDia();
+        int getEdad();
         ~Fecha();
 };
 

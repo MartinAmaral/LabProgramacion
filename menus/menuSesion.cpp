@@ -168,7 +168,7 @@ void MenuSesion::darAlta(int cedula){
         if(info->getSexo() == Masculino)
             sexo= "Masculino";
         else sexo = "Femenino";
-        cout << "Sexo: " << sexo << " Edad: " << (2024 - info->getFechaNacimiento()->getAno()) << "\n";
+        cout << "Sexo: " << sexo << " Edad: " << info->getFechaNacimiento()->getEdad() << "\n";
 
         cout << "Categorias: ";
 
