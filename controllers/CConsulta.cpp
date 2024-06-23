@@ -1,7 +1,7 @@
 #include <string>
 #include "../entidades/usuario.h"
 #include "../entidades/medico.h"
-#include "../entidades/fecha.h"
+#include "../dts/fecha.h"
 #include "CConsulta.h"
 #include "../fabricas/fabricaCUsuario.h"
 using namespace std;
@@ -76,7 +76,6 @@ void CConsulta::darAltaDiagnostico(string ciMedico, string ciPaciente,  Fecha* f
         throw runtime_error("Consulta no encontrada para esa fecha.");
     }
 }
-/*
 map<string, shared_ptr<Consulta>> CConsulta::obtenerConsultasDelDia(string ciMedico,Fecha* fechaConsulta) {
     map<string, shared_ptr<Consulta>> consultasDelDia;
     for (auto entry : consultas) {

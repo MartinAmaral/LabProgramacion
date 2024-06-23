@@ -4,8 +4,7 @@
 #include "consulta.h"
 #include <string>
 #include "usuario.h"
-#include "fecha.h"
-
+#include "../dts/fecha.h"
 
 class ConsultaEmergencia : public Consulta{
     private:

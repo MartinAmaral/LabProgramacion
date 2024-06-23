@@ -1,5 +1,5 @@
 #include "consulta.h"
-#include "fecha.h"
+#include "../dts/fecha.h"
 #include "usuario.h"
 
 using namespace std;

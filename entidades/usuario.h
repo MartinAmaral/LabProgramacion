@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <iostream>
 #include "sexo.h"
-#include "fecha.h"
+#include "../dts/fecha.h"
 #include <ctime>
 #include "tipoUsuario.h"
 
@@ -32,8 +32,6 @@ class Usuario{
         string getContrasena();
         TipoUsuario getTipoUsuario();
 
-        int getEdad();
-
         void setActivo(bool estado);
         void setCI(int ci);
         void setSexo(Sexo sexo);    
@@ -41,7 +39,6 @@ class Usuario{
         void setNombre(string nombre);
         void setApellido(string apellido);
         void setContrasena(string contra);
-        //Usuario* setTipoUsario(); habria que crear un usuario nuevo con ese tipo si el nuevo tipo es admin y antes no
 
         virtual bool comprobarPass(string pass);
         virtual ~Usuario()=0;

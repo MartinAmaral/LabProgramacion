@@ -6,7 +6,7 @@
 #include <string>
 #include "../entidades/usuario.h"
 #include "../entidades/medico.h"
-#include "../entidades/fecha.h"
+#include "../dts/fecha.h"
 #include "../entidades/consulta.h"
 #include "../entidades/consultaComun.h"
 #include "../entidades/consultaEmergencia.h"

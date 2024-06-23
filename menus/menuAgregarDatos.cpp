@@ -11,7 +11,7 @@
 #include "../entidades/consulta.h"
 
 #include <string>
-#include "../entidades/fecha.h"
+#include "../dts/fecha.h"
 #include "../entidades/representacionE.h"
 
 #include "../fabricas/fabricaCUsuario.h"

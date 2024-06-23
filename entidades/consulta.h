@@ -1,7 +1,7 @@
 #ifndef CONSULTA_H
 #define CONSULTA_H
 
-#include "fecha.h"
+#include "../dts/fecha.h"
 #include <iostream>
 #include <list>
 #include <string>

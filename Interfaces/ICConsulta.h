@@ -1,7 +1,7 @@
 #ifndef ICCONSULTA_H
 #define ICCONSULTA_H
 #include <string>
-#include "../entidades/fecha.h"
+#include "../dts/fecha.h"
 using namespace std;
 
 class ICConsulta {

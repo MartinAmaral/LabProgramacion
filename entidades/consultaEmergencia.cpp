@@ -1,5 +1,4 @@
 #include "consultaEmergencia.h"
-#include "fecha.h"
 #include "usuario.h"
 #include "consulta.h"
 

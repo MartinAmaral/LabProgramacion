@@ -3,7 +3,7 @@
 
 #include "tratamiento.h"
 #include <string>
-#include "fecha.h"
+#include "../dts/fecha.h"
 using namespace std;
 
 class Farmaco : public Tratamiento {

@@ -4,7 +4,7 @@
 #include "../entidades/sexo.h"
 #include <string>
 #include "../entidades/tipoUsuario.h"
-#include "../entidades/fecha.h"
+#include "fecha.h"
 
 using namespace std;
 

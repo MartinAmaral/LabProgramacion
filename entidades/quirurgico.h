@@ -3,7 +3,7 @@
 
 #include <string>
 #include "tratamiento.h"
-#include "fecha.h"
+#include "../dts/fecha.h"
 using namespace std;
 
 

@@ -1,7 +1,5 @@
 #include "usuario.h"
 #include <ctime>
-#include "sexo.h"
-#include "fecha.h"
 
 Usuario::Usuario(string nombre,string apellido,Sexo sexo,int CI,Fecha* fechaNacimiento,TipoUsuario tipo)
 :nombre(nombre), apellido(apellido), sexo(sexo), CI(CI), fechaNacimiento(fechaNacimiento), tipoUsuario(tipo) {
@@ -40,25 +38,6 @@ string Usuario::getContrasena(){
 TipoUsuario Usuario::getTipoUsuario(){
     return this->tipoUsuario;
 }
-
-int Usuario::getEdad() {
-    if (fechaNacimiento == NULL) {
-        return -1; // Indica que no hay fecha de nacimiento
-    }
-    time_t tiempoActual = time(0);
-    struct tm* ahora = localtime(&tiempoActual);
-    int anioActual = 1900 + ahora->tm_year;
-    int mesActual = 1 + ahora->tm_mon;
-    int diaActual = ahora->tm_mday;
-    int edad = anioActual - fechaNacimiento->getAno();
-    // Ajustar la edad si aún no ha cumplido años este año
-    if (mesActual < fechaNacimiento->getMes() ||
-        (mesActual == fechaNacimiento->getMes() && diaActual < fechaNacimiento->getDia())) {
-        edad--;
-    }
-    return edad;
-}
-
         
 void Usuario::setActivo(bool estado){
     this->activo = estado;

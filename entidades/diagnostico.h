@@ -1,7 +1,6 @@
 #ifndef DIAGNOSTICO_H
 #define DIAGNOSTICO_H
 
-#include "ratio"
 #include "representacionE.h"
 #include <iostream>
 #include <string>

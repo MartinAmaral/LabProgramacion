@@ -1,5 +1,4 @@
 #include "medicamento.h"
-#include "usuario.h"
 
 Medicamento::Medicamento(string nombre){
     this->nombre = nombre;

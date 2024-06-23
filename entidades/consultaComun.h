@@ -2,7 +2,7 @@
 #define CONSULTACOMUN_H
 
 #include "consulta.h"
-#include "fecha.h"
+#include "../dts/fecha.h"
 #include "usuario.h"
 
 class ConsultaComun : public Consulta {
