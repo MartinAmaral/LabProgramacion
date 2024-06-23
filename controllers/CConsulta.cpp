@@ -49,6 +49,33 @@ bool CConsulta::consultaExistente(int ciMedico,int ciPaciente,Fecha* fechaConsul
     }
     return false;
 }
+        
+void CConsulta::agregarDatosConsultas(Consulta* consultas[],int cantidad){
+    int index =0;
+    while(index<cantidad){
+        this->consultas.push_front(consultas[index]); 
+        index ++;
+    }
+}
+        
+void CConsulta::agregarDatosCategorias(Categoria* categorias[],int cantidad){
+    int index =0;
+    while(index<cantidad){
+        this->categorias.push_front(categorias[index]); 
+        index ++;
+    }
+
+}
+        
+void CConsulta::agregarDatosRepresentaciones(RepresentacionE* representaciones[],int cantidad){
+    int index =0;
+    while(index<cantidad){
+        this->representaciones.push_front(representaciones[index]); 
+        index ++;
+    }
+
+}
+
 /*
 void CConsulta::darAltaDiagnostico(string ciMedico, string ciPaciente,  Fecha* fechaConsulta, Diagnostico* diagnostico) {
     int intCiMedico = stoi(ciMedico); // Convertir string a int

@@ -13,8 +13,10 @@
 #include <string>
 #include "../dts/fecha.h"
 #include "../entidades/representacionE.h"
+#include "../entidades/categoria.h"
 
 #include "../fabricas/fabricaCUsuario.h"
+#include "../fabricas/fabricaCConsulta.h"
 
 void MenuAgregarDatos::AgregarDatos(){
 
@@ -38,13 +40,11 @@ void MenuAgregarDatos::AgregarDatos(){
         usuariosAgregar[5] = usuarioAL;
 
         FabricaCUsuario::getCUsuario()->inicializarUsuarios(usuariosAgregar,6);
-        /*
-        // Consultas consulta 
-        // paciente medico consulta reserva
-        ConsultaComun * consultaC1 = new ConsultaComun(usuarioTM,usuarioJM,new Fecha(2014,6,23),new Fecha(2014,6,21));
-        ConsultaComun * consultaC2 = new ConsultaComun(usuarioTM,usuarioDC,new Fecha(2014,6,22),new Fecha(2014,5,22));
-        ConsultaComun * consultaC3 = new ConsultaComun(usuarioJM,usuarioDC,new Fecha(2014,3,16),new Fecha(2014,3,25));
-        ConsultaComun * consultaC4 = new ConsultaComun(usuarioDP,usuarioAL,new Fecha(2014,3,1),new Fecha(2014,2,28));
+        
+        ConsultaComun * consultaC1 = new ConsultaComun(usuarioTM,usuarioJM,new Fecha(2014,6,23),new Fecha(2014,6,21),true);
+        ConsultaComun * consultaC2 = new ConsultaComun(usuarioTM,usuarioDC,new Fecha(2014,6,22),new Fecha(2014,5,22),true);
+        ConsultaComun * consultaC3 = new ConsultaComun(usuarioJM,usuarioDC,new Fecha(2014,3,16),new Fecha(2014,3,25),true);
+        ConsultaComun * consultaC4 = new ConsultaComun(usuarioDP,usuarioAL,new Fecha(2014,3,1),new Fecha(2014,2,28),false);
        
         //Consultas Emergencia
         // paciente medico fecha motivo
@@ -52,16 +52,39 @@ void MenuAgregarDatos::AgregarDatos(){
         ConsultaEmergencia* emergenciaU2 = new ConsultaEmergencia(usuarioJM,usuarioDC,new Fecha(2014,5,24),"Asma");
         ConsultaEmergencia* emergenciaU3 = new ConsultaEmergencia(usuarioJM,usuarioAL,new Fecha(2014,3,3),"Mareos");
 
+        Consulta* consultasAgregar[7];
+
+        consultasAgregar[0] = consultaC1;
+        consultasAgregar[1] = consultaC2;
+        consultasAgregar[2] = consultaC3;
+        consultasAgregar[3] = consultaC4;
+        consultasAgregar[4] = emergenciaU1;
+        consultasAgregar[5] = emergenciaU2;
+        consultasAgregar[6] = emergenciaU3;
+    
+        FabricaCConsulta::getCConsulta()->agregarDatosConsultas(consultasAgregar,7);
+
         //Representacion Estandar y categorias de esas representaciones
         Categoria* categoriaA = new Categoria("A","Afecciones pulmonares");
         Categoria* categoriaB = new Categoria("B","Aparato digestivo");
 
+        Categoria* catAgregar[2];
+        catAgregar[0] = categoriaA;
+        catAgregar[1] = categoriaB;
+        FabricaCConsulta::getCConsulta()->agregarDatosCategorias(catAgregar,2);
+
         RepresentacionE* repreR1 = new RepresentacionE("A01","Asma");
         RepresentacionE* repreR2 = new RepresentacionE("A02","Congestion");
         RepresentacionE* repreR3 = new RepresentacionE("B01","Nauseas");
+        
+        RepresentacionE* repreAgregar[3];
+        repreAgregar[0] = repreR1;
+        repreAgregar[1] = repreR2;
+        repreAgregar[2] = repreR3;
+
+        FabricaCConsulta::getCConsulta()->agregarDatosRepresentaciones(repreAgregar, 3);
 
         // Ni idea como quiere que hagamos los diagnosticos
-        */
         cout<< "Datos agregados exitosamente\n";
         hayDatos = true;
     }
