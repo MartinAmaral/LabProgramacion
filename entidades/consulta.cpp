@@ -4,12 +4,6 @@
 
 using namespace std;
 
-void Consulta::setHora(string hora){
-    this->hora = hora;
-}
-
-
-
  Consulta::Consulta(Usuario* paciente, Usuario* medico, Fecha* fechaConsulta)
     : paciente(paciente), medico(medico), fechaConsulta(fechaConsulta) {
 }
@@ -27,6 +21,9 @@ void Consulta::setFechaConsulta(Fecha* fecha){
     this->fechaConsulta =fecha;
 }
 
+void Consulta::setHora(string hora){
+    this->hora = hora;
+}
 
 string Consulta::getHora(){
     return this->hora;
@@ -49,7 +46,6 @@ Consulta::~Consulta() {
 }
 
 void Consulta::agregarDiagnostico(Diagnostico* diagnostico) {
-    // Usamos el CI del paciente como clave en el map
-    diagnosticos[std::to_string(getPaciente()->getCI())] = diagnostico;
+    diagnosticos.push_front(diagnostico);
 }
 

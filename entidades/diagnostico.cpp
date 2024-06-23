@@ -7,7 +7,6 @@ Diagnostico::Diagnostico(RepresentacionE* rep, string descLibre)
 // Métodos de acceso
 
 RepresentacionE* Diagnostico::getRepresentacion() {
-
     return representacion;
 }
 
@@ -22,7 +21,8 @@ string Diagnostico::getDescripcion() {
 void Diagnostico::setDescripcion(string desc) {
     descripcion = desc;
 }
-void Diagnostico::mostrar() const {
-    cout << "Representación: " << representacion->getDescripcion() << endl;
-    cout << "Descripción: " << descripcion << endl;
+
+Diagnostico::~Diagnostico(){
+    if(this->representacion != NULL)
+        delete representacion;
 }

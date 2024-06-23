@@ -16,14 +16,18 @@ void ConsultaComun::setAsistio(bool asistio) {
 }
 
 void ConsultaComun::setFechaReserva(Fecha* fecha) {
-    if (this->fechaReserva != nullptr) {
+    if (this->fechaReserva != NULL) {
         delete this->fechaReserva;
     }
     this->fechaReserva = fecha;
 }
 
 ConsultaComun::~ConsultaComun() {
-    if (fechaReserva != nullptr) {
+    if (fechaReserva != NULL) {
         delete fechaReserva;
+    }
+    for (auto item = diagnosticos.begin(); item != diagnosticos.end();) {
+        delete *item;
+        item = diagnosticos.erase(item);
     }
 }

@@ -9,22 +9,20 @@
 using namespace std;
 
 class Diagnostico {
-private:
-    RepresentacionE* representacion = NULL;
-    string descripcion;
-public:
+    private:
+        RepresentacionE* representacion = NULL;
+        string descripcion;
+    public:
     // Constructor
-    Diagnostico(RepresentacionE* rep, string descLibre);
+        Diagnostico(RepresentacionE* rep, string descLibre);
 
     // Métodos de acceso
-    RepresentacionE* getRepresentacion();
-    void setRepresentacion(RepresentacionE* rep);
+        RepresentacionE* getRepresentacion();
+        void setRepresentacion(RepresentacionE* rep);
 
-    string getDescripcion();
-    void setDescripcion(string desc);
-
-    // Método para mostrar el diagnóstico
-    void mostrar() const;
+        string getDescripcion();
+        void setDescripcion(string desc);
+        ~Diagnostico();
 };
 
 #endif

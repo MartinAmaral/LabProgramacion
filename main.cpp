@@ -48,7 +48,7 @@ int main (){
                 menuConsulta->registrarConsulta();
 	        	break;
         	case 5:
-                menuConsulta->altaDiagnosticoConsulta();
+                menuConsulta->altaDiagnostico();
 	        	break;
         	default:
 	        	break;
