@@ -4,13 +4,13 @@ OPCIONES = -g -Wall -std=c++11
 
 # Archivos de objeto
 CONTROLLERS = controllers/CConsulta.o controllers/CUsuarioYSesion.o
-DTS = dts/fecha.o dts/infoUsuarioDT.o
+DTS = dts/fecha.o dts/infoUsuarioDT.o dts/datosDiagnostico.o dts/consultaDia.o
 ENTIDADES = entidades/administrativo.o entidades/categoria.o \
             entidades/consulta.o entidades/consultaComun.o \
             entidades/consultaEmergencia.o entidades/farmaco.o \
             entidades/medicamento.o entidades/medico.o \
             entidades/quirurgico.o entidades/representacionE.o \
-            entidades/tratamiento.o entidades/usuario.o entidades/socio.o entidades/diagnostico.o
+            entidades/tratamiento.o entidades/usuario.o entidades/socio.o entidades/diagnostico.o 
 
 FABRICAS = fabricas/fabricaCConsulta.o fabricas/fabricaCUsuario.o
 
