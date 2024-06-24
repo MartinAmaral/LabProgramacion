@@ -84,6 +84,7 @@ void MenuSesion::iniciarSesion(){
             }
             cout << "Ingrese una contrasena valida o escriba 'salir' para salir\n";
             cin >> nuevaContra;
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
         controllerSesion->asignarContrasena(nuevaContra);
         controllerSesion->asignarSesion();
@@ -100,6 +101,7 @@ void MenuSesion::iniciarSesion(){
             cout << "\nIngrese una contrasena valida o escriba 'salir' para salir\n";
             cin >> contra; 
         }
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         if (!controllerSesion->esActivoIS()){
             cout << "\nUsuario inactivo, no se puede realizar el inicio de sesión\n";
             return;
@@ -148,6 +150,7 @@ void MenuSesion::altaUsuario(){
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
         else {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             darAlta(cedula);
             cout <<"!!!Caso con la cedula: " <<cedula <<" terminado\n";
             cedula = -33;
@@ -212,6 +215,7 @@ void MenuSesion::darAlta(int cedula){
                     valor = -1;
                 }
             }while(valor<0);
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             if(valor == 1){
                 controllerSesion->reactivarUsuario(cedula);
                 cout << "El usuario con cedula: " << cedula << "ha sido reactivado\n";

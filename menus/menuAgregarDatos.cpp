@@ -14,6 +14,7 @@
 #include "../dts/fecha.h"
 #include "../entidades/representacionE.h"
 #include "../entidades/categoria.h"
+#include "../entidades/diagnostico.h"
 
 #include "../fabricas/fabricaCUsuario.h"
 #include "../fabricas/fabricaCConsulta.h"
@@ -40,14 +41,13 @@ void MenuAgregarDatos::AgregarDatos(){
         usuariosAgregar[5] = usuarioAL;
 
         FabricaCUsuario::getCUsuario()->inicializarUsuarios(usuariosAgregar,6);
-        
+       
+        // CAMBIAR CONULTA C2 PARA EL 22 EN VEZ DEL 23
         ConsultaComun * consultaC1 = new ConsultaComun(usuarioTM,usuarioJM,new Fecha(2014,6,23),new Fecha(2014,6,21),true);
-        ConsultaComun * consultaC2 = new ConsultaComun(usuarioTM,usuarioDC,new Fecha(2014,6,22),new Fecha(2014,5,22),true);
+        ConsultaComun * consultaC2 = new ConsultaComun(usuarioTM,usuarioDC,new Fecha(2014,6,23),new Fecha(2014,5,22),true);
         ConsultaComun * consultaC3 = new ConsultaComun(usuarioJM,usuarioDC,new Fecha(2014,3,16),new Fecha(2014,3,25),true);
         ConsultaComun * consultaC4 = new ConsultaComun(usuarioDP,usuarioAL,new Fecha(2014,3,1),new Fecha(2014,2,28),false);
        
-        //Consultas Emergencia
-        // paciente medico fecha motivo
         ConsultaEmergencia* emergenciaU1 = new ConsultaEmergencia(usuarioTM,usuarioJM,new Fecha(2014,5,23),"Fiebre Alta");
         ConsultaEmergencia* emergenciaU2 = new ConsultaEmergencia(usuarioJM,usuarioDC,new Fecha(2014,5,24),"Asma");
         ConsultaEmergencia* emergenciaU3 = new ConsultaEmergencia(usuarioJM,usuarioAL,new Fecha(2014,3,3),"Mareos");
@@ -84,7 +84,20 @@ void MenuAgregarDatos::AgregarDatos(){
 
         FabricaCConsulta::getCConsulta()->agregarDatosRepresentaciones(repreAgregar, 3);
 
-        // Ni idea como quiere que hagamos los diagnosticos
+        Diagnostico* diagD1 = new Diagnostico(repreR1,"Desc 1");
+        Diagnostico* diagD2 = new Diagnostico(repreR2,"Desc 2");
+        Diagnostico* diagD3 = new Diagnostico(repreR3,"Desc 3");
+        Diagnostico* diagD4 = new Diagnostico(repreR3,"Desc 4");
+        Diagnostico* diagD5 = new Diagnostico(repreR2,"Desc 5");
+        Diagnostico* diagD6 = new Diagnostico(repreR1,"Desc 6");
+
+        consultaC1->agregarDiagnostico(diagD1);
+        consultaC1->agregarDiagnostico(diagD2);
+        consultaC3->agregarDiagnostico(diagD3);
+        emergenciaU1->agregarDiagnostico(diagD4);
+        emergenciaU1->agregarDiagnostico(diagD5);
+        emergenciaU1->agregarDiagnostico(diagD6);
+
         cout<< "Datos agregados exitosamente\n";
         hayDatos = true;
     }

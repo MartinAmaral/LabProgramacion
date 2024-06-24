@@ -5,8 +5,10 @@
 #include "../entidades/categoria.h"
 #include "../entidades/consulta.h"
 #include "../entidades/representacionE.h"
-using namespace std;
+#include "../dts/consultaDia.h"
+#include <vector>
 
+using namespace std;
 
 class ICConsulta {
     public:
@@ -18,6 +20,8 @@ class ICConsulta {
         virtual void agregarDatosCategorias(Categoria* categorias[],int cantidad)=0;
         virtual void agregarDatosRepresentaciones(RepresentacionE* representaciones[],int cantidad)=0;
         
+        virtual vector<ConsultaDia*> devolverConsultasDia(Fecha* fecha)=0; 
+        virtual void elegirConsultaAgregarDiag(Consulta* consulta)=0;
         virtual ~ICConsulta(){};
 };
 #endif

@@ -21,6 +21,7 @@ class CConsulta: public ICConsulta{
         list<Consulta*> consultas;
         list<Categoria*> categorias;
         list<RepresentacionE*> representaciones;
+        Consulta* consultaAgregarDiag = NULL; 
     public:
         static CConsulta* getInstanceConsulta();
         void altaConsultaComun(int ciMedico,int ciPaciente,Fecha* fechaConsulta, Fecha* fechaReserva, bool asistio) override;
@@ -31,8 +32,8 @@ class CConsulta: public ICConsulta{
         void agregarDatosCategorias(Categoria* categorias[],int cantidad) override;
         void agregarDatosRepresentaciones(RepresentacionE* representaciones[],int cantidad) override;
 
-        void darAltaDiagnostico(string* ciMedico,string* ciPaciente,Fecha* fechaConsulta, Diagnostico* diagnostico);
-        map<string,Consulta*> obtenerConsultasDelDia(string* ciMedico,Fecha* fechaConsulta);
+        vector<ConsultaDia*> devolverConsultasDia(Fecha* fecha) override;
+        void elegirConsultaAgregarDiag(Consulta* consulta) override;
         ~CConsulta(){};
 };
 

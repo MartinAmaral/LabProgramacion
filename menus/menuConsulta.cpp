@@ -2,6 +2,7 @@
 #include <iostream>
 #include <limits>
 #include <string>
+#include <vector>
 #include "../fabricas/fabricaCUsuario.h"
 #include "../fabricas/fabricaCConsulta.h"
 #include "../Interfaces/ICConsulta.h"
@@ -183,75 +184,103 @@ void MenuConsulta::registrarConsulta() {
 }
 
 void MenuConsulta::altaDiagnostico() {
-    ICConsulta* consultaManager = FabricaCConsulta::getCConsulta();
-    /*
-    string ciMedico;
-    cout << "Ingrese su CI (Médico): ";
-    cin >> ciMedico;
-  
-    Fecha* fechaActual = new Fecha(2024, 6, 18);
-
-    map<string, shared_ptr<Consulta>> consultas = consultaManager->obtenerConsultasDelDia(ciMedico, fechaActual);
-    cout << "Consultas para hoy:" << endl;
-    for (auto entry : consultas) {
-        cout << "CI Paciente: " << entry.first << endl;
+    ICConsulta* consultaController = FabricaCConsulta::getCConsulta();
+    
+    if(!FabricaCUsuario::getCUsuario()->getUsuarioActivo()){
+        cout << "No se ha iniciado ninguna sesion.\n";
+        return;
     }
 
-    string ciPaciente;
-    cout << "Seleccione la consulta ingresando la CI del Paciente: ";
-    cin >> ciPaciente;
+    TipoUsuario tipoUsuario =FabricaCUsuario::getCUsuario()->getTipoUsuarioActivo();
 
-    Diagnostico* nuevoDiagnostico = nullptr;
-    vector<Tratamiento*> tratamientos; // Usar vector de punteros a Tratamiento
-
-    while (true) {
-        string categoriaSeleccionada;
-        cout << "Seleccione una categoría de diagnóstico: ";
-        cin >> categoriaSeleccionada;
-
-        // Simulación de selección de diagnóstico basado en la categoría
-        string codigoDiagnostico, descripcionDiagnostico;
-        cout << "Ingrese el código del diagnóstico seleccionado: ";
-        cin >> codigoDiagnostico;
-        cout << "Ingrese la descripción del diagnóstico: ";
-        cin.ignore();
-        getline(cin, descripcionDiagnostico);
-
-        RepresentacionE* representacion = new RepresentacionE(codigoDiagnostico, descripcionDiagnostico);
-        string descripcionLibre;
-        cout << "Ingrese una descripción complementaria: ";
-        getline(cin, descripcionLibre);
-
-        nuevoDiagnostico = new Diagnostico(representacion, descripcionLibre);
-
-        string agregarMas;
-        cout << "¿Desea agregar tratamientos a este diagnóstico? (s/n): ";
-        cin >> agregarMas;
-
-        if (agregarMas == "s" || agregarMas == "S") {
-            string descripcionTratamiento, nombreMedicamento;
-            cout << "Ingrese la descripción del tratamiento: ";
-            getline(cin, descripcionTratamiento);
-
-            cout << "Ingrese el nombre del medicamento: ";
-            getline(cin, nombreMedicamento);
-
-            Tratamiento* tratamiento = new Farmaco(descripcionTratamiento, nombreMedicamento);
-            tratamientos.push_back(tratamiento); // Agregar tratamiento al vector
-
-            cout << "Tratamiento agregado exitosamente." << endl;
+    bool ok = true; //cambiar a false
+    if( tipoUsuario == Medico || tipoUsuario == SocioMedico) 
+        ok = true;
+    if(!ok){
+        cout << "El usuario logeado necesita ser Medico\n";
+        return;
+    }
+    
+    Fecha* fechaConsultar;
+    int dia = -1;
+    do{
+        cout<< "\nIngrese el dia de las Consultas a seleccionar: \n";
+        cin >> dia; 
+        if(cin.fail() || dia<=0 || dia >31){
+            cin.clear(); 
+	        cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            dia = -1;
         }
+    }while(dia<0);
+        
+    int mes = -1;
+    do{
+        cout<< "\nIngrese el mes de las Consultas a seleccionar: \n";
+        cin >> mes; 
+        if(cin.fail() || mes<=0 || mes >12){
+            cin.clear(); 
+	        cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            mes = -1;
+        }
+    }while(mes<0);
+        
+    int ano = -1;
+    do{
+        cout<< "\nIngrese el ano de las Consultas a seleccionar: \n";
+        cin >> ano; 
+        if(cin.fail() || ano<0 || ano >2024){
+           cin.clear(); 
+           cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            ano = -1;
+        }
+    }while(ano<0);
 
-        cout << "¿Desea agregar otro diagnóstico? (s/n): ";
-        cin >> agregarMas;
+    fechaConsultar = new Fecha(ano, mes, dia);
 
-        if (agregarMas == "n" || agregarMas == "N") {
-            break;
-        } 
+    vector<ConsultaDia*> consultasDia = consultaController->devolverConsultasDia(fechaConsultar);        
+
+    if(consultasDia.empty()){
+        cout <<"No hay consultas para el dia selecionado\n";
+        return;
     }
 
-    consultaManager->darAltaDiagnostico(ciMedico, ciPaciente, fechaActual, nuevoDiagnostico);
-    */
+    cout <<"Consultas del dia cedula del paciente:\n";
+    for(ConsultaDia* x : consultasDia){
+        cout << "CI: "<< x->getCiPaciente() << "\n"; 
+    }
+
+    cout <<"Selecciones la ci de la consulta a Agregar(de la lista mostrada anteriormente):\n";
+    cout <<"Ingrese -1 para cancelar.\n";
+    
+    int cedulaElegida = -33;
+    bool encontro = false;
+	do{
+        cin >> cedulaElegida; 
+
+        if(cin.fail() || cedulaElegida<0){
+            cin.clear(); 
+	        cout << "\nCedula invalida, intentelo de nuevo.\n\n";
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            cedulaElegida = -33;
+        }
+        for(ConsultaDia* x : consultasDia){
+            if(x->getCiPaciente() == cedulaElegida){
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                consultaController->elegirConsultaAgregarDiag(x->getConsulta());
+                encontro = true;
+                break;
+            }
+        }
+        if (encontro) break;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cout << "Esa cedula no se encuetra en las listadas anteriormente\n";
+        cedulaElegida = -33;
+    }while(cedulaElegida == -33);
+    
+
     cout << "Diagnósticos registrados exitosamente." << endl;
 }
 

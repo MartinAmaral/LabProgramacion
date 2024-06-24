@@ -1,6 +1,5 @@
 #include <string>
 #include "../entidades/usuario.h"
-#include "../entidades/medico.h"
 #include "../dts/fecha.h"
 #include "CConsulta.h"
 #include "../fabricas/fabricaCUsuario.h"
@@ -75,43 +74,17 @@ void CConsulta::agregarDatosRepresentaciones(RepresentacionE* representaciones[]
     }
 }
 
-/*
-void CConsulta::darAltaDiagnostico(string ciMedico, string ciPaciente,  Fecha* fechaConsulta, Diagnostico* diagnostico) {
-    int intCiMedico = stoi(ciMedico); // Convertir string a int
-    int intCiPaciente = stoi(ciPaciente);
-    string clave = generarClave(intCiMedico, intCiPaciente, fechaConsulta);
-
-    auto it = consultas.find(clave);
-    if (it != consultas.end()) {
-        // Obtener el shared_ptr apuntando a la consulta
-        shared_ptr<Consulta> consulta = it->second;
-
-        // Intentar hacer un dynamic_pointer_cast a ConsultaComun o ConsultaEmergencia si es necesario
-        shared_ptr<ConsultaComun> consultaComun = dynamic_pointer_cast<ConsultaComun>(consulta);
-        shared_ptr<ConsultaEmergencia> consultaEmergencia = dynamic_pointer_cast<ConsultaEmergencia>(consulta);
-
-        // Verificar qué tipo de consulta es
-        if (consultaComun) {
-            consultaComun->agregarDiagnostico(diagnostico);
-        } else if (consultaEmergencia) {
-            consultaEmergencia->agregarDiagnostico(diagnostico);
-        } else {
-            throw runtime_error("Tipo de consulta no soportado para agregar diagnóstico.");
-        }
-    } else {
-        throw runtime_error("Consulta no encontrada para esa fecha.");
-    }
+void CConsulta::elegirConsultaAgregarDiag(Consulta* consulta){
+    this->consultaAgregarDiag = consulta;
 }
-map<string, shared_ptr<Consulta>> CConsulta::obtenerConsultasDelDia(string ciMedico,Fecha* fechaConsulta) {
-    map<string, shared_ptr<Consulta>> consultasDelDia;
-    for (auto entry : consultas) {
-        if (to_string(entry.second->getMedico()->getCI()) == ciMedico &&
-            entry.second->getFechaConsulta()->dia == fechaConsulta->dia &&
-            entry.second->getFechaConsulta()->mes == fechaConsulta->mes &&
-            entry.second->getFechaConsulta()->ano == fechaConsulta->ano) {
-            string pacienteCI = to_string(entry.second->getPaciente()->getCI());
-            consultasDelDia[pacienteCI] = entry.second;
+
+vector<ConsultaDia*> CConsulta::devolverConsultasDia(Fecha* fecha){
+    vector<ConsultaDia*> resultado;
+    for (Consulta* con : this->consultas) {
+        Fecha* f = con->getFechaConsulta();
+        if(f->getDia() == fecha->getDia() && f->getMes() == fecha->getMes() && f->getAno() == fecha->getAno()){
+           resultado.push_back(new ConsultaDia(con->getPaciente()->getCI(),con)); 
         }
     }
-   return consultasDelDia;
-}*/
+    return resultado;
+}
