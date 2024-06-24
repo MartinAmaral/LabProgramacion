@@ -74,6 +74,13 @@ void CConsulta::agregarDatosRepresentaciones(RepresentacionE* representaciones[]
         index ++;
     }
 }
+/*void CConsulta::agregarDatosFarmacos(Farmaco* farmaco[],int cantidad){
+    int index =0;
+    while(index<cantidad){
+        this->farmaco.push_front(farmaco[index]); 
+        index ++;
+    }
+}*/
 
 void CConsulta::elegirConsultaAgregarDiag(Consulta* consulta){
     this->consultaAgregarDiag = consulta;
@@ -91,6 +98,7 @@ void CConsulta::agregarDiagnosticoConsulta(string representacion, string descrip
 
     Diagnostico* diag = new Diagnostico(rep,descrip);
     consultaAgregarDiag->agregarDiagnostico(diag);
+    this-> diagnostico = diag;
 }
 
 vector<ConsultaDia*> CConsulta::devolverConsultasDia(Fecha* fecha){
@@ -116,12 +124,18 @@ DatosDiagnostico* CConsulta::devolverDatosDiagnostico(){
     }
     return res;
 }
-void CConsulta::agregarTratamiento(Tratamiento* tratamiento) {
+/*void CConsulta::agregarTratamiento(Tratamiento* tratamiento) {
     if (consultaAgregarDiag) {
         consultaAgregarDiag->agregarTratamiento(tratamiento);
     }
-}
 
+}
+/*void CConsulta::nuevoQuirurgico(string descripcionTratamiento,Fecha* fechaCirugia) {
+    Farmaco* tratamiento = new Quirurgico(descripcionTratamiento, fechaCirugia);
+}*/
+void CConsulta::nuevoFarmaco(string descripcionTratamiento,string nombreMedicamento) {
+    Farmaco* tratamiento = new Farmaco(descripcionTratamiento, nombreMedicamento);
+}
 
 
 

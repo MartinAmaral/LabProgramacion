@@ -13,6 +13,9 @@ RepresentacionE* Diagnostico::getRepresentacion() {
 void Diagnostico::setRepresentacion(RepresentacionE* rep) {
     representacion = rep;
 }
+void Diagnostico::setTratamiento(Tratamiento* trat){
+    tratamiento = trat;
+}
 
 string Diagnostico::getDescripcion() {
     return descripcion;

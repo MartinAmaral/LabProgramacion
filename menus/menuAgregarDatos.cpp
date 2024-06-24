@@ -15,6 +15,7 @@
 #include "../entidades/representacionE.h"
 #include "../entidades/categoria.h"
 #include "../entidades/diagnostico.h"
+#include "../entidades/Farmaco.h"
 
 #include "../fabricas/fabricaCUsuario.h"
 #include "../fabricas/fabricaCConsulta.h"
@@ -98,6 +99,28 @@ void MenuAgregarDatos::AgregarDatos(){
         emergenciaU1->agregarDiagnostico(diagD5);
         emergenciaU1->agregarDiagnostico(diagD6);
 
+        /* Farmaco* farmacoF1 = new Farmaco("M1", "Desc 1", diagD1);
+        Farmaco* farmacoF2 = new Farmaco("M2", "Desc 2", diagD1);
+        Farmaco* farmacoF3 = new Farmaco("M3", "Desc 3", diagD1);
+        Farmaco* farmacoF4 = new Farmaco("M1", "Desc 4", diagD4);
+        Farmaco* farmacoF5 = new Farmaco("M2", "Desc 5", diagD5);
+        Farmaco* farmacoF6 = new Farmaco("M3", "Desc 6", diagD6);
+
+        Farmaco* farmacoAgregar[6];
+        farmacoAgregar[0] = farmacoF1;
+        farmacoAgregar[1] = farmacoF2;
+        farmacoAgregar[2] = farmacoF3;
+        farmacoAgregar[3] = farmacoF4;
+        farmacoAgregar[4] = farmacoF5;
+        farmacoAgregar[5] = farmacoF6;
+
+        FabricaCConsulta::getCConsulta()->agregarDatosFarmacos(farmacoAgregar, 6);
+
+
+        Agregar Tratamiento Quirúrgico
+        agregarTratamientoQuirurgico("Q1", usuarioJM, new Fecha(2014, 7, 25), "Desc 11", diagD2);
+        agregarTratamientoQuirurgico("Q2", usuarioDC, new Fecha(2015, 2, 1), "Desc 22", diagD3);
+        */
         cout<< "Datos agregados exitosamente\n";
         hayDatos = true;
     }

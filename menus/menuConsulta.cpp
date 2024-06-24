@@ -18,7 +18,7 @@ void MenuConsulta::registrarConsulta() {
     }
 
     TipoUsuario tipoUsuario =FabricaCUsuario::getCUsuario()->getTipoUsuarioActivo();
-    
+
     bool ok = false;
     if( tipoUsuario == Admin || tipoUsuario == SocioAdmin) 
         ok = true;
@@ -376,7 +376,7 @@ void MenuConsulta::altaDiagnostico() {
                 getline(cin, descripcionTratamiento);
 
                 int tipoTratamiento = -1;
-                do {
+                /*do {
                     cout << "Ingrese el tipo de tratamiento:\n1: Farmaco\n2: Quirurgico\n";
                     cin >> tipoTratamiento;
                     if (cin.fail() || tipoTratamiento < 1 || tipoTratamiento > 2) {
@@ -385,23 +385,23 @@ void MenuConsulta::altaDiagnostico() {
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         tipoTratamiento = -1;
                     }
-                } while (tipoTratamiento == -1);
+                } while (tipoTratamiento == -1);*/
 
                 Tratamiento* tratamiento = nullptr;
-                if (tipoTratamiento == 1) {
+                //if (tipoTratamiento == 1) {
                     string nombreMedicamento;
                     cout << "Ingrese el nombre del medicamento:\n";
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     getline(cin, nombreMedicamento);
-                    tratamiento = new Farmaco(descripcionTratamiento, nombreMedicamento);
-                } else if (tipoTratamiento == 2) {
+                    nuevoFarmaco(descripcionTratamiento, nombreMedicamento);
+                /*} else if (tipoTratamiento == 2) {
                     Fecha* fechaCirugia;
                     int diaCirugia, mesCirugia, anoCirugia;
                     cout << "Ingrese la fecha de la cirugia (dia, mes, ano):\n";
                     cin >> diaCirugia >> mesCirugia >> anoCirugia;
                     fechaCirugia = new Fecha(anoCirugia, mesCirugia, diaCirugia);
-                    tratamiento = new Quirurgico(descripcionTratamiento, fechaCirugia);
-                }
+                    nuevoQuirurgico(descripcionTratamiento, fechaCirugia);
+                }*/
 
                 if (tratamiento) {
                     consultaController->agregarTratamiento(tratamiento);

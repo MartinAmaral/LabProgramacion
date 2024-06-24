@@ -29,6 +29,8 @@ class ICConsulta {
         virtual void agregarDiagnosticoConsulta(string representacion, string descrip)=0;
         virtual DatosDiagnostico* devolverDatosDiagnostico() =0;
         virtual void agregarTratamiento(Tratamiento* tratamiento) = 0;
+        virtual void nuevoFarmaco(string descripcionTratamiento,string nombreMedicamento) = 0;
+        //virtual void nuevoQuirurgico(string descripcionTratamiento,Fecha* fechaCirugia) = 0;
         virtual ~ICConsulta(){};
 };
 #endif
