@@ -280,7 +280,83 @@ void MenuConsulta::altaDiagnostico() {
         cedulaElegida = -33;
     }while(cedulaElegida == -33);
     
+    for (auto& ptr : consultasDia ) {
+        delete ptr;
+    }
+    consultasDia.clear();
+    
+    int valor =-1;
+    do{
+        cout<< "Ingrese 1 si quiere agregar un Diagnóstico a la consulta o 0 sino \n";
+        cin >> valor; 
+        if(cin.fail() || valor<0 || valor >1){
+            cin.clear(); 
+	        cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            valor=-1;
+        }
+        else if (valor == 1){
+            
+            DatosDiagnostico* datos = consultaController->devolverDatosDiagnostico(); 
 
-    cout << "Diagnósticos registrados exitosamente." << endl;
+            cout << "Categorias:\n1: A Afecciones Pulmonares\n2: B Aparato Digestivo\n";
+
+            int cat =-1;
+            do{
+                cin >> cat; 
+                if(cin.fail() || cat<1 || cat >2){
+                    cin.clear(); 
+	                cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    cat=-1;
+                }
+            }while(cat<0);
+           
+            int repN = -1;
+            string rep = "";
+            if(cat ==1){
+
+                cout << "Representacion:\n 1: A01 Asma \n 2: A02 Congestion\n";
+                int repN =-1;
+                do{
+                    cin >> repN; 
+                    if(cin.fail() || repN<1 || repN >2){
+                        cin.clear(); 
+	                    cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        repN=-1;
+                    }
+                }while(repN<0);
+                if(repN ==1)
+                    rep = "A01";
+                else rep = "A02";
+            }
+            else {
+                
+                cout <<"Solo hay B01 Nauseas y ha sido elegido automaticamente\n";
+                rep = "B01";
+            }
+
+            string descp ="";
+            int v =-1;
+            do{
+                cout<< "Ingrese 1 si quere agregas una descripcion a la consulta o 0 sino \n";
+                cin >> v; 
+                if(cin.fail() || v<0 || v >1){
+                    cin.clear(); 
+	                cout << "\nOpcion invalida, intentelo de nuevo.\n\n";
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    v=-1;
+                }
+                if(v ==1 ){
+                    cout <<"Ingrese la descripcion\n";
+                    getline(cin,descp);
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                }
+            }while(v!=0);
+            consultaController->agregarDiagnosticoConsulta(rep,descp);
+            cout << "Diagnósticos registrado exitosamente." << endl;
+        }
+    }while(valor!=0);
 }
 

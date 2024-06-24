@@ -3,6 +3,7 @@
 #include "../dts/fecha.h"
 #include "CConsulta.h"
 #include "../fabricas/fabricaCUsuario.h"
+
 using namespace std;
 
 CConsulta* CConsulta::instance = NULL;
@@ -77,6 +78,20 @@ void CConsulta::agregarDatosRepresentaciones(RepresentacionE* representaciones[]
 void CConsulta::elegirConsultaAgregarDiag(Consulta* consulta){
     this->consultaAgregarDiag = consulta;
 }
+        
+void CConsulta::agregarDiagnosticoConsulta(string representacion, string descrip){
+    RepresentacionE* rep = NULL;
+
+    for (RepresentacionE* r : this->representaciones) {
+        if(r->getCodigo() == representacion){
+            rep = r;
+            break;
+        }
+    }
+
+    Diagnostico* diag = new Diagnostico(rep,descrip);
+    consultaAgregarDiag->agregarDiagnostico(diag);
+}
 
 vector<ConsultaDia*> CConsulta::devolverConsultasDia(Fecha* fecha){
     vector<ConsultaDia*> resultado;
@@ -88,3 +103,20 @@ vector<ConsultaDia*> CConsulta::devolverConsultasDia(Fecha* fecha){
     }
     return resultado;
 }
+        
+DatosDiagnostico* CConsulta::devolverDatosDiagnostico(){
+    
+    DatosDiagnostico* res = new DatosDiagnostico();
+
+    for(Categoria* c: this->categorias){
+        res->agregarCategoria(c);
+    }
+    for(RepresentacionE* r: this->representaciones){
+        res->agregarRepresentacion(r);
+    }
+    return res;
+}
+
+
+
+

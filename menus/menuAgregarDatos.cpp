@@ -42,7 +42,7 @@ void MenuAgregarDatos::AgregarDatos(){
 
         FabricaCUsuario::getCUsuario()->inicializarUsuarios(usuariosAgregar,6);
        
-        // CAMBIAR CONULTA C2 PARA EL 22 EN VEZ DEL 23
+        // CAMBIAR CONSULTA C2 PARA EL 22 EN VEZ DEL 23
         ConsultaComun * consultaC1 = new ConsultaComun(usuarioTM,usuarioJM,new Fecha(2014,6,23),new Fecha(2014,6,21),true);
         ConsultaComun * consultaC2 = new ConsultaComun(usuarioTM,usuarioDC,new Fecha(2014,6,23),new Fecha(2014,5,22),true);
         ConsultaComun * consultaC3 = new ConsultaComun(usuarioJM,usuarioDC,new Fecha(2014,3,16),new Fecha(2014,3,25),true);

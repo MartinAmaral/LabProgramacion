@@ -6,6 +6,7 @@
 #include "../entidades/consulta.h"
 #include "../entidades/representacionE.h"
 #include "../dts/consultaDia.h"
+#include "../dts/datosDiagnostico.h"
 #include <vector>
 
 using namespace std;
@@ -22,6 +23,8 @@ class ICConsulta {
         
         virtual vector<ConsultaDia*> devolverConsultasDia(Fecha* fecha)=0; 
         virtual void elegirConsultaAgregarDiag(Consulta* consulta)=0;
+        virtual void agregarDiagnosticoConsulta(string representacion, string descrip)=0;
+        virtual DatosDiagnostico* devolverDatosDiagnostico() =0;
         virtual ~ICConsulta(){};
 };
 #endif
